@@ -1,11 +1,15 @@
 WebAdmin::Application.routes.draw do
-  get "index/index"
-  get "index/admin"
+  get "pool/rss"
+  get "pool/web"
+  get "pool/social"
+  get "queue/index"
+  get "performance/index"
+  get "home/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'index#index'
+  root 'home#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -14,7 +18,9 @@ WebAdmin::Application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+    resources :modules
+    resources :accounts
+    resources :tags
 
   # Example resource route with options:
   #   resources :products do

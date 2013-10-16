@@ -1,0 +1,41 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="brand" href="#">SocialManager</a>
+			<div class="nav-collapse collapse">
+				<ul class="nav">
+					<li <%= 'class="active"'.html_safe if @active_page == "Home" %>><a href="<%= home_index_path %>">Home</a></li>
+					<li <%= 'class="active"'.html_safe if @active_page == "Performance" %>><a href="<%= performance_index_path %>">Performance</a></li>
+					<li class="dropdown <%= 'active' if @active_page == "RSS" or @active_page == "Web" or @active_page == "Social" %>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							Pool
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li <%= 'class="active"'.html_safe if @active_page == "RSS" %>><a href="<%= pool_rss_path %>">RSS</a></li>
+							<li <%= 'class="active"'.html_safe if @active_page == "Web" %>><a href="<%= pool_web_path %>">Web</a></li>
+							<li <%= 'class="active"'.html_safe if @active_page == "Social" %>><a href="<%= pool_social_path %>">Social</a></li>
+						</ul>
+					</li>
+					<li <%= "class=active" if @active_page == "Queue" %>><a href="<%= queue_index_path %>">Queue</a></li>
+					<li class="dropdown <%= 'active' if @active_page == "Accounts" or @active_page == "Tags" or @active_page == "Modules" %>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							Admin
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li <%= 'class="active"'.html_safe if @active_page == "Accounts" %>><a href="<%= accounts_path %>">Accounts</a></li>
+							<li <%= 'class="active"'.html_safe if @active_page == "Tags" %>><a href="<%= tags_path %>">Tags</a></li>
+							<li <%= 'class="active"'.html_safe if @active_page == "Modules" %>><a href="<%= modules_path %>">Modules</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
