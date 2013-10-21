@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @post_datum.type %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post_datum.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @post_datum.content %>
+</p>
+
+<p>
+  <strong>Extra content:</strong>
+  <%= @post_datum.extra_content %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <%= @post_datum.tags %>
+</p>
+
+<p>
+  <strong>Image file:</strong>
+  <%= @post_datum.image_file %>
+</p>
+
+<p>
+  <strong>Link:</strong>
+  <%= @post_datum.link %>
+</p>
+
+<p>
+  <strong>Other field:</strong>
+  <%= @post_datum.other_field %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @post_datum.data %>
+</p>
+
+<%= link_to 'Edit', edit_post_datum_path(@post_datum) %> |
+<%= link_to 'Back', post_data_path %>

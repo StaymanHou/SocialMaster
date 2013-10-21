@@ -1,0 +1,2 @@
+module AutoModesHelper
+end

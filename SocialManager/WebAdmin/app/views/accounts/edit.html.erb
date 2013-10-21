@@ -1,13 +1,6 @@
-<%= render "shared/menu" %>
+<h1>Editing account</h1>
 
-<div class="container">
+<%= render 'form' %>
 
-	<h1>accounts/edit</h1>
-	<div class="row-fluid">
-		<%= render 'form' %>
-	</div>
-	<div class="row-fluid">
-		<%= link_to 'Back', accounts_path, {class: "btn"} %>
-	</div>
-
-</div> 
+<%= link_to 'Show', @account %> |
+<%= link_to 'Back', accounts_path %>

@@ -1,0 +1,27 @@
+<h1>Listing smodules</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @smodules.each do |smodule| %>
+      <tr>
+        <td><%= smodule.name %></td>
+        <td><%= link_to 'Show', smodule %></td>
+        <td><%= link_to 'Edit', edit_smodule_path(smodule) %></td>
+        <td><%= link_to 'Destroy', smodule, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Smodule', new_smodule_path %>

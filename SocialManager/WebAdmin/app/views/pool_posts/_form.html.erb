@@ -1,0 +1,53 @@
+<%= form_for(@pool_post) do |f| %>
+  <% if @pool_post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pool_post.errors.count, "error") %> prohibited this pool_post from being saved:</h2>
+
+      <ul>
+      <% @pool_post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :hidden %><br>
+    <%= f.check_box :hidden %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_area :content %>
+  </div>
+  <div class="field">
+    <%= f.label :tags %><br>
+    <%= f.text_field :tags %>
+  </div>
+  <div class="field">
+    <%= f.label :image_file %><br>
+    <%= f.text_field :image_file %>
+  </div>
+  <div class="field">
+    <%= f.label :image_link %><br>
+    <%= f.text_field :image_link %>
+  </div>
+  <div class="field">
+    <%= f.label :link %><br>
+    <%= f.text_field :link %>
+  </div>
+  <div class="field">
+    <%= f.label :social_score %><br>
+    <%= f.number_field :social_score %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

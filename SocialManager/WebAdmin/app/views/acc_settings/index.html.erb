@@ -1,0 +1,45 @@
+<h1>Listing acc_settings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Password</th>
+      <th>Other setting</th>
+      <th>Extra content</th>
+      <th>Active</th>
+      <th>Time start</th>
+      <th>Time end</th>
+      <th>Num per day</th>
+      <th>Min post interval</th>
+      <th>Queue size</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @acc_settings.each do |acc_setting| %>
+      <tr>
+        <td><%= acc_setting.username %></td>
+        <td><%= acc_setting.password %></td>
+        <td><%= acc_setting.other_setting %></td>
+        <td><%= acc_setting.extra_content %></td>
+        <td><%= acc_setting.active %></td>
+        <td><%= acc_setting.time_start %></td>
+        <td><%= acc_setting.time_end %></td>
+        <td><%= acc_setting.num_per_day %></td>
+        <td><%= acc_setting.min_post_interval %></td>
+        <td><%= acc_setting.queue_size %></td>
+        <td><%= link_to 'Show', acc_setting %></td>
+        <td><%= link_to 'Edit', edit_acc_setting_path(acc_setting) %></td>
+        <td><%= link_to 'Destroy', acc_setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Acc setting', new_acc_setting_path %>

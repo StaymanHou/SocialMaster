@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @acc_setting.username %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @acc_setting.password %>
+</p>
+
+<p>
+  <strong>Other setting:</strong>
+  <%= @acc_setting.other_setting %>
+</p>
+
+<p>
+  <strong>Extra content:</strong>
+  <%= @acc_setting.extra_content %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @acc_setting.active %>
+</p>
+
+<p>
+  <strong>Time start:</strong>
+  <%= @acc_setting.time_start %>
+</p>
+
+<p>
+  <strong>Time end:</strong>
+  <%= @acc_setting.time_end %>
+</p>
+
+<p>
+  <strong>Num per day:</strong>
+  <%= @acc_setting.num_per_day %>
+</p>
+
+<p>
+  <strong>Min post interval:</strong>
+  <%= @acc_setting.min_post_interval %>
+</p>
+
+<p>
+  <strong>Queue size:</strong>
+  <%= @acc_setting.queue_size %>
+</p>
+
+<%= link_to 'Edit', edit_acc_setting_path(@acc_setting) %> |
+<%= link_to 'Back', acc_settings_path %>

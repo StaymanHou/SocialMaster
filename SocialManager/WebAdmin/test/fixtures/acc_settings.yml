@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  username: MyString
+  password: MyString
+  other_setting: MyString
+  extra_content: MyString
+  active: false
+  time_start: 2013-10-21 10:24:39
+  time_end: 2013-10-21 10:24:39
+  num_per_day: 1
+  min_post_interval: 1
+  queue_size: 1
+
+two:
+  username: MyString
+  password: MyString
+  other_setting: MyString
+  extra_content: MyString
+  active: false
+  time_start: 2013-10-21 10:24:39
+  time_end: 2013-10-21 10:24:39
+  num_per_day: 1
+  min_post_interval: 1
+  queue_size: 1

@@ -1,0 +1,43 @@
+<h1>Listing pool_posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hidden</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Content</th>
+      <th>Tags</th>
+      <th>Image file</th>
+      <th>Image link</th>
+      <th>Link</th>
+      <th>Social score</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pool_posts.each do |pool_post| %>
+      <tr>
+        <td><%= pool_post.hidden %></td>
+        <td><%= pool_post.title %></td>
+        <td><%= pool_post.description %></td>
+        <td><%= pool_post.content %></td>
+        <td><%= pool_post.tags %></td>
+        <td><%= pool_post.image_file %></td>
+        <td><%= pool_post.image_link %></td>
+        <td><%= pool_post.link %></td>
+        <td><%= pool_post.social_score %></td>
+        <td><%= link_to 'Show', pool_post %></td>
+        <td><%= link_to 'Edit', edit_pool_post_path(pool_post) %></td>
+        <td><%= link_to 'Destroy', pool_post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pool post', new_pool_post_path %>

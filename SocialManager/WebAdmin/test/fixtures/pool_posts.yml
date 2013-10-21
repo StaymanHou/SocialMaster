@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  hidden: false
+  title: MyString
+  description: MyString
+  content: MyText
+  tags: MyString
+  image_file: MyString
+  image_link: MyString
+  link: MyString
+  social_score: 1
+
+two:
+  hidden: false
+  title: MyString
+  description: MyString
+  content: MyText
+  tags: MyString
+  image_file: MyString
+  image_link: MyString
+  link: MyString
+  social_score: 1

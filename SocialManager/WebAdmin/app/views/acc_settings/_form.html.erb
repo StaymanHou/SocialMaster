@@ -1,0 +1,57 @@
+<%= form_for(@acc_setting) do |f| %>
+  <% if @acc_setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@acc_setting.errors.count, "error") %> prohibited this acc_setting from being saved:</h2>
+
+      <ul>
+      <% @acc_setting.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :username %><br>
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.text_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :other_setting %><br>
+    <%= f.text_field :other_setting %>
+  </div>
+  <div class="field">
+    <%= f.label :extra_content %><br>
+    <%= f.text_field :extra_content %>
+  </div>
+  <div class="field">
+    <%= f.label :active %><br>
+    <%= f.check_box :active %>
+  </div>
+  <div class="field">
+    <%= f.label :time_start %><br>
+    <%= f.time_select :time_start %>
+  </div>
+  <div class="field">
+    <%= f.label :time_end %><br>
+    <%= f.time_select :time_end %>
+  </div>
+  <div class="field">
+    <%= f.label :num_per_day %><br>
+    <%= f.number_field :num_per_day %>
+  </div>
+  <div class="field">
+    <%= f.label :min_post_interval %><br>
+    <%= f.number_field :min_post_interval %>
+  </div>
+  <div class="field">
+    <%= f.label :queue_size %><br>
+    <%= f.number_field :queue_size %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

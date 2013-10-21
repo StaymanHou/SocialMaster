@@ -1,23 +1,37 @@
-<%= form_for @post do |f| %>
-	<% if @post.errors.any? %>
-	<div>
-		<h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
-		<ul>
-			<% @post.errors.full_messages.each do |msg| %>
-				<li><%= msg %></li>
-			<% end %>
-		</ul>
-	</div>
-	<% end %>
-	<p>
-		<%= f.label(:title) %><br>
-		<%= f.text_field(:title) %>
-	</p>
-	<p>
-		<%= f.label(:text) %><br>
-		<%= f.text_area(:text) %>
-	</p>
-	<p>
-		<%= f.submit %>
-	</p>	
+<%= form_for(@account) do |f| %>
+  <% if @account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+      <% @account.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :rss_urls %><br>
+    <%= f.text_field :rss_urls %>
+  </div>
+  <div class="field">
+    <%= f.label :active %><br>
+    <%= f.check_box :active %>
+  </div>
+  <div class="field">
+    <%= f.label :last_update %><br>
+    <%= f.datetime_select :last_update %>
+  </div>
+  <div class="field">
+    <%= f.label :deleted %><br>
+    <%= f.check_box :deleted %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
 <% end %>

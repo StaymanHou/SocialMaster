@@ -1,4 +1,26 @@
 WebAdmin::Application.routes.draw do
+  resources :post_data
+
+  resources :auto_modes
+
+  resources :smodules
+
+  resources :acc_settings
+
+  resources :accounts
+
+  resources :statuses
+
+  resources :queue_posts
+
+  resources :pool_post_types
+
+  resources :pool_posts
+
+  resources :site_categories
+
+  resources :sites
+
   resources :tags
 
   get "pool/rss"

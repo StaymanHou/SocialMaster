@@ -1,0 +1,57 @@
+<%= form_for(@queue_post) do |f| %>
+  <% if @queue_post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@queue_post.errors.count, "error") %> prohibited this queue_post from being saved:</h2>
+
+      <ul>
+      <% @queue_post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :type %><br>
+    <%= f.number_field :type %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_area :content %>
+  </div>
+  <div class="field">
+    <%= f.label :extra_content %><br>
+    <%= f.text_field :extra_content %>
+  </div>
+  <div class="field">
+    <%= f.label :tags %><br>
+    <%= f.text_field :tags %>
+  </div>
+  <div class="field">
+    <%= f.label :image_file %><br>
+    <%= f.text_field :image_file %>
+  </div>
+  <div class="field">
+    <%= f.label :image_file %><br>
+    <%= f.text_field :image_file %>
+  </div>
+  <div class="field">
+    <%= f.label :link %><br>
+    <%= f.text_field :link %>
+  </div>
+  <div class="field">
+    <%= f.label :other_field %><br>
+    <%= f.text_field :other_field %>
+  </div>
+  <div class="field">
+    <%= f.label :schedule_time %><br>
+    <%= f.datetime_select :schedule_time %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

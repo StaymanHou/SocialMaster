@@ -1,0 +1,21 @@
+<%= form_for(@auto_mode) do |f| %>
+  <% if @auto_mode.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@auto_mode.errors.count, "error") %> prohibited this auto_mode from being saved:</h2>
+
+      <ul>
+      <% @auto_mode.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @queue_post.type %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @queue_post.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @queue_post.content %>
+</p>
+
+<p>
+  <strong>Extra content:</strong>
+  <%= @queue_post.extra_content %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <%= @queue_post.tags %>
+</p>
+
+<p>
+  <strong>Image file:</strong>
+  <%= @queue_post.image_file %>
+</p>
+
+<p>
+  <strong>Image file:</strong>
+  <%= @queue_post.image_file %>
+</p>
+
+<p>
+  <strong>Link:</strong>
+  <%= @queue_post.link %>
+</p>
+
+<p>
+  <strong>Other field:</strong>
+  <%= @queue_post.other_field %>
+</p>
+
+<p>
+  <strong>Schedule time:</strong>
+  <%= @queue_post.schedule_time %>
+</p>
+
+<%= link_to 'Edit', edit_queue_post_path(@queue_post) %> |
+<%= link_to 'Back', queue_posts_path %>

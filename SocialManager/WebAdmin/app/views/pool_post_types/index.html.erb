@@ -1,0 +1,27 @@
+<h1>Listing pool_post_types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pool_post_types.each do |pool_post_type| %>
+      <tr>
+        <td><%= pool_post_type.title %></td>
+        <td><%= link_to 'Show', pool_post_type %></td>
+        <td><%= link_to 'Edit', edit_pool_post_type_path(pool_post_type) %></td>
+        <td><%= link_to 'Destroy', pool_post_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pool post type', new_pool_post_type_path %>

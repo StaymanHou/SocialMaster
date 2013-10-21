@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @account.name %>
+</p>
+
+<p>
+  <strong>Rss urls:</strong>
+  <%= @account.rss_urls %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @account.active %>
+</p>
+
+<p>
+  <strong>Last update:</strong>
+  <%= @account.last_update %>
+</p>
+
+<p>
+  <strong>Deleted:</strong>
+  <%= @account.deleted %>
+</p>
+
+<%= link_to 'Edit', edit_account_path(@account) %> |
+<%= link_to 'Back', accounts_path %>

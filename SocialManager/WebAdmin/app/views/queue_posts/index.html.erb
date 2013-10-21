@@ -1,0 +1,45 @@
+<h1>Listing queue_posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Extra content</th>
+      <th>Tags</th>
+      <th>Image file</th>
+      <th>Image file</th>
+      <th>Link</th>
+      <th>Other field</th>
+      <th>Schedule time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @queue_posts.each do |queue_post| %>
+      <tr>
+        <td><%= queue_post.type %></td>
+        <td><%= queue_post.title %></td>
+        <td><%= queue_post.content %></td>
+        <td><%= queue_post.extra_content %></td>
+        <td><%= queue_post.tags %></td>
+        <td><%= queue_post.image_file %></td>
+        <td><%= queue_post.image_file %></td>
+        <td><%= queue_post.link %></td>
+        <td><%= queue_post.other_field %></td>
+        <td><%= queue_post.schedule_time %></td>
+        <td><%= link_to 'Show', queue_post %></td>
+        <td><%= link_to 'Edit', edit_queue_post_path(queue_post) %></td>
+        <td><%= link_to 'Destroy', queue_post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Queue post', new_queue_post_path %>
