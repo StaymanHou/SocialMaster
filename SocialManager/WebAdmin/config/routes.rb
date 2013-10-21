@@ -1,4 +1,6 @@
 WebAdmin::Application.routes.draw do
+  resources :tags
+
   get "pool/rss"
   get "pool/web"
   get "pool/social"
@@ -15,7 +17,7 @@ WebAdmin::Application.routes.draw do
   #   get 'products/:id' => 'catalog#view'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+    get 'accounts/:id/toggle_active' => 'accounts#toggle_active'
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
     resources :modules

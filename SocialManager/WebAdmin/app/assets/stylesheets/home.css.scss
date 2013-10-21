@@ -1,35 +1,71 @@
-// Place all the styles related to the index controller here.
+// Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.performance {
-	background-color: #FFFF99
-}
+body.home{
 
-.post {
-	background-color: #CCFFE3
-}
+	.show-grid {
+		border-radius: 3px 3px 3px 3px;
+		margin: 10px 0 20px;
+	}
 
-.queue {
-	background-color: #99FF99
-}
+	.show-grid [class*="span"] {
+		border-radius: 3px 3px 3px 3px;
+		margin-top: 10px;
+		margin-bottom: 20px;
+	}
 
-.pool {
-	background-color: #66FFFF
-}
+	.show-grid h3, .show-grid p{
+		margin-left: 10px;
+	}
 
-.admin {
-	background-color: #FFCCFF
-}
+	.accordion {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
 
-.account {
-	background-color: #99CCFF
-}
+	.performance {
+		background-color: #FFFF99
+	}
 
-.tag {
-	background-color: #FF99FF
-}
+	.post {
+		background-color: #CCFFE3
+	}
 
-.module {
-	background-color: #FF9999
+	.queue {
+		background-color: #99FF99
+	}
+
+	.pool {
+		background-color: #66FFFF
+	}
+
+	.admin {
+		background-color: #FFCCFF
+	}
+
+	.account {
+		background-color: #CC99FF
+	}
+
+	.tag {
+		background-color: #FF99FF
+	}
+
+	.module {
+		background-color: #FF9999
+	}
+
+	.module-thumb {
+		width: 90%;
+	}
+
+	.module-thumb img {
+		box-shadow: 5px 5px 5px #666666;
+		border:2px solid;
+	}
+
+	a.btn {
+		margin: 15px 15px 0 0
+	}
 }

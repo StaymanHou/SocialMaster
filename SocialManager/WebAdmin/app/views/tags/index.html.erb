@@ -1,7 +1,27 @@
-<%= render "shared/menu" %>
+<h1>Listing tags</h1>
 
-<div class="container">
+<table>
+  <thead>
+    <tr>
+      <th>Str</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
 
-	<h1>tags/index</h1>
+  <tbody>
+    <% @tags.each do |tag| %>
+      <tr>
+        <td><%= tag.str %></td>
+        <td><%= link_to 'Show', tag %></td>
+        <td><%= link_to 'Edit', edit_tag_path(tag) %></td>
+        <td><%= link_to 'Destroy', tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-</div> 
+<br>
+
+<%= link_to 'New Tag', new_tag_path %>
