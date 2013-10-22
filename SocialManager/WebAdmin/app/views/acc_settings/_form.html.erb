@@ -12,6 +12,14 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :account %><br>
+    <%= f.text_field :account %>
+  </div>
+  <div class="field">
+    <%= f.label :smodule %><br>
+    <%= f.text_field :smodule %>
+  </div>
+  <div class="field">
     <%= f.label :username %><br>
     <%= f.text_field :username %>
   </div>
@@ -30,6 +38,10 @@
   <div class="field">
     <%= f.label :active %><br>
     <%= f.check_box :active %>
+  </div>
+  <div class="field">
+    <%= f.label :auto_mode %><br>
+    <%= f.text_field :auto_mode %>
   </div>
   <div class="field">
     <%= f.label :time_start %><br>

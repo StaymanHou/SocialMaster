@@ -3,6 +3,9 @@
 <table>
   <thead>
     <tr>
+      <th>Account</th>
+      <th>Pool post type</th>
+      <th>Site</th>
       <th>Hidden</th>
       <th>Title</th>
       <th>Description</th>
@@ -21,6 +24,9 @@
   <tbody>
     <% @pool_posts.each do |pool_post| %>
       <tr>
+        <td><%= pool_post.account %></td>
+        <td><%= pool_post.pool_post_type %></td>
+        <td><%= pool_post.site %></td>
         <td><%= pool_post.hidden %></td>
         <td><%= pool_post.title %></td>
         <td><%= pool_post.description %></td>

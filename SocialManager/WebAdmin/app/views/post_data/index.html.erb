@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Acc setting</th>
       <th>Type</th>
       <th>Title</th>
       <th>Content</th>
@@ -21,6 +22,7 @@
   <tbody>
     <% @post_data.each do |post_datum| %>
       <tr>
+        <td><%= post_datum.acc_setting %></td>
         <td><%= post_datum.type %></td>
         <td><%= post_datum.title %></td>
         <td><%= post_datum.content %></td>

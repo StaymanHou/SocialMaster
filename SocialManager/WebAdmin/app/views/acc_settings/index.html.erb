@@ -3,11 +3,14 @@
 <table>
   <thead>
     <tr>
+      <th>Account</th>
+      <th>Smodule</th>
       <th>Username</th>
       <th>Password</th>
       <th>Other setting</th>
       <th>Extra content</th>
       <th>Active</th>
+      <th>Auto mode</th>
       <th>Time start</th>
       <th>Time end</th>
       <th>Num per day</th>
@@ -22,11 +25,14 @@
   <tbody>
     <% @acc_settings.each do |acc_setting| %>
       <tr>
+        <td><%= acc_setting.account %></td>
+        <td><%= acc_setting.smodule %></td>
         <td><%= acc_setting.username %></td>
         <td><%= acc_setting.password %></td>
         <td><%= acc_setting.other_setting %></td>
         <td><%= acc_setting.extra_content %></td>
         <td><%= acc_setting.active %></td>
+        <td><%= acc_setting.auto_mode %></td>
         <td><%= acc_setting.time_start %></td>
         <td><%= acc_setting.time_end %></td>
         <td><%= acc_setting.num_per_day %></td>

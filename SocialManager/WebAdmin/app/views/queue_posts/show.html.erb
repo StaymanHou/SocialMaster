@@ -1,6 +1,21 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Status:</strong>
+  <%= @queue_post.status %>
+</p>
+
+<p>
+  <strong>Acc setting:</strong>
+  <%= @queue_post.acc_setting %>
+</p>
+
+<p>
+  <strong>Rss post:</strong>
+  <%= @queue_post.rss_post %>
+</p>
+
+<p>
   <strong>Type:</strong>
   <%= @queue_post.type %>
 </p>
@@ -23,11 +38,6 @@
 <p>
   <strong>Tags:</strong>
   <%= @queue_post.tags %>
-</p>
-
-<p>
-  <strong>Image file:</strong>
-  <%= @queue_post.image_file %>
 </p>
 
 <p>

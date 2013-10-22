@@ -3,12 +3,14 @@
 <table>
   <thead>
     <tr>
+      <th>Status</th>
+      <th>Acc setting</th>
+      <th>Rss post</th>
       <th>Type</th>
       <th>Title</th>
       <th>Content</th>
       <th>Extra content</th>
       <th>Tags</th>
-      <th>Image file</th>
       <th>Image file</th>
       <th>Link</th>
       <th>Other field</th>
@@ -22,12 +24,14 @@
   <tbody>
     <% @queue_posts.each do |queue_post| %>
       <tr>
+        <td><%= queue_post.status %></td>
+        <td><%= queue_post.acc_setting %></td>
+        <td><%= queue_post.rss_post %></td>
         <td><%= queue_post.type %></td>
         <td><%= queue_post.title %></td>
         <td><%= queue_post.content %></td>
         <td><%= queue_post.extra_content %></td>
         <td><%= queue_post.tags %></td>
-        <td><%= queue_post.image_file %></td>
         <td><%= queue_post.image_file %></td>
         <td><%= queue_post.link %></td>
         <td><%= queue_post.other_field %></td>

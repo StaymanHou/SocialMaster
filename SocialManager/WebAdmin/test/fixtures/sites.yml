@@ -1,7 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
+  site_category_id: 
   domain: MyString
 
 two:
+  site_category_id: 
   domain: MyString

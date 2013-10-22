@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Site category</th>
       <th>Domain</th>
       <th></th>
       <th></th>
@@ -13,6 +14,7 @@
   <tbody>
     <% @sites.each do |site| %>
       <tr>
+        <td><%= site.site_category %></td>
         <td><%= site.domain %></td>
         <td><%= link_to 'Show', site %></td>
         <td><%= link_to 'Edit', edit_site_path(site) %></td>

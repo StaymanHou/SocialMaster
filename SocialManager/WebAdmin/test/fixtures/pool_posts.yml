@@ -1,6 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
+  account_id: 
+  pool_post_type_id: 
+  site_id: 
   hidden: false
   title: MyString
   description: MyString
@@ -12,6 +15,9 @@ one:
   social_score: 1
 
 two:
+  account_id: 
+  pool_post_type_id: 
+  site_id: 
   hidden: false
   title: MyString
   description: MyString

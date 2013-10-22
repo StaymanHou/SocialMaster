@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
+  acc_setting_id: 
   type: 1
   title: MyString
   content: MyText
@@ -12,6 +13,7 @@ one:
   data: MyText
 
 two:
+  acc_setting_id: 
   type: 1
   title: MyString
   content: MyText

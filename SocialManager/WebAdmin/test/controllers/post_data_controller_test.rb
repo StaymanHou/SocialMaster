@@ -18,7 +18,7 @@ class PostDataControllerTest < ActionController::TestCase
 
   test "should create post_datum" do
     assert_difference('PostDatum.count') do
-      post :create, post_datum: { content: @post_datum.content, data: @post_datum.data, extra_content: @post_datum.extra_content, image_file: @post_datum.image_file, link: @post_datum.link, other_field: @post_datum.other_field, tags: @post_datum.tags, title: @post_datum.title, type: @post_datum.type }
+      post :create, post_datum: { acc_setting_id: @post_datum.acc_setting_id, content: @post_datum.content, data: @post_datum.data, extra_content: @post_datum.extra_content, image_file: @post_datum.image_file, link: @post_datum.link, other_field: @post_datum.other_field, tags: @post_datum.tags, title: @post_datum.title, type: @post_datum.type }
     end
 
     assert_redirected_to post_datum_path(assigns(:post_datum))
@@ -35,7 +35,7 @@ class PostDataControllerTest < ActionController::TestCase
   end
 
   test "should update post_datum" do
-    patch :update, id: @post_datum, post_datum: { content: @post_datum.content, data: @post_datum.data, extra_content: @post_datum.extra_content, image_file: @post_datum.image_file, link: @post_datum.link, other_field: @post_datum.other_field, tags: @post_datum.tags, title: @post_datum.title, type: @post_datum.type }
+    patch :update, id: @post_datum, post_datum: { acc_setting_id: @post_datum.acc_setting_id, content: @post_datum.content, data: @post_datum.data, extra_content: @post_datum.extra_content, image_file: @post_datum.image_file, link: @post_datum.link, other_field: @post_datum.other_field, tags: @post_datum.tags, title: @post_datum.title, type: @post_datum.type }
     assert_redirected_to post_datum_path(assigns(:post_datum))
   end
 

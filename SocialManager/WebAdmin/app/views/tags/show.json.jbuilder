@@ -1,1 +1,1 @@
-json.extract! @tag, :str, :created_at, :updated_at
+json.extract! @tag, :site_id, :str, :created_at, :updated_at

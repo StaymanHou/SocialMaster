@@ -69,6 +69,6 @@ class PoolPostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pool_post_params
-      params.require(:pool_post).permit(:hidden, :title, :description, :content, :tags, :image_file, :image_link, :link, :social_score)
+      params.require(:pool_post).permit(:account_id, :pool_post_type_id, :site_id, :hidden, :title, :description, :content, :tags, :image_file, :image_link, :link, :social_score)
     end
 end

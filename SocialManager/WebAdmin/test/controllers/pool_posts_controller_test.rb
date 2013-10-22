@@ -18,7 +18,7 @@ class PoolPostsControllerTest < ActionController::TestCase
 
   test "should create pool_post" do
     assert_difference('PoolPost.count') do
-      post :create, pool_post: { content: @pool_post.content, description: @pool_post.description, hidden: @pool_post.hidden, image_file: @pool_post.image_file, image_link: @pool_post.image_link, link: @pool_post.link, social_score: @pool_post.social_score, tags: @pool_post.tags, title: @pool_post.title }
+      post :create, pool_post: { account_id: @pool_post.account_id, content: @pool_post.content, description: @pool_post.description, hidden: @pool_post.hidden, image_file: @pool_post.image_file, image_link: @pool_post.image_link, link: @pool_post.link, pool_post_type_id: @pool_post.pool_post_type_id, site_id: @pool_post.site_id, social_score: @pool_post.social_score, tags: @pool_post.tags, title: @pool_post.title }
     end
 
     assert_redirected_to pool_post_path(assigns(:pool_post))
@@ -35,7 +35,7 @@ class PoolPostsControllerTest < ActionController::TestCase
   end
 
   test "should update pool_post" do
-    patch :update, id: @pool_post, pool_post: { content: @pool_post.content, description: @pool_post.description, hidden: @pool_post.hidden, image_file: @pool_post.image_file, image_link: @pool_post.image_link, link: @pool_post.link, social_score: @pool_post.social_score, tags: @pool_post.tags, title: @pool_post.title }
+    patch :update, id: @pool_post, pool_post: { account_id: @pool_post.account_id, content: @pool_post.content, description: @pool_post.description, hidden: @pool_post.hidden, image_file: @pool_post.image_file, image_link: @pool_post.image_link, link: @pool_post.link, pool_post_type_id: @pool_post.pool_post_type_id, site_id: @pool_post.site_id, social_score: @pool_post.social_score, tags: @pool_post.tags, title: @pool_post.title }
     assert_redirected_to pool_post_path(assigns(:pool_post))
   end
 

@@ -1,25 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
+  account_id: 
+  smodule_id: 
   username: MyString
   password: MyString
   other_setting: MyString
   extra_content: MyString
   active: false
-  time_start: 2013-10-21 10:24:39
-  time_end: 2013-10-21 10:24:39
+  auto_mode_id: 
+  time_start: 2013-10-22 13:43:38
+  time_end: 2013-10-22 13:43:38
   num_per_day: 1
   min_post_interval: 1
   queue_size: 1
 
 two:
+  account_id: 
+  smodule_id: 
   username: MyString
   password: MyString
   other_setting: MyString
   extra_content: MyString
   active: false
-  time_start: 2013-10-21 10:24:39
-  time_end: 2013-10-21 10:24:39
+  auto_mode_id: 
+  time_start: 2013-10-22 13:43:38
+  time_end: 2013-10-22 13:43:38
   num_per_day: 1
   min_post_interval: 1
   queue_size: 1

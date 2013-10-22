@@ -69,6 +69,6 @@ class AccSettingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def acc_setting_params
-      params.require(:acc_setting).permit(:username, :password, :other_setting, :extra_content, :active, :time_start, :time_end, :num_per_day, :min_post_interval, :queue_size)
+      params.require(:acc_setting).permit(:account_id, :smodule_id, :username, :password, :other_setting, :extra_content, :active, :auto_mode_id, :time_start, :time_end, :num_per_day, :min_post_interval, :queue_size)
     end
 end

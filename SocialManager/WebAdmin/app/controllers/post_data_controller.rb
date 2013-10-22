@@ -69,6 +69,6 @@ class PostDataController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_datum_params
-      params.require(:post_datum).permit(:type, :title, :content, :extra_content, :tags, :image_file, :link, :other_field, :data)
+      params.require(:post_datum).permit(:acc_setting_id, :type, :title, :content, :extra_content, :tags, :image_file, :link, :other_field, :data)
     end
 end

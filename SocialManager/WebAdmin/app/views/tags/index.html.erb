@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Site</th>
       <th>Str</th>
       <th></th>
       <th></th>
@@ -13,6 +14,7 @@
   <tbody>
     <% @tags.each do |tag| %>
       <tr>
+        <td><%= tag.site %></td>
         <td><%= tag.str %></td>
         <td><%= link_to 'Show', tag %></td>
         <td><%= link_to 'Edit', edit_tag_path(tag) %></td>
