@@ -9,8 +9,8 @@ one:
   extra_content: MyString
   active: false
   auto_mode_id: 
-  time_start: 2013-10-22 13:43:38
-  time_end: 2013-10-22 13:43:38
+  time_start: 2013-10-22 13:57:39
+  time_end: 2013-10-22 13:57:39
   num_per_day: 1
   min_post_interval: 1
   queue_size: 1
@@ -24,8 +24,8 @@ two:
   extra_content: MyString
   active: false
   auto_mode_id: 
-  time_start: 2013-10-22 13:43:38
-  time_end: 2013-10-22 13:43:38
+  time_start: 2013-10-22 13:57:39
+  time_end: 2013-10-22 13:57:39
   num_per_day: 1
   min_post_interval: 1
   queue_size: 1

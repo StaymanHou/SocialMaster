@@ -4,12 +4,12 @@ one:
   name: MyString
   rss_urls: MyString
   active: false
-  last_update: 2013-10-22 13:43:34
+  last_update: 2013-10-22 13:57:37
   deleted: false
 
 two:
   name: MyString
   rss_urls: MyString
   active: false
-  last_update: 2013-10-22 13:43:34
+  last_update: 2013-10-22 13:57:37
   deleted: false

@@ -12,7 +12,7 @@ one:
   image_file: MyString
   link: MyString
   other_field: MyString
-  schedule_time: 2013-10-22 13:54:41
+  schedule_time: 2013-10-22 13:57:57
 
 two:
   status_id: 
@@ -26,4 +26,4 @@ two:
   image_file: MyString
   link: MyString
   other_field: MyString
-  schedule_time: 2013-10-22 13:54:41
+  schedule_time: 2013-10-22 13:57:57
