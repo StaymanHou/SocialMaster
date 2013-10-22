@@ -3,7 +3,7 @@
 one:
   status_id: 
   acc_setting_id: 
-  rss_post_id: 
+  pool_post_id: 
   type: 1
   title: MyString
   content: MyText
@@ -12,12 +12,12 @@ one:
   image_file: MyString
   link: MyString
   other_field: MyString
-  schedule_time: 2013-10-22 13:43:56
+  schedule_time: 2013-10-22 13:54:41
 
 two:
   status_id: 
   acc_setting_id: 
-  rss_post_id: 
+  pool_post_id: 
   type: 1
   title: MyString
   content: MyText
@@ -26,4 +26,4 @@ two:
   image_file: MyString
   link: MyString
   other_field: MyString
-  schedule_time: 2013-10-22 13:43:56
+  schedule_time: 2013-10-22 13:54:41

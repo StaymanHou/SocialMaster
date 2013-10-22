@@ -18,7 +18,7 @@ class QueuePostsControllerTest < ActionController::TestCase
 
   test "should create queue_post" do
     assert_difference('QueuePost.count') do
-      post :create, queue_post: { acc_setting_id: @queue_post.acc_setting_id, content: @queue_post.content, extra_content: @queue_post.extra_content, image_file: @queue_post.image_file, link: @queue_post.link, other_field: @queue_post.other_field, rss_post_id: @queue_post.rss_post_id, schedule_time: @queue_post.schedule_time, status_id: @queue_post.status_id, tags: @queue_post.tags, title: @queue_post.title, type: @queue_post.type }
+      post :create, queue_post: { acc_setting_id: @queue_post.acc_setting_id, content: @queue_post.content, extra_content: @queue_post.extra_content, image_file: @queue_post.image_file, link: @queue_post.link, other_field: @queue_post.other_field, pool_post_id: @queue_post.pool_post_id, schedule_time: @queue_post.schedule_time, status_id: @queue_post.status_id, tags: @queue_post.tags, title: @queue_post.title, type: @queue_post.type }
     end
 
     assert_redirected_to queue_post_path(assigns(:queue_post))
@@ -35,7 +35,7 @@ class QueuePostsControllerTest < ActionController::TestCase
   end
 
   test "should update queue_post" do
-    patch :update, id: @queue_post, queue_post: { acc_setting_id: @queue_post.acc_setting_id, content: @queue_post.content, extra_content: @queue_post.extra_content, image_file: @queue_post.image_file, link: @queue_post.link, other_field: @queue_post.other_field, rss_post_id: @queue_post.rss_post_id, schedule_time: @queue_post.schedule_time, status_id: @queue_post.status_id, tags: @queue_post.tags, title: @queue_post.title, type: @queue_post.type }
+    patch :update, id: @queue_post, queue_post: { acc_setting_id: @queue_post.acc_setting_id, content: @queue_post.content, extra_content: @queue_post.extra_content, image_file: @queue_post.image_file, link: @queue_post.link, other_field: @queue_post.other_field, pool_post_id: @queue_post.pool_post_id, schedule_time: @queue_post.schedule_time, status_id: @queue_post.status_id, tags: @queue_post.tags, title: @queue_post.title, type: @queue_post.type }
     assert_redirected_to queue_post_path(assigns(:queue_post))
   end
 
