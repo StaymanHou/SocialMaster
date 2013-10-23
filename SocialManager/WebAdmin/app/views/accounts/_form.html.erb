@@ -1,37 +1,61 @@
-<%= form_for(@account) do |f| %>
-  <% if @account.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
+<%= form_for(@account, html: {class: "form-horizontal"}) do |f| %>
+<% if @account.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
 
-      <ul>
-      <% @account.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <ul>
+    <% @account.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :rss_urls %><br>
-    <%= f.text_field :rss_urls %>
-  </div>
-  <div class="field">
-    <%= f.label :active %><br>
-    <%= f.check_box :active %>
-  </div>
-  <div class="field">
-    <%= f.label :last_update %><br>
+<div class="control-group">
+  <%= f.label :name, class: "control-label" %>
+  <div class="controls"><%= f.text_field :name %></div>
+</div>
+<div class="control-group">
+  <%= f.label :rss_urls, class: "control-label" %>
+  <div class="controls"><%= f.text_field :rss_urls %></div>
+</div>
+<div class="control-group">
+  <%= f.label :active, class: "control-label" %>
+  <div class="controls"><%= f.check_box :active %></div>
+</div>
+<!-- <div class="control-group">
+  <%= f.label :last_update, class: "control-label" %>
+  <div class="controls">
     <%= f.datetime_select :last_update %>
+    <div class="well">
+      <div id="datetimepicker1" class="input-append date">
+        <input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+          </i>
+        </span>
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :deleted %><br>
+</div> -->
+<!-- <div class="control-group">
+  <%= f.label :deleted, class: "control-label" %>
+  <div class="controls">
     <%= f.check_box :deleted %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+</div> -->
+<div class="control-group">
+  <div class="controls">
+    <%= f.submit class: "btn btn-primary" %>
+    <%= link_to 'Back', accounts_path, class: "btn" %>
   </div>
+</div>
 <% end %>
+
+<script type="text/javascript">
+$(function() {
+  $('#datetimepicker1').datetimepicker({
+    language: 'pt-BR'
+  });
+});
+</script>
