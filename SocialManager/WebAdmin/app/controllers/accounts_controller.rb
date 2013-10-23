@@ -1,4 +1,5 @@
 class AccountsController < ApplicationController
+  before_action :init
   before_action :set_account, only: [:show, :edit, :update, :destroy]
 
   # GET /accounts
@@ -28,7 +29,10 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to @account, notice: 'Account was successfully created.' }
+        format.html {
+          flash[:notice] = 'Account was successfully created.'
+          redirect_to accounts_url
+        }
         format.json { render action: 'show', status: :created, location: @account }
       else
         format.html { render action: 'new' }
@@ -42,7 +46,10 @@ class AccountsController < ApplicationController
   def update
     respond_to do |format|
       if @account.update(account_params)
-        format.html { redirect_to @account, notice: 'Account was successfully updated.' }
+        format.html {
+          flash[:notice] = 'Account was successfully updated.'
+          redirect_to accounts_url
+        }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -56,12 +63,25 @@ class AccountsController < ApplicationController
   def destroy
     @account.destroy
     respond_to do |format|
-      format.html { redirect_to accounts_url }
+      format.html {
+        flash[:notice] = 'Account: blah has been deleted.'
+        redirect_to accounts_url 
+      }
       format.json { head :no_content }
     end
   end
 
+  # TOGGLE_ACTIVE /accounts/1/toggle_active
+  def toggle_active
+    redirect_to accounts_url, flash: {notice: 'Account: bala has been activated!'}
+  end
+
   private
+    # Executed as initializing
+    def init
+      @active_page = "Accounts"
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_account
       @account = Account.find(params[:id])
