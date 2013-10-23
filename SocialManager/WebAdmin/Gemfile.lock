@@ -27,6 +27,7 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.0)
     atomic (1.1.14)
+    bootstrap-datetimepicker-rails (0.0.11)
     builder (3.1.4)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -118,6 +119,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-datetimepicker-rails
   coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
   jquery-rails

@@ -30,6 +30,9 @@ gem 'jbuilder', '~> 1.2'
 # Use bootstrap
 gem 'twitter-bootstrap-rails'
 
+# Use bootstrap datetimepicker
+gem 'bootstrap-datetimepicker-rails'
+
 # Use backbone
 gem 'rails-backbone'
 
