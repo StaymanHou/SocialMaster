@@ -23,7 +23,7 @@
   <%= f.label :active, class: "control-label" %>
   <div class="controls"><%= f.check_box :active %></div>
 </div>
-<!-- <div class="control-group">
+<div class="control-group">
   <%= f.label :last_update, class: "control-label" %>
   <div class="controls">
     <%= f.datetime_select :last_update %>
@@ -37,7 +37,7 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
 <!-- <div class="control-group">
   <%= f.label :deleted, class: "control-label" %>
   <div class="controls">
@@ -47,14 +47,14 @@
 <div class="control-group">
   <div class="controls">
     <%= f.submit class: "btn btn-primary" %>
-    <%= link_to 'Back', accounts_path, class: "btn" %>
+    <%= link_to 'Back', accounts_url, class: "btn" %>
   </div>
 </div>
 <% end %>
 
 <script type="text/javascript">
 $(function() {
-  $('#datetimepicker1').datetimepicker({
+  $('.timepicker').datetimepicker({
     language: 'pt-BR'
   });
 });

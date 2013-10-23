@@ -1,4 +1,5 @@
 class AccSettingsController < ApplicationController
+  before_action :init
   before_action :set_acc_setting, only: [:show, :edit, :update, :destroy]
 
   # GET /acc_settings
@@ -61,7 +62,17 @@ class AccSettingsController < ApplicationController
     end
   end
 
+  # TOGGLE_ACTIVE /accounts/1/toggle_active
+  def toggle_active
+    redirect_to accounts_url, flash: {notice: 'Acc_setting: bala has been activated!'}
+  end
+
   private
+    # Executed as initializing
+    def init
+      @active_page = "Accounts"
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_acc_setting
       @acc_setting = AccSetting.find(params[:id])
@@ -69,6 +80,6 @@ class AccSettingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def acc_setting_params
-      params.require(:acc_setting).permit(:account_id, :smodule_id, :username, :password, :other_setting, :extra_content, :active, :auto_mode_id, :time_start, :time_end, :num_per_day, :min_post_interval, :queue_size)
+      params.require(:acc_setting).permit(:username, :password, :other_setting, :extra_content, :active, :time_start, :time_end, :num_per_day, :min_post_interval, :queue_size)
     end
 end

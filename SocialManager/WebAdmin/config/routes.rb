@@ -40,6 +40,7 @@ WebAdmin::Application.routes.draw do
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
     get 'accounts/:id/toggle_active' => 'accounts#toggle_active'
+    get 'acc_settings/:id/toggle_active' => 'acc_settings#toggle_active'
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
     resources :modules

@@ -1,69 +1,97 @@
-<%= form_for(@acc_setting) do |f| %>
-  <% if @acc_setting.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@acc_setting.errors.count, "error") %> prohibited this acc_setting from being saved:</h2>
+<%= form_for(@acc_setting, html: {class: "form-horizontal"}) do |f| %>
+<% if @acc_setting.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@acc_setting.errors.count, "error") %> prohibited this acc_setting from being saved:</h2>
 
-      <ul>
-      <% @acc_setting.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :account %><br>
-    <%= f.text_field :account %>
-  </div>
-  <div class="field">
-    <%= f.label :smodule %><br>
-    <%= f.text_field :smodule %>
-  </div>
-  <div class="field">
-    <%= f.label :username %><br>
-    <%= f.text_field :username %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.text_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :other_setting %><br>
-    <%= f.text_field :other_setting %>
-  </div>
-  <div class="field">
-    <%= f.label :extra_content %><br>
-    <%= f.text_field :extra_content %>
-  </div>
-  <div class="field">
-    <%= f.label :active %><br>
-    <%= f.check_box :active %>
-  </div>
-  <div class="field">
-    <%= f.label :auto_mode %><br>
-    <%= f.text_field :auto_mode %>
-  </div>
-  <div class="field">
-    <%= f.label :time_start %><br>
-    <%= f.time_select :time_start %>
-  </div>
-  <div class="field">
-    <%= f.label :time_end %><br>
-    <%= f.time_select :time_end %>
-  </div>
-  <div class="field">
-    <%= f.label :num_per_day %><br>
-    <%= f.number_field :num_per_day %>
-  </div>
-  <div class="field">
-    <%= f.label :min_post_interval %><br>
-    <%= f.number_field :min_post_interval %>
-  </div>
-  <div class="field">
-    <%= f.label :queue_size %><br>
-    <%= f.number_field :queue_size %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <ul>
+    <% @acc_setting.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
 <% end %>
+
+<div class="control-group">
+  <%= f.label :account, class: "control-label" %>
+  <div class="controls"><%= f.text_field :account %></div>
+</div>
+<div class="control-group">
+  <%= f.label :smodule, class: "control-label" %>
+  <div class="controls"><%= f.text_field :smodule %></div>
+</div>
+<div class="control-group">
+  <%= f.label :username, class: "control-label" %>
+  <div class="controls"><%= f.text_field :username %></div>
+</div>
+<div class="control-group">
+  <%= f.label :password, class: "control-label" %>
+  <div class="controls"><%= f.text_field :password %></div>
+</div>
+<div class="control-group">
+  <%= f.label :other_setting, class: "control-label" %>
+  <div class="controls"><%= f.text_field :other_setting %></div>
+</div>
+<div class="control-group">
+  <%= f.label :extra_content, class: "control-label" %>
+  <div class="controls"><%= f.text_field :extra_content %></div>
+</div>
+<div class="control-group">
+  <%= f.label :active, class: "control-label" %>
+  <div class="controls"><%= f.check_box :active %></div>
+</div>
+<div class="control-group">
+  <%= f.label :auto_mode, class: "control-label" %>
+  <div class="controls"><%= f.text_field :auto_mode %></div>
+</div>
+<div class="control-group">
+  <%= f.label :time_start, class: "control-label" %>
+  <div class="controls">
+    <%= f.time_select :time_start %>
+    <div class="input-append timepicker">
+      <input data-format="hh:mm:ss" type="text"></input>
+      <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+        </i>
+      </span>
+    </div>
+  </div>
+</div>
+<div class="control-group">
+  <%= f.label :time_end, class: "control-label" %>
+  <div class="controls">
+    <%= f.time_select :time_end %>
+    <div class="input-append timepicker">
+      <input data-format="hh:mm:ss" type="text"></input>
+      <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+        </i>
+      </span>
+    </div>
+</div>
+<div class="control-group">
+  <%= f.label :num_per_day, class: "control-label" %>
+  <div class="controls"><%= f.number_field :num_per_day %></div>
+</div>
+<div class="control-group">
+  <%= f.label :min_post_interval, class: "control-label" %>
+  <div class="controls"><%= f.number_field :min_post_interval %></div>
+</div>
+<div class="control-group">
+  <%= f.label :queue_size, class: "control-label" %>
+  <div class="controls"><%= f.number_field :queue_size %></div>
+</div>
+<div class="control-group">
+  <div class="controls">
+    <%= f.submit class: "btn btn-primary" %>
+    <%= link_to 'Back', accounts_url, class: "btn" %>
+  </div>
+</div>
+<% end %>
+
+<script type="text/javascript">
+$(function() {
+  $('.timepicker').datetimepicker({
+    pickDate: false
+  });
+});
+</script>
