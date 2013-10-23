@@ -43,7 +43,10 @@ class AccSettingsController < ApplicationController
   def update
     respond_to do |format|
       if @acc_setting.update(acc_setting_params)
-        format.html { redirect_to @acc_setting, notice: 'Acc setting was successfully updated.' }
+        format.html {
+          flash[:notice] = 'Account Setting was successfully updated.'
+          redirect_to accounts_url
+        }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

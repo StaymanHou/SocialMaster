@@ -46,9 +46,8 @@
 <div class="control-group">
   <%= f.label :time_start, class: "control-label" %>
   <div class="controls">
-    <%= f.time_select :time_start %>
     <div class="input-append timepicker">
-      <input data-format="hh:mm:ss" type="text"></input>
+      <%= f.text_field :time_start, value: f.object.time_start.strftime('%H:%M:%S'), 'data-format' => 'hh:mm:ss' %>
       <span class="add-on">
         <i data-time-icon="icon-time" data-date-icon="icon-calendar">
         </i>
@@ -59,14 +58,14 @@
 <div class="control-group">
   <%= f.label :time_end, class: "control-label" %>
   <div class="controls">
-    <%= f.time_select :time_end %>
     <div class="input-append timepicker">
-      <input data-format="hh:mm:ss" type="text"></input>
+      <%= f.text_field :time_end, value: f.object.time_end.strftime('%H:%M:%S'), 'data-format' => 'hh:mm:ss' %>
       <span class="add-on">
         <i data-time-icon="icon-time" data-date-icon="icon-calendar">
         </i>
       </span>
     </div>
+  </div>
 </div>
 <div class="control-group">
   <%= f.label :num_per_day, class: "control-label" %>
