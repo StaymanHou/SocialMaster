@@ -1,29 +1,42 @@
-<h1>Listing tags</h1>
+<%= render "shared/menu" %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Site</th>
-      <th>Str</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<div class="container">
 
-  <tbody>
-    <% @tags.each do |tag| %>
-      <tr>
-        <td><%= tag.site %></td>
-        <td><%= tag.str %></td>
-        <td><%= link_to 'Show', tag %></td>
-        <td><%= link_to 'Edit', edit_tag_path(tag) %></td>
-        <td><%= link_to 'Destroy', tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+  <h1>Tags Management <%= link_to 'New Tag', new_tag_path, class: 'btn btn-primary' %> <%= link_to 'New Site', new_site_path, class: 'btn btn-primary' %> <%= link_to 'New SiteCategory', new_site_category_path, class: 'btn btn-primary' %></h1>
+
+  <% if flash[:alert]%>
+  <div class="alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> <%= flash[:alert] %>
+  </div>
+  <% end %>
+  <% if flash[:notice]%>
+  <div class="alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Notice:</strong> <%= flash[:notice] %>
+  </div>
+  <% end %>
+
+  <div class="row-fluid">
+    <span class="label label-info">
+      Totally <%= pluralize(@site_count, 'site') %> | <%= pluralize(@tag_count, 'tag') %>
+    </span>
+  </div>
+
+  <div class="row-fluid">
+    <% i = 0 %>
+    <% @site_categories.each do |site_category| %>
+    <div class="inlinediv">
+      <div class="accordion-heading">
+        <%= link_to site_category.name, edit_site_category_path(site_category), class: "accordion-toggle btn btn-info" %>
+      </div>
+      <div class="accordion-body collapse in">
+        <div class="accordion-inner">
+          <% site_category.sites.each do |site| %>
+          <%= link_to site.domain+': '+pluralize(site.tags.count, 'tag'), site, class: "btn" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Tag', new_tag_path %>
+  </div>

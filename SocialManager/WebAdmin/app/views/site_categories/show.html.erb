@@ -1,9 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @site_category.name %>
+	<strong>Name:</strong>
+	<%= @site_category.name %>
 </p>
 
+<ul>
+	<% @site_category.sites.each do |site| %>
+	<li>
+		<%= link_to site.domain, site %>
+	</li>
+	<% end %>
+</ul>
+
 <%= link_to 'Edit', edit_site_category_path(@site_category) %> |
-<%= link_to 'Back', site_categories_path %>
+<%= link_to 'Back', tags_path %>

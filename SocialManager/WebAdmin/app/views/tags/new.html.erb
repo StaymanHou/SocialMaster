@@ -1,5 +1,17 @@
-<h1>New tag</h1>
+<%= render "shared/menu" %>
 
-<%= render 'form' %>
+<div class="container">
 
-<%= link_to 'Back', tags_path %>
+	<h1>New tag</h1>
+
+	<%
+	if @tag.site_id? then
+		back_link = link_to 'Back', site_path(@tag.site_id), class: "btn"
+	else
+		back_link = link_to 'Back', tags_path, class: "btn"
+	end
+	%>
+
+	<%= render 'form', back_link: back_link %>
+
+</div>

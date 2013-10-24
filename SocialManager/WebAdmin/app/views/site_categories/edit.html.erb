@@ -1,6 +1,9 @@
-<h1>Editing site_category</h1>
+<%= render "shared/menu" %>
 
-<%= render 'form' %>
+<div class="container">
 
-<%= link_to 'Show', @site_category %> |
-<%= link_to 'Back', site_categories_path %>
+	<h1>Editing site_category: <%= @site_category.name %></h1>
+
+	<%= render 'form' %>
+
+</div>

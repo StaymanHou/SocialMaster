@@ -1,6 +1,11 @@
-<h1>Editing tag</h1>
+<%= render "shared/menu" %>
 
-<%= render 'form' %>
+<div class="container">
 
-<%= link_to 'Show', @tag %> |
-<%= link_to 'Back', tags_path %>
+	<h1>Editing tag: <%= @tag.str %></h1>
+
+	<% back_link = link_to 'Back', @tag.site, class: "btn" %>
+
+	<%= render 'form', back_link: back_link %>
+
+</div>

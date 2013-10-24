@@ -1,4 +1,5 @@
 class SiteCategoriesController < ApplicationController
+  before_action :init
   before_action :set_site_category, only: [:show, :edit, :update, :destroy]
 
   # GET /site_categories
@@ -28,7 +29,10 @@ class SiteCategoriesController < ApplicationController
 
     respond_to do |format|
       if @site_category.save
-        format.html { redirect_to @site_category, notice: 'Site category was successfully created.' }
+        format.html {
+          flash[:notice] = 'Site category was successfully created.'
+          redirect_to tags_url
+        }
         format.json { render action: 'show', status: :created, location: @site_category }
       else
         format.html { render action: 'new' }
@@ -42,7 +46,10 @@ class SiteCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @site_category.update(site_category_params)
-        format.html { redirect_to @site_category, notice: 'Site category was successfully updated.' }
+        format.html {
+          flash[:notice] = 'Site category was successfully updated.'
+          redirect_to tags_url
+        }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -62,6 +69,12 @@ class SiteCategoriesController < ApplicationController
   end
 
   private
+    # Executed as initializing
+    def init
+      @active_page = "Tags"
+      @message = "test"
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_site_category
       @site_category = SiteCategory.find(params[:id])

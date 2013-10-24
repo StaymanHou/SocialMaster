@@ -1,3 +1,15 @@
 // Place all the styles related to the Sites controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body.sites{
+
+	.close {
+		float: none;
+	}
+
+	.main-wrapper > span {
+		box-shadow: 2px 2px 2px #888888;
+	}
+
+}

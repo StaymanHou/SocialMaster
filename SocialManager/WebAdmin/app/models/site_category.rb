@@ -1,3 +1,3 @@
 class SiteCategory < ActiveRecord::Base
-  has_many :sites
+  has_many :sites, dependent: :destroy
 end

@@ -1,5 +1,11 @@
-<h1>New site</h1>
+<%= render "shared/menu" %>
 
-<%= render 'form' %>
+<div class="container">
 
-<%= link_to 'Back', sites_path %>
+	<h1>New site</h1>
+
+	<% back_link = link_to 'Back', tags_path, class: "btn" %>
+
+	<%= render 'form', back_link: back_link %>
+
+</div>

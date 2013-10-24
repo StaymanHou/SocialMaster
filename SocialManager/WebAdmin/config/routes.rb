@@ -19,9 +19,9 @@ WebAdmin::Application.routes.draw do
 
   resources :site_categories
 
-  resources :sites
-
-  resources :tags
+  resources :sites do
+    resources :tags
+  end
 
   get "pool/rss"
   get "pool/web"

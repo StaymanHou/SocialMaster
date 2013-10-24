@@ -1,10 +1,13 @@
 class TagsController < ApplicationController
+  before_action :init
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.all
+    @site_categories = SiteCategory.all
+    @site_count = Site.count
+    @tag_count = Tag.count
   end
 
   # GET /tags/1
@@ -14,7 +17,7 @@ class TagsController < ApplicationController
 
   # GET /tags/new
   def new
-    @tag = Tag.new
+    @tag = Tag.new(params.permit(:site_id))
   end
 
   # GET /tags/1/edit
@@ -28,7 +31,10 @@ class TagsController < ApplicationController
 
     respond_to do |format|
       if @tag.save
-        format.html { redirect_to @tag, notice: 'Tag was successfully created.' }
+        format.html {
+          flash[:notice] = 'Tag was successfully created.'
+          redirect_to @tag.site
+        }
         format.json { render action: 'show', status: :created, location: @tag }
       else
         format.html { render action: 'new' }
@@ -42,7 +48,10 @@ class TagsController < ApplicationController
   def update
     respond_to do |format|
       if @tag.update(tag_params)
-        format.html { redirect_to @tag, notice: 'Tag was successfully updated.' }
+        format.html {
+          flash[:notice] = 'Tag was successfully updated.'
+          redirect_to @tag.site
+        }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -56,12 +65,21 @@ class TagsController < ApplicationController
   def destroy
     @tag.destroy
     respond_to do |format|
-      format.html { redirect_to tags_url }
+      format.html {
+        flash[:notice] = 'Tag: %s was successfully removed.' % @tag.str
+        redirect_to @tag.site
+      }
       format.json { head :no_content }
     end
   end
 
   private
+    # Executed as initializing
+    def init
+      @active_page = "Tags"
+      @message = "test"
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_tag
       @tag = Tag.find(params[:id])

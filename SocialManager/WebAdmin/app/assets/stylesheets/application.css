@@ -21,4 +21,32 @@
  
  .hiddenRow {
     padding: 0 !important;
+ }
+
+ div.inlinediv {
+ 	width: 300px;
+ 	float: left;
+ 	margin: 20px;
+ 	padding: 5px;
+ 	border: 1px solid black;
+	border-radius: 10px;
+	background: rgba(255, 255, 255, .2);
+	box-shadow: 10px 10px 5px #888888;
+ }
+
+ div.inlinediv .btn {
+	margin: 2px;
+ }
+
+form.form-horizontal {
+	border-radius: 10px;
+	padding: 30px 0 10px;
+	background: rgba(255, 255, 255, .2); 
 }
+
+.main-wrapper {
+	border-radius: 10px;
+	padding: 10px;
+	background: rgba(255, 255, 255, .2); 
+}
+

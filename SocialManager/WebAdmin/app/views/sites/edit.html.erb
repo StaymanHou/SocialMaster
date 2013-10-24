@@ -1,6 +1,11 @@
-<h1>Editing site</h1>
+<%= render "shared/menu" %>
 
-<%= render 'form' %>
+<div class="container">
 
-<%= link_to 'Show', @site %> |
-<%= link_to 'Back', sites_path %>
+	<h1>Editing site: <%= @site.domain %></h1>
+
+	<% back_link = link_to 'Back', @site, class: "btn" %>
+
+	<%= render 'form', back_link: back_link %>
+
+</div>

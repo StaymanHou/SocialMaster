@@ -1,14 +1,38 @@
-<p id="notice"><%= notice %></p>
+<%= render "shared/menu" %>
 
-<p>
-  <strong>Site category:</strong>
-  <%= @site.site_category %>
-</p>
+<div class="container">
 
-<p>
-  <strong>Domain:</strong>
-  <%= @site.domain %>
-</p>
+  <% if flash[:alert]%>
+  <div class="alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> <%= flash[:alert] %>
+  </div>
+  <% end %>
+  <% if flash[:notice]%>
+  <div class="alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Notice:</strong> <%= flash[:notice] %>
+  </div>
+  <% end %>
 
-<%= link_to 'Edit', edit_site_path(@site) %> |
-<%= link_to 'Back', sites_path %>
+	<h1>Site: <%= @site.domain %> <%= link_to 'Edit', edit_site_path(@site), class: "btn btn-primary" %> <%= link_to 'Add Tag', new_site_tag_path(@site), class: "btn btn-primary" %></h1>
+
+	<p>
+		<strong>Site category:</strong>
+		<span class="label label-info"><%= @site.site_category.name %></span>
+	</p>
+
+	<h3>Tags:</h2>
+		<div class="row-fluid">
+			<div class="main-wrapper">
+				<% @site.tags.each do |tag| %>
+				<span class="label label-info"><%= tag.str %> <%= link_to "&times;".html_safe, tag, method: :delete, data: { confirm: 'Are you sure?' }, class: "close" %></span>
+				<% end %>
+			</div>
+		</div>
+
+		<br />
+
+		<%= link_to 'Back', tags_path, class: "btn" %>
+
+	</div>
