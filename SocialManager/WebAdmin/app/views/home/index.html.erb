@@ -229,7 +229,7 @@
 					<div class="accordion-group">
 						<div class="accordion-heading">
 							<a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-accordion" href="#acc-collapseOne">
-								<span class="label label-success">Active: <i>17</i></span>
+								<span class="label label-success">Active: <i><%= @active_accounts.size %></i></span>
 								<b class="caret"></b>
 							</a>
 						</div>
@@ -237,12 +237,13 @@
 							<div class="accordion-inner">
 								<table class="table table-striped">
 									<tbody>
+										<% @active_accounts.each do |active_account| %>
 										<tr>
 											<td>
-												kpopstarz
+												<%= active_account.name %>
 											</td>
 										</tr>
-										<tr> <td> kpopstarz </td> </tr> <tr> <td> kpopstarz </td> </tr> <tr> <td> kpopstarz </td> </tr> <tr> <td> kpopstarz </td> </tr> <tr> <td> kpopstarz </td> </tr> <tr> <td> kpopstarz </td> </tr> <tr> <td> kpopstarz </td> </tr> <tr> <td> kpopstarz </td> </tr> <tr> <td> kpopstarz </td> </tr> <tr> <td> kpopstarz </td> </tr> <tr> <td> kpopstarz </td> </tr>
+										<% end %>
 									</tbody>
 								</table>
 							</div>
@@ -251,7 +252,7 @@
 					<div class="accordion-group">
 						<div class="accordion-heading">
 							<a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-accordion" href="#acc-collapseTwo">
-								<span class="label label-info">Total: <i>21</i></span>
+								<span class="label label-info">Total: <i><%= @accounts.size %></i></span>
 								<b class="caret"></b>
 							</a>
 						</div>
@@ -259,12 +260,13 @@
 							<div class="accordion-inner">
 								<table class="table table-striped">
 									<tbody>
+										<% @accounts.each do |account| %>
 										<tr>
 											<td>
-												Franchiseherald
+												<%= account.name %>
 											</td>
 										</tr>
-										<tr> <td> Franchiseherald </td> </tr> <tr> <td> Franchiseherald </td> </tr> <tr> <td> Franchiseherald </td> </tr> <tr> <td> Franchiseherald </td> </tr> <tr> <td> Franchiseherald </td> </tr> <tr> <td> Franchiseherald </td> </tr> <tr> <td> Franchiseherald </td> </tr> <tr> <td> Franchiseherald </td> </tr> <tr> <td> Franchiseherald </td> </tr> <tr> <td> Franchiseherald </td> </tr> <tr> <td> Franchiseherald </td> </tr>
+										<% end %>
 									</tbody>
 								</table>
 							</div>
@@ -283,7 +285,7 @@
 					<div class="accordion-group">
 						<div class="accordion-heading">
 							<a class="accordion-toggle" data-toggle="collapse" data-parent="#tag-accordion" href="#tag-collapseOne">
-								<span class="label label-info">Total: <i>1117</i></span>
+								<span class="label label-info">Total: <i><%= @tag_count %></i></span>
 								<b class="caret"></b>
 							</a>
 						</div>
@@ -291,12 +293,13 @@
 							<div class="accordion-inner">
 								<table class="table table-striped">
 									<tbody>
+										<% @sites.each do |site| %>
 										<tr>
 											<td>
-												site1.com: 711
+												<%= site.domain %>: <%= site.tags.count %>
 											</td>
 										</tr>
-										<tr> <td> site2.com: 20 </td> </tr> <tr> <td> site3.com: 20 </td> </tr> <tr> <td> site4.com: 20 </td> </tr> <tr> <td> site5.com: 20 </td> </tr> <tr> <td> site6.com: 20 </td> </tr> <tr> <td> site7.com: 20 </td> </tr> <tr> <td> site8.com: 20 </td> </tr> <tr> <td> site9.com: 20 </td> </tr> <tr> <td> site10.com: 20 </td> </tr> <tr> <td> site11.com: 20 </td> </tr> <tr> <td> site12.com: 20 </td> </tr>
+										<% end %>
 									</tbody>
 								</table>
 							</div>
@@ -311,25 +314,26 @@
 				<%= link_to 'Manage', smodules_path, class: "btn pull-right" %>
 			</div>
 			<div class="row-fluid module-thumb">
+				<%
+				i = 0
+				@smodules.each do |smodule|
+				%>
+				<% if i==0 %>
 				<div class="row-fluid">
+				<% end %>
 					<div class="offset1 span3">
-						<img src="../images/twitter.jpeg" class="img-rounded">
+						<img src="../images/<%= smodule.name %>.jpeg" class="img-rounded">
 					</div>
-					<div class="offset1 span3">
-						<img src="../images/facebook.jpeg" class="img-rounded">
-					</div>
-					<div class="offset1 span3">
-						<img src="../images/gplus.jpeg" class="img-rounded">
-					</div>
+				<% if i==2 %>
 				</div>
-				<div class="row-fluid">
-					<div class="offset1 span3">
-						<img src="../images/tumblr.jpeg" class="img-rounded">
-					</div>
-					<div class="offset1 span3">
-						<img src="../images/pinterest.jpeg" class="img-rounded">
-					</div>
+				<% end %>
+				<% 
+				i = (i+1)%3
+				end 
+				%>
+				<% if i!=0 %>
 				</div>
+				<% end %>
 			</div>
 		</div>
 	</div>
