@@ -1,4 +1,5 @@
 class SmodulesController < ApplicationController
+  before_action :init
   before_action :set_smodule, only: [:show, :edit, :update, :destroy]
 
   # GET /smodules
@@ -28,7 +29,10 @@ class SmodulesController < ApplicationController
 
     respond_to do |format|
       if @smodule.save
-        format.html { redirect_to @smodule, notice: 'Smodule was successfully created.' }
+        format.html {
+          flash[:notice] = 'Module was successfully created.'
+          redirect_to smodules_url
+        }
         format.json { render action: 'show', status: :created, location: @smodule }
       else
         format.html { render action: 'new' }
@@ -56,12 +60,20 @@ class SmodulesController < ApplicationController
   def destroy
     @smodule.destroy
     respond_to do |format|
-      format.html { redirect_to smodules_url }
+      format.html {
+        flash[:notice] = 'Module: %s was successfully removed.' % @smodule.name
+        redirect_to smodules_url
+      }
       format.json { head :no_content }
     end
   end
 
   private
+    # Executed as initializing
+    def init
+      @active_page = "Modules"
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_smodule
       @smodule = Smodule.find(params[:id])

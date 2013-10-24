@@ -2,7 +2,7 @@
 
 <div class="container">
 
-  <h1>Accounts Management <a href="/accounts/new" class="btn btn-primary">New Account</a></h1>
+  <h1>Accounts Management <%= link_to 'New Account', new_account_path, class: "btn btn-primary" %></h1>
   
   <% if flash[:alert]%>
   <div class="alert">

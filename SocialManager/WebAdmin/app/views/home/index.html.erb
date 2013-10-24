@@ -7,7 +7,7 @@
 		<div class="span12 performance">
 			<div class="row-fluid">
 				<h3 class="pull-left">Performance</h3>
-				<a href="<%= performance_index_path %>" class="btn pull-right">Detail</a>				
+				<%= link_to 'Detail', performance_index_path, class: "btn pull-right" %>
 			</div>
 			<div class="row-fluid">
 				<p>Coming Soon</p>
@@ -18,7 +18,7 @@
 		<div class="span6 queue">
 			<div class="row-fluid">
 				<h3 class="pull-left">Queue</h3>
-				<a href="<%= queue_index_path %>" class="btn pull-right">Detail</a>
+				<%= link_to 'Detail', queue_index_path, class: "btn pull-right" %>
 			</div>
 			<div class="row-fluid">
 				<div class="accordion clearfix" id="queue-accordion">
@@ -140,9 +140,9 @@
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a tabindex="-1" href="<%= pool_rss_path %>">RSS</a></li>
-						<li><a tabindex="-1" href="<%= pool_web_path %>">Web</a></li>
-						<li><a tabindex="-1" href="<%= pool_social_path %>">Social</a></li>
+						<li><%= link_to 'RSS', pool_rss_path, class: "btn pull-right" %></li>
+						<li><%= link_to 'Web', pool_web_path, class: "btn pull-right" %></li>
+						<li><%= link_to 'Social', pool_social_path, class: "btn pull-right" %></li>
 					</ul>
 				</div>
 			</div>
@@ -222,7 +222,7 @@
 		<div class="span4 account">
 			<div class="row-fluid">
 				<h3 class="pull-left">Account</h3>
-				<a href="<%= accounts_path %>" class="btn pull-right">Manage</a>
+				<%= link_to 'Manage', accounts_path, class: "btn pull-right" %>
 			</div>
 			<div class="row-fluid">
 				<div class="accordion clearfix" id="acc-accordion">
@@ -276,7 +276,7 @@
 		<div class="span4 tag">
 			<div class="row-fluid">
 				<h3 class="pull-left">Tag</h3>
-				<a href="<%= tags_path %>" class="btn pull-right">Manage</a>
+				<%= link_to 'Manage', tags_path, class: "btn pull-right" %>
 			</div>
 			<div class="row-fluid">
 				<div class="accordion clearfix" id="tag-accordion">
@@ -308,7 +308,7 @@
 		<div class="span4 module">
 			<div class="row-fluid">
 				<h3 class="pull-left">Module</h3>
-				<a href="<%= modules_path %>" class="btn pull-right">Manage</a>
+				<%= link_to 'Manage', smodules_path, class: "btn pull-right" %>
 			</div>
 			<div class="row-fluid module-thumb">
 				<div class="row-fluid">
@@ -319,7 +319,7 @@
 						<img src="../images/facebook.jpeg" class="img-rounded">
 					</div>
 					<div class="offset1 span3">
-						<img src="../images/googleplus.jpeg" class="img-rounded">
+						<img src="../images/gplus.jpeg" class="img-rounded">
 					</div>
 				</div>
 				<div class="row-fluid">

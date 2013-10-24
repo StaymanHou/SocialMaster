@@ -1,27 +1,28 @@
-<h1>Listing smodules</h1>
+<%= render "shared/menu" %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<div class="container">
 
-  <tbody>
-    <% @smodules.each do |smodule| %>
-      <tr>
-        <td><%= smodule.name %></td>
-        <td><%= link_to 'Show', smodule %></td>
-        <td><%= link_to 'Edit', edit_smodule_path(smodule) %></td>
-        <td><%= link_to 'Destroy', smodule, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <h1>Modules Management <%= link_to 'New Module', new_smodule_path, class: "btn btn-primary" %></h1>
 
-<br>
+  <% if flash[:alert]%>
+  <div class="alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> <%= flash[:alert] %>
+  </div>
+  <% end %>
+  <% if flash[:notice]%>
+  <div class="alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Notice:</strong> <%= flash[:notice] %>
+  </div>
+  <% end %>
 
-<%= link_to 'New Smodule', new_smodule_path %>
+  <div class="row-fluid">
+    <div class="main-wrapper">
+      <% @smodules.each do |smodule| %>
+      <span class="label label-info"><%= smodule.name %> <%= link_to "&times;".html_safe, smodule, method: :delete, data: { confirm: 'Are you sure?' }, class: "close" %></span>
+      <% end %>
+    </div>
+  </div>
+
+</div> 
