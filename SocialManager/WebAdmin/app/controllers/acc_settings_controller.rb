@@ -1,6 +1,6 @@
 class AccSettingsController < ApplicationController
   before_action :init
-  before_action :set_acc_setting, only: [:show, :edit, :update, :destroy]
+  before_action :set_acc_setting, only: [:show, :edit, :update, :destroy, :toggle_active]
 
   # GET /acc_settings
   # GET /acc_settings.json
@@ -67,7 +67,24 @@ class AccSettingsController < ApplicationController
 
   # TOGGLE_ACTIVE /accounts/1/toggle_active
   def toggle_active
-    redirect_to accounts_url, flash: {notice: 'Acc_setting: bala has been activated!'}
+    respond_to do |format|
+      if @acc_setting.update({active: !@acc_setting.active})
+        format.html {
+          if @acc_setting.active
+            notice = 'Acc_setting: %s has been activated' % @acc_setting.id
+          else
+            notice = 'Acc_setting: %s has been inactivated' % @acc_setting.id
+          end
+          redirect_to accounts_url, flash: {notice: notice}
+        }
+        format.json { head :no_content }
+      else
+        format.html {
+          redirect_to accounts_url, flash: {notice: @acc_setting.errors.full_messages.to_s}
+        }
+        format.json { render json: @acc_setting.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
@@ -83,6 +100,6 @@ class AccSettingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def acc_setting_params
-      params.require(:acc_setting).permit(:username, :password, :other_setting, :extra_content, :active, :time_start, :time_end, :num_per_day, :min_post_interval, :queue_size)
+      params.require(:acc_setting).permit(:username, :password, :other_setting, :extra_content, :active, :auto_mode_id, :time_start, :time_end, :num_per_day, :min_post_interval, :queue_size)
     end
 end

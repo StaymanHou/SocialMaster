@@ -12,12 +12,12 @@
 <% end %>
 
 <div class="control-group">
-  <%= f.label :account, class: "control-label" %>
-  <div class="controls"><%= f.text_field :account %></div>
+  <%= f.label :account_id, class: "control-label" %>
+  <div class="controls"><%= f.text_field :account_id, {:disabled => true, :value => @acc_setting.account.name} %></div>
 </div>
 <div class="control-group">
-  <%= f.label :smodule, class: "control-label" %>
-  <div class="controls"><%= f.text_field :smodule %></div>
+  <%= f.label :smodule_id, class: "control-label" %>
+  <div class="controls"><%= f.text_field :smodule_id, {:disabled => true, :value => @acc_setting.smodule.name} %></div>
 </div>
 <div class="control-group">
   <%= f.label :username, class: "control-label" %>
@@ -40,8 +40,8 @@
   <div class="controls"><%= f.check_box :active %></div>
 </div>
 <div class="control-group">
-  <%= f.label :auto_mode, class: "control-label" %>
-  <div class="controls"><%= f.text_field :auto_mode %></div>
+  <%= f.label :auto_mode_id, class: "control-label" %>
+  <div class="controls"><%= collection_select :acc_setting, :auto_mode_id, AutoMode.all, :id, :title, :prompt => 'Please select an auto_mode' %></div>
 </div>
 <div class="control-group">
   <%= f.label :time_start, class: "control-label" %>

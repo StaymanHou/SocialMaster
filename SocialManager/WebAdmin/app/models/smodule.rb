@@ -1,6 +1,5 @@
 class Smodule < ActiveRecord::Base
 	has_many :acc_settings, dependent: :destroy
-
 	after_create :chain_create
 
 	private

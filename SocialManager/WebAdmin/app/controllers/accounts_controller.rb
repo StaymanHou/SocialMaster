@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   before_action :init
-  before_action :set_account, only: [:show, :edit, :update, :destroy]
+  before_action :set_account, only: [:show, :edit, :update, :destroy, :toggle_active]
 
   # GET /accounts
   # GET /accounts.json
@@ -73,7 +73,24 @@ class AccountsController < ApplicationController
 
   # TOGGLE_ACTIVE /accounts/1/toggle_active
   def toggle_active
-    redirect_to accounts_url, flash: {notice: 'Account: bala has been activated!'}
+    respond_to do |format|
+      if @account.update({active: !@account.active})
+        format.html {
+          if @account.active
+            notice = 'Account: %s has been activated' % @account.name
+          else
+            notice = 'Account: %s has been inactivated' % @account.name
+          end
+          redirect_to accounts_url, flash: {notice: notice}
+        }
+        format.json { head :no_content }
+      else
+        format.html {
+          redirect_to accounts_url, flash: {notice: @account.errors.full_messages.to_s}
+        }
+        format.json { render json: @account.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
