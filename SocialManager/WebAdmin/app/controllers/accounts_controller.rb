@@ -6,6 +6,7 @@ class AccountsController < ApplicationController
   # GET /accounts.json
   def index
     @accounts = Account.all
+    @smodules = Smodule.all
   end
 
   # GET /accounts/1
