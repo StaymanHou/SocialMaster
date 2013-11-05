@@ -4,7 +4,7 @@ class PoolPostsController < ApplicationController
   # GET /pool_posts
   # GET /pool_posts.json
   def index
-    @pool_posts = PoolPost.limit(30)
+    @pool_posts = PoolPost.order("id DESC").where(index_params).limit(30).offset(index_cursor['cursor'])
   end
 
   # GET /pool_posts/1
@@ -70,5 +70,13 @@ class PoolPostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def pool_post_params
       params.require(:pool_post).permit(:account_id, :pool_post_type_id, :site_id, :hidden, :title, :description, :content, :tags, :image_file, :image_link, :link, :social_score)
+    end
+
+    def index_params
+      params.permit(:account_id, :hidden)
+    end
+
+    def index_cursor
+      params.permit(:cursor)
     end
 end

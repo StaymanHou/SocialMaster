@@ -4,6 +4,25 @@
 
 body.pool{
 
+	.pool-post {
+		line-height: 1.2em;
+		cursor: pointer;
+		width: 150px;
+
+		p {
+			font-size: 10px;
+		}
+
+		div {
+			width: 100%;
+		}
+
+		img {
+			max-width: 150px;
+			height: auto;
+		}
+	}
+
 	.table .table .row-fluid {
 		margin-top: 5px;
 		margin-bottom: 5px;
@@ -33,7 +52,7 @@ body.pool{
 	/* Add 16px to last TH for scrollbar padding. All other non-IE browsers. */
 	/* http://www.w3.org/TR/REC-CSS2/selector.html#adjacent-selectors        */
 	.table-fixed-header thead th {
-		width: 200px
+		width: 220px
 	}
 
 	.table-fixed-header thead th + th {
@@ -48,7 +67,7 @@ body.pool{
 	/* All other non-IE browsers.                                            */
 	/* http://www.w3.org/TR/REC-CSS2/selector.html#adjacent-selectors        */
 	.table-fixed-header tbody td {
-		width: 200px
+		width: 150px
 	}
 
 	.table-fixed-header tbody td + td {
