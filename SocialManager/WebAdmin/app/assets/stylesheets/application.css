@@ -50,3 +50,10 @@ form.form-horizontal {
 	background: rgba(255, 255, 255, .2); 
 }
 
+.inline {
+	display: inline;
+}
+
+.zeromargin {
+	margin: 0;
+}

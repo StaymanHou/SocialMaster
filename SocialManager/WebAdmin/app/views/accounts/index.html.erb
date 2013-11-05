@@ -34,7 +34,7 @@
           <td><span class="label label-info"><h5><%= account.name %></h5></span> <span class="label label-<%= account.active ? 'success' : 'warning' %>"><%= account.active ? 'Active' : 'Inactive' %></span></td>
           <% @smodules.each do |smodule| %>
           <% account.acc_settings.each do |acc_setting| %>
-          <% if acc_setting.smodule == smodule  %>
+          <% if acc_setting.smodule.id == smodule.id  %>
           <td><span class="label label-<%= acc_setting.active ? 'success' : 'warning' %>"><%= acc_setting.active ? 'Active' : 'Inactive' %></span> <span class="label label-<%= acc_setting.auto_mode.title == 'off' ? 'warning' : 'success' %>">Auto: <%= acc_setting.auto_mode.title %></span></td>
           <% end %>
           <% end %>
@@ -58,7 +58,7 @@
                 </td>
                 <% @smodules.each do |smodule| %>
                 <% account.acc_settings.each do |acc_setting| %>
-                <% if acc_setting.smodule == smodule  %>
+                <% if acc_setting.smodule.id == smodule.id  %>
                 <td>
                   <div class="row-fluid">
                     <span class="label">Post/Day: <%= acc_setting.num_per_day %></span>

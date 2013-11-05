@@ -4,7 +4,7 @@ class PoolPostsController < ApplicationController
   # GET /pool_posts
   # GET /pool_posts.json
   def index
-    @pool_posts = PoolPost.all
+    @pool_posts = PoolPost.limit(30)
   end
 
   # GET /pool_posts/1
