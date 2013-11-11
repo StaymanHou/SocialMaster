@@ -20,7 +20,7 @@ class WebAdmin.Views.PoolPosts.IndexView extends Backbone.View
       @preventLoad = false
 
   addOne: (poolPost) =>
-    view = new WebAdmin.Views.PoolPosts.PoolPostView({model : poolPost})
+    view = new WebAdmin.Views.PoolPosts.PoolPostView({model : poolPost, sitelist: @options.sitelist})
     @.$el.append(view.render().el)
 
   scroll: ->

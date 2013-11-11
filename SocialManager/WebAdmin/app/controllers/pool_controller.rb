@@ -7,6 +7,7 @@ class PoolController < ApplicationController
 			@account = Account.find(@account_id)
 			@smodules = Smodule.all
 		end
+		@sites = Site.all
 	end
 
 	def web

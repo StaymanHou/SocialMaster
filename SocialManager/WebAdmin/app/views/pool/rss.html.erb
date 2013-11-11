@@ -31,7 +31,8 @@
 				<tr>
 					<th>Pool <%= link_to 'New Post', new_pool_post_path('rss', 1, @account_id), class: "btn btn-mini btn-primary" %></th>
 					<% @smodules.each do |smodule| %>
-					<th><%= smodule.name %>: <%= QueuePost.where(:acc_setting => AccSetting.find_by(:account => @account, :smodule => smodule)).count %></th>
+					<% count = QueuePost.where(:acc_setting => AccSetting.find_by(:account => @account, :smodule => smodule)).count %>
+					<th class="<%= smodule.name %>header" data-count="<%= count %>"><%= smodule.name %>: <%= count %></th>
 					<% end %>
 				</tr>
 			</thead>
@@ -40,3 +41,5 @@
 	<% end %>
 
 </div> 
+
+<div id="hiddendata" class="hide" data-sitelist='<%= @sites.to_json.html_safe %>'>Hidden data don't touch</div>

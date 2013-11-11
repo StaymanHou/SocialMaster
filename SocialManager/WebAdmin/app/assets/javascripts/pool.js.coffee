@@ -6,6 +6,8 @@ if $('#rss-table').length
 
   account_id = $('#rss-table').data('account')
   cursor = $('#rss-table').data('cursor')
+  sitelist = $('#hiddendata').data('sitelist')
+  console.log(sitelist)
 
   @poolPosts = new WebAdmin.Collections.PoolPostsCollection()
 
@@ -13,6 +15,7 @@ if $('#rss-table').length
     poolPosts: @poolPosts
     account_id: account_id
     cursor: cursor
+    sitelist: sitelist
 
   @poolPosts.fetch
     reset: true

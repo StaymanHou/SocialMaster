@@ -22,38 +22,35 @@
           <input type="hidden" class="pool_post_account_id" name="pool_post[account_id]" value="<%= account_id %>" />
           <input type="hidden" class="pool_post_pool_post_type_id" name="pool_post[pool_post_type_id]" value="<%= pool_post_type_id %>" />
           <div class="control-group">
-            <label class="control-label" for="pool_post_site">Site</label>
-            <div class="controls"><select class="pool_post_site_id" name="pool_post[site_id]"><option value="">Please select a site</option>
-        <option value="1">somea</option>
-        <option value="2">someb</option>
-        <option value="3">come</option>
-        <option value="4">test</option>
-        <option value="5">kpop1</option>
-        <option value="6">kpop2.com</option>
-        <option value="7">kpop3.com</option>
-        <option value="8">new</option></select></div>
+            <label class="control-label" for="pool_post_site" style="display: inline">Site</label>
+            <div class="controls" style="display: inline"><select class="pool_post_site_id" name="pool_post[site_id]">
+              <option value="">Please select a site</option>
+            <% for(var i=0; i<sites.length; i++) {%>
+              <option value="<%= sites[i].id %>" <% if (sites[i].id == site_id) { %><%= 'selected' %><% } %>><%= sites[i].domain %></option>
+            <% } %>
+            </select></div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="pool_post_title">Title</label>
-            <div class="controls"><input class="pool_post_title" name="pool_post[title]" type="text" value="<%= title %>" /></div>
+            <label class="control-label" for="pool_post_title" style="display: inline">Title</label>
+            <div class="controls" style="display: inline"><input class="pool_post_title" name="pool_post[title]" type="text" value="<%= title %>" /></div>
           </div>
           <div class="control-group">
             <label class="control-label" for="pool_post_description">Description</label>
-            <div class="controls"><textarea class="pool_post_description" name="pool_post[description]" ><%= description %>
+            <div class="controls"><textarea class="pool_post_description" name="pool_post[description]" rows="3" style="width: 500px"><%= description %>
         </textarea></div>
           </div>
           <div class="control-group">
             <label class="control-label" for="pool_post_content">Content</label>
-            <div class="controls"><textarea class="pool_post_content" name="pool_post[content]" ><%= content %>
+            <div class="controls"><textarea class="pool_post_content" name="pool_post[content]" rows="4" style="width: 500px"><%= content %>
         </textarea></div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="pool_post_tags">Tags</label>
-            <div class="controls"><input class="pool_post_tags" name="pool_post[tags]" type="text" value="<%= tags %>" /></div>
+            <label class="control-label" for="pool_post_tags" style="display: inline">Tags</label>
+            <div class="controls" style="display: inline"><input class="pool_post_tags" name="pool_post[tags]" type="text" value="<%= tags %>" /></div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="pool_post_image_file">Image file</label>
-            <div class="controls"><input class="pool_post_image_file" name="pool_post[image_file]" type="text" value="<%= image_file %>" />
+            <label class="control-label" for="pool_post_image_file" style="display: inline">Image file</label>
+            <div class="controls" style="display: inline"><input class="pool_post_image_file" name="pool_post[image_file]" type="text" value="<%= image_file %>" />
             <% if(image_file) { %>
               <div><br><img src="../images/postimg/rss/<%= image_file %>" alt="[Image not found]"></div>
             <% } else { %>
@@ -63,16 +60,16 @@
           </div>
           
           <div class="control-group">
-            <label class="control-label" for="pool_post_image_link">Image link</label>
-            <div class="controls"><input class="pool_post_image_link" name="pool_post[image_link]" type="text" value="<%= image_link %>" /></div>
+            <label class="control-label" for="pool_post_image_link" style="display: inline">Image link</label>
+            <div class="controls" style="display: inline"><input class="pool_post_image_link" name="pool_post[image_link]" type="text" value="<%= image_link %>" /></div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="pool_post_link">Link</label>
-            <div class="controls"><input class="pool_post_link" name="pool_post[link]" type="text" value="<%= link %>" /></div>
+            <label class="control-label" for="pool_post_link" style="display: inline">Link</label>
+            <div class="controls" style="display: inline"><input class="pool_post_link" name="pool_post[link]" type="text" value="<%= link %>" /></div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="pool_post_social_score">Social score</label>
-            <div class="controls"><input class="pool_post_social_score" name="pool_post[social_score]" type="number" value="<%= social_score %>" /></div>
+            <label class="control-label" for="pool_post_social_score" style="display: inline">Social score</label>
+            <div class="controls" style="display: inline"><input class="pool_post_social_score" name="pool_post[social_score]" type="number" value="<%= social_score %>" /></div>
           </div>
         </form>
       </div>
@@ -84,9 +81,32 @@
 
 
 </td>
-<td>something</td>
-<td>something</td>
-<td>something</td>
-<td>something</td>
-<td>something</td>
-
+<!-- twitter -->
+<td class="forward-cell twitter">
+  <p><a href="#" class="btn btn btn-primary link">Link</a></p>
+  <p><a href="#" class="btn btn btn-primary image">Image</a></p>
+  <p><a href="#" class="btn btn manual">Manual</a></p>
+</td>
+<!-- facebook -->
+<td class="forward-cell facebook">
+  <p><a href="#" class="btn btn btn-primary link">Link</a></p>
+  <p><a href="#" class="btn btn btn-primary image">Image</a></p>
+  <p><a href="#" class="btn btn manual">Manual</a></p>
+</td>
+<!-- gplus -->
+<td class="forward-cell gplus">
+  <p><a href="#" class="btn btn btn-primary link">Link</a></p>
+  <p><a href="#" class="btn btn btn-primary image">Image</a></p>
+  <p><a href="#" class="btn btn manual">Manual</a></p>
+</td>
+<!-- tumblr -->
+<td class="forward-cell tumblr">
+  <p><a href="#" class="btn btn btn-primary link">Link</a></p>
+  <p><a href="#" class="btn btn btn-primary image">Image</a></p>
+  <p><a href="#" class="btn btn manual">Manual</a></p>
+</td>
+<!-- pinterest -->
+<td class="forward-cell pinterest">
+  <p><a href="#" class="btn btn btn-primary image">Pin</a></p>
+  <p><a href="#" class="btn btn manual">Manual</a></p>
+</td>
