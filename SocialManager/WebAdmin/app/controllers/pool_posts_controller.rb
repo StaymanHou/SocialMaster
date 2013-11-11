@@ -14,7 +14,8 @@ class PoolPostsController < ApplicationController
 
   # GET /pool_posts/new
   def new
-    @pool_post = PoolPost.new
+    @from = params[:from]
+    @pool_post = PoolPost.new(new_params)
   end
 
   # GET /pool_posts/1/edit
@@ -25,10 +26,25 @@ class PoolPostsController < ApplicationController
   # POST /pool_posts.json
   def create
     @pool_post = PoolPost.new(pool_post_params)
+    @from = params[:from]
+
+    if @from == 'rss'
+      if @pool_post.account_id
+        rt = pool_rss_path(account: @pool_post.account_id)
+      else
+        rt = pool_rss_path
+      end
+    elsif @from == 'web'
+      rt = pool_web_path
+    elsif @from == 'social'
+      rt = pool_social_path
+    else
+      rt = home_index_path
+    end
 
     respond_to do |format|
       if @pool_post.save
-        format.html { redirect_to @pool_post, notice: 'Pool post was successfully created.' }
+        format.html { redirect_to rt, notice: 'Pool post was successfully created.' }
         format.json { render action: 'show', status: :created, location: @pool_post }
       else
         format.html { render action: 'new' }
@@ -74,6 +90,10 @@ class PoolPostsController < ApplicationController
 
     def index_params
       params.permit(:account_id, :hidden)
+    end
+
+    def new_params
+      params.permit(:account_id, :pool_post_type_id)
     end
 
     def index_cursor

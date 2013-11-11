@@ -1,0 +1,92 @@
+<td>
+  <div class="pool-post">
+    <p><%= title %></p>
+    <% if(image_file) { %>
+      <div><img src="../images/postimg/rss/<%= image_file %>" alt="[Image not found]"></div>
+    <% } else { %>
+      <div><p>[No Image]</p></div>
+    <% } %>
+    <p><%= created_at.substring(0,19).replace("T"," ") %></p>
+  </div>
+  <a href="#" class="btn btn-mini hide-trigger">Hide</a>
+
+  <!-- Modal -->
+
+    <div id="myModal<%= id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 class="myModalLabel">Edit Post</h3>
+      </div>
+      <div class="modal-body">
+        <form class="form">
+          <input type="hidden" class="pool_post_account_id" name="pool_post[account_id]" value="<%= account_id %>" />
+          <input type="hidden" class="pool_post_pool_post_type_id" name="pool_post[pool_post_type_id]" value="<%= pool_post_type_id %>" />
+          <div class="control-group">
+            <label class="control-label" for="pool_post_site">Site</label>
+            <div class="controls"><select class="pool_post_site_id" name="pool_post[site_id]"><option value="">Please select a site</option>
+        <option value="1">somea</option>
+        <option value="2">someb</option>
+        <option value="3">come</option>
+        <option value="4">test</option>
+        <option value="5">kpop1</option>
+        <option value="6">kpop2.com</option>
+        <option value="7">kpop3.com</option>
+        <option value="8">new</option></select></div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="pool_post_title">Title</label>
+            <div class="controls"><input class="pool_post_title" name="pool_post[title]" type="text" value="<%= title %>" /></div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="pool_post_description">Description</label>
+            <div class="controls"><textarea class="pool_post_description" name="pool_post[description]" ><%= description %>
+        </textarea></div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="pool_post_content">Content</label>
+            <div class="controls"><textarea class="pool_post_content" name="pool_post[content]" ><%= content %>
+        </textarea></div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="pool_post_tags">Tags</label>
+            <div class="controls"><input class="pool_post_tags" name="pool_post[tags]" type="text" value="<%= tags %>" /></div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="pool_post_image_file">Image file</label>
+            <div class="controls"><input class="pool_post_image_file" name="pool_post[image_file]" type="text" value="<%= image_file %>" />
+            <% if(image_file) { %>
+              <div><br><img src="../images/postimg/rss/<%= image_file %>" alt="[Image not found]"></div>
+            <% } else { %>
+              <div><br><p>[No Image]</p></div>
+            <% } %>
+            </div>
+          </div>
+          
+          <div class="control-group">
+            <label class="control-label" for="pool_post_image_link">Image link</label>
+            <div class="controls"><input class="pool_post_image_link" name="pool_post[image_link]" type="text" value="<%= image_link %>" /></div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="pool_post_link">Link</label>
+            <div class="controls"><input class="pool_post_link" name="pool_post[link]" type="text" value="<%= link %>" /></div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="pool_post_social_score">Social score</label>
+            <div class="controls"><input class="pool_post_social_score" name="pool_post[social_score]" type="number" value="<%= social_score %>" /></div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary save-change">Save changes</button>
+      </div>
+    </div>
+
+
+</td>
+<td>something</td>
+<td>something</td>
+<td>something</td>
+<td>something</td>
+<td>something</td>
+
