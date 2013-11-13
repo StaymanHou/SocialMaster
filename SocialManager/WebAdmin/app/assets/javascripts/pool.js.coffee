@@ -26,4 +26,15 @@ if $('#rss-table').length
 
   $('.onpage-alert').on('click', ->
     $('.onpage-alert').fadeOut()
-    )
+  )
+
+  $('#new-pop').on('click', ->
+    $('#rss-table > tbody').animate
+      scrollTop: 0
+    $('.new-feed').removeClass('hide')
+    $(@).hide()
+    $(@).data('counter', 0)
+  )
+
+  # $('#new-pop').popover(placement: 'bottom', trigger: 'manual', selector: '#new-pop', title: 'test').popover('show')
+

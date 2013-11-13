@@ -4,7 +4,14 @@ class PoolPostsController < ApplicationController
   # GET /pool_posts
   # GET /pool_posts.json
   def index
-    @pool_posts = PoolPost.order("id DESC").where(index_params).limit(30).offset(index_cursor)
+    cursor = params[:cursor].to_i
+    if cursor == 0
+      @pool_posts = PoolPost.order("id DESC").where("account_id = ? AND hidden = ?", params[:account_id], params[:hidden]).limit(30)
+    elsif cursor > 0
+      @pool_posts = PoolPost.order("id DESC").where("account_id = ? AND hidden = ? AND id < ?", params[:account_id], params[:hidden], cursor).limit(30)
+    elsif cursor == -1
+      @pool_posts = PoolPost.order("id ASC").where("account_id = ? AND hidden = ? AND id > ?", params[:account_id], params[:hidden], params[:latest].to_i)
+    end
   end
 
   # GET /pool_posts/1
@@ -88,15 +95,7 @@ class PoolPostsController < ApplicationController
       params.require(:pool_post).permit(:account_id, :pool_post_type_id, :site_id, :hidden, :title, :description, :content, :tags, :image_file, :image_link, :link, :social_score)
     end
 
-    def index_params
-      params.permit(:account_id, :hidden)
-    end
-
     def new_params
       params.permit(:account_id, :pool_post_type_id)
-    end
-
-    def index_cursor
-      params.permit(:cursor)['cursor']
     end
 end

@@ -2,7 +2,7 @@ class PoolController < ApplicationController
 	def rss
 		@active_page = "RSS"
 		@accounts = Account.all
-		@account_id = account_param[:account].to_i
+		@account_id = account_param.to_i
 		if @account_id != 0
 			@account = Account.find(@account_id)
 			@smodules = Smodule.all
@@ -25,6 +25,6 @@ class PoolController < ApplicationController
 
 	private
 	    def account_param
-    		params.permit(:account)
+    		params[:account]
     	end
 end

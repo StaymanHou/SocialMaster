@@ -1,6 +1,6 @@
 <%= render "shared/menu" %>
 
-<div class="container">
+<div class="container rss-container">
 
 	<%= form_tag nil, :method => :get, class: "zeromargin" do %>
 	<h1 class="inline">RSS Pool </h1>
@@ -40,9 +40,12 @@
 	</div>
 	<% end %>
 
+	<div id="new-pop" class="popover fade bottom in" data-counter="0"><div class="arrow"></div><h3 class="popover-title">There is/are <span id="new-pop-counter">0</span> <span class="label label-info">new</span> feed(s)</h3></div>
 </div> 
 
 <div id="hiddendata" class="hide" data-sitelist='<%= @sites.to_json.html_safe %>' data-accsettingsti='<%= @accsettingsti.to_json.html_safe %>'>Hidden data don't touch</div>
 
 <div id="ManualModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ManualModalLabel" aria-hidden="true">
 </div>
+
+

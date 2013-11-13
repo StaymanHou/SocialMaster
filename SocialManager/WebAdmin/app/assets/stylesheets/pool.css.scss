@@ -2,96 +2,107 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body.pool{
+body.pool {
 
-	.pool-post {
-		line-height: 1.2em;
-		cursor: pointer;
-		width: 150px;
+	div.rss-container {
 
-		p {
-			font-size: 10px;
+		.pool-post {
+			line-height: 1.2em;
+			cursor: pointer;
+			width: 150px;
+
+			p {
+				font-size: 10px;
+			}
+
+			div {
+				width: 100%;
+			}
+
+			img {
+				max-width: 150px;
+				height: auto;
+			}
 		}
 
-		div {
-			width: 100%;
+		.forward-cell {
+			vertical-align: middle;
+			text-align: center;
 		}
 
-		img {
-			max-width: 150px;
-			height: auto;
+		#new-pop {
+			cursor: pointer;
+			position: fixed;
+			display: none;
+			left: 1050px;
+			top: 40px;
 		}
-	}
 
-	.forward-cell {
-		vertical-align: middle;
-		text-align: center;
-	}
+		.table .table .row-fluid {
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
 
-	.table .table .row-fluid {
-		margin-top: 5px;
-		margin-bottom: 5px;
-	}
+		.table-fixed-header {
+			background: rgba(255, 255, 255, .2);
+		}
 
-	.table-fixed-header {
-		background: rgba(255, 255, 255, .2);
-	}
+		.table-fixed-header>thead>tr {
+			position: relative;
+			display: block;
+			margin-right: 16px;
+		}
 
-	.table-fixed-header>thead>tr {
-		position: relative;
-		display: block;
-		margin-right: 16px;
-	}
+		/* set TBODY element to have block level attributes. All other non-IE browsers            */
+		/* this enables overflow to work on TBODY element. All other non-IE, non-Mozilla browsers */
+		/* induced side effect is that child TDs no longer accept width: auto                     */
+		.table-fixed-header>tbody {
+			display: block;
+			height: 480px;
+			overflow: auto;
+			width: 100%
+		}
 
-	/* set TBODY element to have block level attributes. All other non-IE browsers            */
-	/* this enables overflow to work on TBODY element. All other non-IE, non-Mozilla browsers */
-	/* induced side effect is that child TDs no longer accept width: auto                     */
-	.table-fixed-header>tbody {
-		display: block;
-		height: 480px;
-		overflow: auto;
-		width: 100%
-	}
+		/* define width of TH elements: 1st, 2nd, and 3rd respectively.          */
+		/* Add 16px to last TH for scrollbar padding. All other non-IE browsers. */
+		/* http://www.w3.org/TR/REC-CSS2/selector.html#adjacent-selectors        */
+		.table-fixed-header thead th {
+			width: 220px
+		}
 
-	/* define width of TH elements: 1st, 2nd, and 3rd respectively.          */
-	/* Add 16px to last TH for scrollbar padding. All other non-IE browsers. */
-	/* http://www.w3.org/TR/REC-CSS2/selector.html#adjacent-selectors        */
-	.table-fixed-header thead th {
-		width: 220px
-	}
+		.table-fixed-header thead th + th {
+			width: 270px
+		}
 
-	.table-fixed-header thead th + th {
-		width: 270px
-	}
+		.table-fixed-header thead th + th + th {
+			width: 260px
+		}
 
-	.table-fixed-header thead th + th + th {
-		width: 260px
-	}
+		/* define width of TD elements: 1st, 2nd, and 3rd respectively.          */
+		/* All other non-IE browsers.                                            */
+		/* http://www.w3.org/TR/REC-CSS2/selector.html#adjacent-selectors        */
+		.table-fixed-header tbody td {
+			width: 150px
+		}
 
-	/* define width of TD elements: 1st, 2nd, and 3rd respectively.          */
-	/* All other non-IE browsers.                                            */
-	/* http://www.w3.org/TR/REC-CSS2/selector.html#adjacent-selectors        */
-	.table-fixed-header tbody td {
-		width: 150px
-	}
+		.table-fixed-header tbody td + td {
+			width: 260px
+		}
 
-	.table-fixed-header tbody td + td {
-		width: 260px
-	}
+		.table-fixed-header tbody td + td + td {
+			width: 260px
+		}
 
-	.table-fixed-header tbody td + td + td {
-		width: 260px
-	}
+		.table-fixed-header .table td {
+			width: 170px
+		}
 
-	.table-fixed-header .table td {
-		width: 170px
-	}
+		.table-fixed-header .table td + td {
+			width: 205px
+		}
 
-	.table-fixed-header .table td + td {
-		width: 205px
-	}
-
-	.table-fixed-header .table td + td + td {
-		width: 205px
+		.table-fixed-header .table td + td + td {
+			width: 205px
+		}
 	}
 }
