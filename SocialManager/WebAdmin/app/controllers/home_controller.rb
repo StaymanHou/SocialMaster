@@ -10,5 +10,10 @@ class HomeController < ApplicationController
 		@active_accounts ||= []
 		@accounts = Account.all
 		@accounts ||= []
+		@pool_post_types = PoolPostType.all
+		@pool_post_types ||= []
+		@statuses = Status.all
+		@statuses ||= []
+
 	end
 end
