@@ -83,30 +83,60 @@
 </td>
 <!-- twitter -->
 <td class="forward-cell twitter">
+<% if (posted_smodule.indexOf('twitter') > -1) { %>
+  posted
+<% } else { %>
   <p><a href="#" class="btn btn btn-primary link">Link</a></p>
-  <p><a href="#" class="btn btn btn-primary image">Image</a></p>
+  <% if (image_file) { %>
+    <p><a href="#" class="btn btn btn-primary image">Image</a></p>
+  <% } %>
   <p><a href="#" class="btn btn manual">Manual</a></p>
+<% } %>
 </td>
 <!-- facebook -->
 <td class="forward-cell facebook">
+<% if (posted_smodule.indexOf('facebook') > -1) { %>
+  posted
+<% } else { %>
   <p><a href="#" class="btn btn btn-primary link">Link</a></p>
-  <p><a href="#" class="btn btn btn-primary image">Image</a></p>
+  <% if (image_file) { %>
+    <p><a href="#" class="btn btn btn-primary image">Image</a></p>
+  <% } %>
   <p><a href="#" class="btn btn manual">Manual</a></p>
+<% } %>
 </td>
 <!-- gplus -->
 <td class="forward-cell gplus">
+<% if (posted_smodule.indexOf('gplus') > -1) { %>
+  posted
+<% } else { %>
   <p><a href="#" class="btn btn btn-primary link">Link</a></p>
-  <p><a href="#" class="btn btn btn-primary image">Image</a></p>
+  <% if (image_file) { %>
+    <p><a href="#" class="btn btn btn-primary image">Image</a></p>
+  <% } %>
   <p><a href="#" class="btn btn manual">Manual</a></p>
+<% } %>
 </td>
 <!-- tumblr -->
 <td class="forward-cell tumblr">
+<% if (posted_smodule.indexOf('tumblr') > -1) { %>
+  posted
+<% } else { %>
   <p><a href="#" class="btn btn btn-primary link">Link</a></p>
-  <p><a href="#" class="btn btn btn-primary image">Image</a></p>
+  <% if (image_file) { %>
+    <p><a href="#" class="btn btn btn-primary image">Image</a></p>
+  <% } %>
   <p><a href="#" class="btn btn manual">Manual</a></p>
+<% } %>
 </td>
 <!-- pinterest -->
 <td class="forward-cell pinterest">
-  <p><a href="#" class="btn btn btn-primary image">Pin</a></p>
+<% if (posted_smodule.indexOf('pinterest') > -1) { %>
+  posted
+<% } else { %>
+  <% if (image_file) { %>
+    <p><a href="#" class="btn btn btn-primary image">Pin</a></p>
+  <% } %>
   <p><a href="#" class="btn btn manual">Manual</a></p>
+<% } %>
 </td>

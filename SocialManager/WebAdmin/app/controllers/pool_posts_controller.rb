@@ -4,7 +4,7 @@ class PoolPostsController < ApplicationController
   # GET /pool_posts
   # GET /pool_posts.json
   def index
-    @pool_posts = PoolPost.order("id DESC").where(index_params).limit(30).offset(index_cursor['cursor'])
+    @pool_posts = PoolPost.order("id DESC").where(index_params).limit(30).offset(index_cursor)
   end
 
   # GET /pool_posts/1
@@ -97,6 +97,6 @@ class PoolPostsController < ApplicationController
     end
 
     def index_cursor
-      params.permit(:cursor)
+      params.permit(:cursor)['cursor']
     end
 end

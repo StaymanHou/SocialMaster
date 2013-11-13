@@ -32,7 +32,7 @@
 					<th>Pool <%= link_to 'New Post', new_pool_post_path('rss', 1, @account_id), class: "btn btn-mini btn-primary" %></th>
 					<% @smodules.each do |smodule| %>
 					<% count = QueuePost.where(:acc_setting => AccSetting.find_by(:account => @account, :smodule => smodule)).count %>
-					<th class="<%= smodule.name %>header" data-count="<%= count %>"><%= smodule.name %>: <%= count %></th>
+					<th class="<%= smodule.name %>header" data-count="<%= count %>"><%= smodule.name %>: <span class="badge badge-info"><%= count %></span></th>
 					<% end %>
 				</tr>
 			</thead>
@@ -42,4 +42,7 @@
 
 </div> 
 
-<div id="hiddendata" class="hide" data-sitelist='<%= @sites.to_json.html_safe %>'>Hidden data don't touch</div>
+<div id="hiddendata" class="hide" data-sitelist='<%= @sites.to_json.html_safe %>' data-accsettingsti='<%= @accsettingsti.to_json.html_safe %>'>Hidden data don't touch</div>
+
+<div id="ManualModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ManualModalLabel" aria-hidden="true">
+</div>

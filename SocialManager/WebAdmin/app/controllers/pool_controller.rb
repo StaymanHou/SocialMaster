@@ -8,6 +8,11 @@ class PoolController < ApplicationController
 			@smodules = Smodule.all
 		end
 		@sites = Site.all
+		acc_settings = AccSetting.where(account_id: @account_id)
+		@accsettingsti = Hash.new
+		acc_settings.each do |acc_setting|
+			@accsettingsti[acc_setting.smodule.name] = acc_setting
+		end
 	end
 
 	def web

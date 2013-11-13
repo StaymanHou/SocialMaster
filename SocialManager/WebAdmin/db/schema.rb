@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131022175757) do
+ActiveRecord::Schema.define(version: 20131112184516) do
 
   create_table "acc_settings", force: true do |t|
     t.integer  "account_id"
@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 20131022175757) do
     t.integer  "status_id"
     t.integer  "acc_setting_id"
     t.integer  "pool_post_id"
-    t.integer  "type"
+    t.integer  "post_type"
     t.string   "title"
     t.text     "content"
     t.string   "extra_content"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 20131022175757) do
     t.datetime "schedule_time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image_link"
   end
 
   add_index "queue_posts", ["acc_setting_id"], name: "index_queue_posts_on_acc_setting_id", using: :btree
@@ -151,5 +152,24 @@ ActiveRecord::Schema.define(version: 20131022175757) do
   end
 
   add_index "tags", ["site_id"], name: "index_tags_on_site_id", using: :btree
+
+  create_table "users", force: true do |t|
+    t.string   "username"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
