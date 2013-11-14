@@ -1,0 +1,1 @@
+apply backbone on account and acc_setting

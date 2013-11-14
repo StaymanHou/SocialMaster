@@ -71,9 +71,9 @@ class AccSettingsController < ApplicationController
       if @acc_setting.update({active: !@acc_setting.active})
         format.html {
           if @acc_setting.active
-            notice = 'Acc_setting: %s has been activated' % @acc_setting.id
+            notice = 'Acc_setting: %s | %s has been activated' % [@acc_setting.account.name, @acc_setting.smodule.name]
           else
-            notice = 'Acc_setting: %s has been inactivated' % @acc_setting.id
+            notice = 'Acc_setting: %s | %s has been inactivated' % [@acc_setting.account.name, @acc_setting.smodule.name]
           end
           redirect_to accounts_url, flash: {notice: notice}
         }
