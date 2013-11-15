@@ -35,6 +35,3 @@ if $('#rss-table').length
     $(@).hide()
     $(@).data('counter', 0)
   )
-
-  # $('#new-pop').popover(placement: 'bottom', trigger: 'manual', selector: '#new-pop', title: 'test').popover('show')
-

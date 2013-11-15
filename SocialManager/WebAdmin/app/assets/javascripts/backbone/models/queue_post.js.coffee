@@ -1,6 +1,6 @@
 class WebAdmin.Models.QueuePost extends Backbone.Model
   paramRoot: 'queue_post'
-  url: '/queue_posts'
+  urlRoot: '/queue_posts'
 
   defaults:
     status_id: null

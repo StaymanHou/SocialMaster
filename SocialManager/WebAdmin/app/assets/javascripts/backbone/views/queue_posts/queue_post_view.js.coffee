@@ -31,7 +31,7 @@ class WebAdmin.Views.QueuePosts.QueuePostView extends Backbone.View
       success: (queue_post) =>
         myparent.push_queue_number(mysmodule)
         $('.onpage-alert').html('Manual '+mysmodule)
-        myparent.$('.forward-cell.'+mysmodule).html('posted')
+        myparent.$('.forward-cell.'+mysmodule).addClass('posted').html('<div>posted</div>')
 
       error: (queue_post, jqXHR) =>
         $('.onpage-alert').html($.parseJSON(jqXHR.responseText))

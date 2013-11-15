@@ -31,7 +31,7 @@
 				<tr>
 					<th>Pool <%= link_to 'New Post', new_pool_post_path('rss', 1, @account_id), class: "btn btn-mini btn-primary" %></th>
 					<% @smodules.each do |smodule| %>
-					<% count = QueuePost.where(:acc_setting => AccSetting.find_by(:account => @account, :smodule => smodule)).count %>
+					<% count = QueuePost.where(:acc_setting => AccSetting.find_by(:account => @account, :smodule => smodule), status_id: 1).count %>
 					<th class="<%= smodule.name %>header" data-count="<%= count %>"><%= smodule.name %>: <span class="badge badge-info"><%= count %></span></th>
 					<% end %>
 				</tr>

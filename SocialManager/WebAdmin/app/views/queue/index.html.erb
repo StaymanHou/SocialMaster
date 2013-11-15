@@ -27,77 +27,15 @@
 	<% if @account_id != 0%>
 	<div class="row-fluid show-grid accordion waterfall" id="accordionacc">
 		<% @smodules.each do |smodule| %>
-		<% count = QueuePost.where(:acc_setting => AccSetting.find_by(:account => @account, :smodule => smodule)).count %>
+		<% count = QueuePost.where(:acc_setting => AccSetting.find_by(:account => @account, :smodule => smodule), status_id: 1).count %>
 		<div class="waterfall-column">
       <div class="waterfall-header <%= smodule.name %>header" data-count="<%= count %>"><%= smodule.name %>: <span class="badge badge-info"><%= count %></span></div>
-      <div class="waterfall-body">
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-        <div>something</div>
-      </div>
     </div>
 		<% end %>
 
-		<!-- <table id="rss-table" class="table table-bordered table-hover table-fixed-header" data-account="<%= @account_id %>" data-cursor="0">
-			<thead>
-				<tr>
-					<th>Pool <%= link_to 'New Post', new_pool_post_path('rss', 1, @account_id), class: "btn btn-mini btn-primary" %></th>
-					<% @smodules.each do |smodule| %>
-					<% count = QueuePost.where(:acc_setting => AccSetting.find_by(:account => @account, :smodule => smodule)).count %>
-					<th class="<%= smodule.name %>header" data-count="<%= count %>"><%= smodule.name %>: <span class="badge badge-info"><%= count %></span></th>
-					<% end %>
-				</tr>
-			</thead>
-		</table> -->
 	</div>
 	<% end %>
   <div id="fixedHeader" class="row-fluid show-grid accordion waterfall"></div>
 </div> 
 
+<div id="hiddendata" class="hide" data-smodulelist='<%= @smodules.to_json.html_safe %>' data-accsettingsti='<%= @accsettingsti.to_json.html_safe %>'>Hidden data don't touch</div>

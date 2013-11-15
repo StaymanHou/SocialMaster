@@ -40,10 +40,33 @@ body.queue {
 	div.waterfall-body > div {
 		padding: 8px;
 		border-bottom: 1px solid rgb(221, 221, 221);
+		cursor: pointer;
 	}
 
 	div.waterfall-body > div:hover {
 		background: rgba(255, 255, 255, 1);
+	}
+
+	div.waterfall-body {
+
+		div[status="1"]
+		{
+		    background-image: url('../images/pending.png');
+		    background-size: 64px 64px;
+		}
+
+		div[status="2"]
+		{
+		    background-image: url('../images/posted.png');
+		    background-size: 64px 64px;
+		}
+
+		div[status="3"]
+		{
+		    background-image: url('../images/postfail.png');
+		    background-size: 64px 64px;
+		}
+
 	}
 
 }

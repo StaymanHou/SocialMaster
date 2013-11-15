@@ -1,0 +1,88 @@
+<div class="queue-post">
+  <p><%= title %></p>
+  <% if(image_file) { %>
+    <div><img src="../images/postimg/rss/<%= image_file %>" alt="[Image not found]"></div>
+  <% } else { %>
+    <div><img src="" alt="[No Image]"></div>
+  <% } %>
+  <p>
+  <% if(schedule_time) { %>
+  	<%= schedule_time.substring(0,19).replace("T"," ") %>
+  <% } else { %>
+  	Not scheduled yet
+  <% } %>
+  <% if(status_id == 1) { %>
+  <a href="#" class="btn btn-mini btn-danger pull-right destroy">Delete</a>
+  <% } %>
+  </p>
+</div>
+
+<div id="myModal<%= id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="myModalLabel">Edit Post</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form">
+      <input type="hidden" class="queue_post_status_id" name="queue_post[status_id]" value="<%= status_id %>" />
+      <input type="hidden" class="queue_post_acc_setting_id" name="queue_post[acc_setting_id]" value="<%= acc_setting_id %>" />
+      <input type="hidden" class="queue_post_pool_post_id" name="queue_post[pool_post_id]" value="<%= pool_post_id %>" />
+      <div class="control-group">
+        <label class="control-label" for="queue_post_post_type" style="display: inline">Post type</label>
+        <div class="controls" style="display: inline"><input class="queue_post_post_type" name="queue_post[post_type]" type="text" value="<%= post_type %>" /></div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="queue_post_title" style="display: inline">Title</label>
+        <div class="controls" style="display: inline"><input class="queue_post_title" name="queue_post[title]" type="text" value="<%= title %>" /></div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="queue_post_content">Content</label>
+        <div class="controls"><textarea class="queue_post_content" name="queue_post[content]" rows="4" style="width: 500px"><%= content %></textarea></div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="queue_post_extra_content">Extra content</label>
+        <div class="controls"><textarea class="queue_post_extra_content" name="queue_post[extra_content]" rows="3" style="width: 500px"><%= extra_content %></textarea></div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="queue_post_tags" style="display: inline">Tags</label>
+        <div class="controls" style="display: inline"><input class="queue_post_tags" name="queue_post[tags]" type="text" value="<%= tags %>" /></div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="queue_post_image_file" style="display: inline">Image file</label>
+        <div class="controls" style="display: inline"><input class="queue_post_image_file" name="queue_post[image_file]" type="text" value="<%= image_file %>" />
+        <% if(image_file) { %>
+          <div><br><img src="../images/postimg/rss/<%= image_file %>" alt="[Image not found]"></div>
+        <% } else { %>
+          <div><br><img src="" alt="[No Image]"></div>
+        <% } %>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <label class="control-label" for="queue_post_image_link" style="display: inline">Image link</label>
+        <div class="controls" style="display: inline"><input class="queue_post_image_link" name="queue_post[image_link]" type="text" value="<%= image_link %>" /></div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="queue_post_link" style="display: inline">Link</label>
+        <div class="controls" style="display: inline"><input class="queue_post_link" name="queue_post[link]" type="text" value="<%= link %>" /></div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="queue_post_other_field" style="display: inline">Other field</label>
+        <div class="controls" style="display: inline"><input class="queue_post_other_field" name="queue_post[other_field]" type="number" value='<%= other_field %>' /></div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="queue_post_schedule_time" style="display: inline">Schedule time</label>
+        <div class="controls" style="display: inline">
+          <div class="input-append timepicker">
+            <input class="queue_post_schedule_time" type="text" value="<% if(schedule_time) { %><%= schedule_time.substring(0,19).replace("T"," ") %><% } %>" name="queue_post[schedule_time]" data-format="MM/dd/yyyy hh:mm:ss"></input>
+            <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary save-change">Save</button>
+  </div>
+</div>

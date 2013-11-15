@@ -57,3 +57,7 @@ form.form-horizontal {
 .zeromargin {
 	margin: 0;
 }
+
+.modal img {
+	width: 500px;
+}

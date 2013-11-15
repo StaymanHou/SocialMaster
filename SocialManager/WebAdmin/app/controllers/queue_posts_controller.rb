@@ -4,7 +4,29 @@ class QueuePostsController < ApplicationController
   # GET /queue_posts
   # GET /queue_posts.json
   def index
-    @queue_posts = QueuePost.all
+    cursor = params[:cursor].to_i
+    limit = 30
+    acc_setting = AccSetting.find(params[:acc_setting_id])
+    @queue_posts_pending = acc_setting.queue_posts.order(schedule_time: :desc, id: :asc).where(status_id: 1).limit(limit).offset(cursor)
+    @queue_posts_pending ||= []
+    pending_number = @queue_posts_pending.count
+    limit -= pending_number
+    if limit == 0
+      @queue_posts = @queue_posts_pending
+    else
+      if pending_number == 0
+        total_pending_number = acc_setting.queue_posts.where(status_id: 1).count
+        cursor -= total_pending_number
+      else
+        cursor = 0
+      end
+      @queue_posts_finished = acc_setting.queue_posts.order("schedule_time DESC").where('status_id != 1').limit(limit).offset(cursor)
+      @queue_posts_finished ||= []
+      @queue_posts = @queue_posts_pending.concat @queue_posts_finished
+    end
+
+
+    # @queue_posts = QueuePost.all
   end
 
   # GET /queue_posts/1
