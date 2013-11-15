@@ -61,3 +61,10 @@ form.form-horizontal {
 .modal img {
 	width: 500px;
 }
+
+.popoverable {
+	cursor: pointer;
+	color: blue;
+	text-decoration: underline;
+	font-weight: bold;
+}

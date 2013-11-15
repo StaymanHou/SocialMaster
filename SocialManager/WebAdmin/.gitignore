@@ -17,3 +17,6 @@
 
 # Ignore all app image.
 /public/images/postimg/*
+
+# Ignore public/assets/
+/public/assets/*

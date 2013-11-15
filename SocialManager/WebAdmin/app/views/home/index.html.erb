@@ -83,7 +83,7 @@
           <div class="accordion-group">
             <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#pool-accordion" href="#pool-collapse<%= pool_post_type.title %>">
-                <span class="label label-info"><%= pool_post_type.title %>: <i><%= pool_post_type.pool_posts.count %></i></span>
+                <span class="label label-info"><%= pool_post_type.title %>: <i><%= pool_post_type.pool_posts.where(hidden: false).count %></i></span>
                 <b class="caret"></b>
               </a>
             </div>
@@ -94,7 +94,7 @@
                   <% @accounts.each do |account| %>
                     <tr>
                       <td>
-                        <%= account.name %>: <%= PoolPost.where(pool_post_type_id: pool_post_type.id, account_id: account.id).count %>
+                        <%= account.name %>: <%= PoolPost.where(pool_post_type_id: pool_post_type.id, account_id: account.id, hidden: false).count %>
                       </td>
                     </tr>
                   <% end %>

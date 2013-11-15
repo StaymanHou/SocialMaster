@@ -20,7 +20,8 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql
+  database: MyUser_test
+  username: MyUser
+  password: ZwV2pZJrVWNG5t3W
+  host: localhost
