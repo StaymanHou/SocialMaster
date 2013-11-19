@@ -16,7 +16,9 @@
   <div class="controls"><%= f.text_field :name %></div>
 </div>
 <div class="control-group">
-  <%= f.label :rss_urls, class: "control-label" %>
+  <%= f.label :rss_urls, class: "control-label" do %>
+    Rss urls <i id="rss_urls_popover" class="icon-question-sign icon-white popoverable"></i>
+  <% end %>
   <div class="controls"><%= f.text_field :rss_urls %></div>
 </div>
 <div class="control-group">
