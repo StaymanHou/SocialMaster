@@ -1,16 +1,18 @@
 class PoolPostsController < ApplicationController
   before_action :set_pool_post, only: [:show, :edit, :update, :destroy]
+  include ApplicationHelper
 
   # GET /pool_posts
   # GET /pool_posts.json
   def index
+    hidden = to_bool(params[:hidden])
     cursor = params[:cursor].to_i
     if cursor == 0
-      @pool_posts = PoolPost.order("id DESC").where("account_id = ? AND hidden = ?", params[:account_id], params[:hidden]).limit(30)
+      @pool_posts = PoolPost.order("id DESC").where("account_id = ? AND hidden = ?", params[:account_id], hidden).limit(30)
     elsif cursor > 0
-      @pool_posts = PoolPost.order("id DESC").where("account_id = ? AND hidden = ? AND id < ?", params[:account_id], params[:hidden], cursor).limit(30)
+      @pool_posts = PoolPost.order("id DESC").where("account_id = ? AND hidden = ? AND id < ?", params[:account_id], hidden, cursor).limit(30)
     elsif cursor == -1
-      @pool_posts = PoolPost.order("id ASC").where("account_id = ? AND hidden = ? AND id > ?", params[:account_id], params[:hidden], params[:latest].to_i)
+      @pool_posts = PoolPost.order("id ASC").where("account_id = ? AND hidden = ? AND id > ?", params[:account_id], hidden, params[:latest].to_i)
     end
   end
 
