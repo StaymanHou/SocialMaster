@@ -1,0 +1,16 @@
+# Compiled source #
+###################
+*.pyc
+# Backup & Temp #
+#################
+*.~
+# Log #
+#######
+log.txt
+log*.txt
+# Unittest #
+############
+*test.py
+# Setting #
+###########
+settings.py
