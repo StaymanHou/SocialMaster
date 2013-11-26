@@ -5,6 +5,7 @@ import requests
 import logging
 import json
 from lxml import etree
+import traceback
 from ..MyQueue import *
 from ..RssPost import *
 from ..Tags import *
@@ -28,7 +29,7 @@ class handler(basicposterhandler):
             if lastrp['id'] is None: return
             myqueue['status_id'] = STATUS_DICT['Pending']
             myqueue['acc_setting_id'] = accset['id']
-            myqueue['type'] = 2
+            myqueue['post_type'] = 2
             myqueue['title'] = lastrp['title']
             myqueue['content'] = lastrp['description']
             myqueue['extra_content'] = accset['extra_content']
@@ -42,7 +43,7 @@ class handler(basicposterhandler):
             if 'link_anchor_text' in accset['other_setting']: link_anchor_text = accset['other_setting']['link_anchor_text']
             myqueue['other_field'] = {'blog_name': blog_name,'link_anchor_text': link_anchor_text}
             myqueue['pool_post_id'] = lastrp['id']
-            if (myqueue['image_file'] is None) or (myqueue['image_file']==''): myqueue['type'] = 1
+            if (myqueue['image_file'] is None) or (myqueue['image_file']==''): myqueue['post_type'] = 1
             myqueue.save()
             return
         else:
@@ -53,8 +54,8 @@ class handler(basicposterhandler):
     def post_handle(self, accset, queueitem, imgdir, load_iteration=1):
         try:
             self.inner_handle(accset, queueitem, imgdir, load_iteration)
-        except Exception, e:
-            logging.warning('tumblr post handle error: %s'%str(e))
+        except Exception:
+            logging.warning('tumblr post handle error: %s'%str(traceback.format_exc()))
             return 0
         else:
             return 1
@@ -119,7 +120,7 @@ class handler(basicposterhandler):
         if ('blog_name' in queueitem['other_field']) and (queueitem['other_field']['blog_name'] is not None) and (queueitem['other_field']['blog_name'].strip()!=''):
             blog_name = queueitem['other_field']['blog_name'].strip()
         sleep(load_iteration)
-        if (queueitem['type']==2) and (ueueitem['image_link']):
+        if (queueitem['post_type']==2) and (ueueitem['image_link']):
             # type 2 = photo
             link_anchor_text = queueitem['link']
             if ('link_anchor_text' in accset['other_setting'] and accset['other_setting']['link_anchor_text'] is not None and accset['other_setting']['link_anchor_text'].strip()!=''):

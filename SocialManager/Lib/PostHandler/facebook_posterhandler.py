@@ -8,6 +8,7 @@ from lxml import etree
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import logging
+import traceback
 from ..MyQueue import *
 from ..RssPost import *
 from ..Tags import *
@@ -31,7 +32,7 @@ class handler(basicposterhandler):
             if lastrp['id'] is None: return
             myqueue['status_id'] = STATUS_DICT['Pending']
             myqueue['acc_setting_id'] = acc['id']
-            myqueue['type'] = 2
+            myqueue['post_type'] = 2
             myqueue['title'] = lastrp['title']
             myqueue['content'] = lastrp['title']
             myqueue['tags'] = lastrp['tags']
@@ -39,7 +40,7 @@ class handler(basicposterhandler):
             myqueue['image_file'] = lastrp['image_file']
             myqueue['image_link'] = lastrp['image_link']
             myqueue['pool_post_id'] = lastrp['id']
-            if (myqueue['image_file'] is None) or (myqueue['image_file']==''): myqueue['type'] = 1
+            if (myqueue['image_file'] is None) or (myqueue['image_file']==''): myqueue['post_type'] = 1
             myqueue.save()
             return
         else:
@@ -57,15 +58,15 @@ class handler(basicposterhandler):
             return 0
 
         flag_close_browser = False
-        if (queueitem['type']==2) and (queueitem['image_file'] is not None) and (queueitem['image_file'].strip()!=''):
+        if (queueitem['post_type']==2) and (queueitem['image_file'] is not None) and (queueitem['image_file'].strip()!=''):
             pass
         else:
             self.browser = webdriver.Firefox()
             flag_close_browser = True
         try:
             self.inner_handle(accset, queueitem, imgdir, load_iteration)
-        except Exception, e:
-            logging.warning('post handle error: %s'%str(e))
+        except Exception:
+            logging.warning('post handle error: %s'%str(traceback.format_exc()))
             return 0
         else:
             return 1
@@ -74,7 +75,7 @@ class handler(basicposterhandler):
                 self.browser.quit()
 
     def inner_handle(self, accset, queueitem, imgdir, load_iteration=1):
-        if (queueitem['type']==2) and (queueitem['image_file'] is not None) and (queueitem['image_file'].strip()!=''):
+        if (queueitem['post_type']==2) and (queueitem['image_file'] is not None) and (queueitem['image_file'].strip()!=''):
             # type image
             
             imgfile = open(imgdir+queueitem['image_file'], 'rb')

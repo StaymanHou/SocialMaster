@@ -24,3 +24,10 @@ class Account(object):
         return acclst
 
     GetActiveList = staticmethod(StaticGetActiveList)
+
+    def StaticSetLastUpdate(id, last_update):
+        Mydb.MydbExec(("UPDATE accounts SET LAST_UPDATE = %s WHERE id = %s",(last_update, id)))
+        return
+
+    SetLastUpdate = staticmethod(StaticSetLastUpdate)
+

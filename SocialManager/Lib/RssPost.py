@@ -83,3 +83,7 @@ class RssPost(object):
         return rsspost
         
     GetLatest = staticmethod(StaticGetLatest)
+
+    def Put(self):
+        Mydb.MydbExec(("INSERT INTO pool_posts(account_id, pool_post_type_id, hidden, title, description, content, tags, image_file, image_link, link, social_score, created_at) VALUES(%s, 1, 0, %s, %s, %s, %s, %s, %s, %s, %s, %s)",(self.fields['account_id'], self.fields['title'].encode('utf-8'), self.fields['description'].encode('utf-8'), self.fields['content'].encode('utf-8'), self.fields['tags'], self.fields['image_file'], self.fields['image_link'], self.fields['link'], self.fields['social_score'], self.fields['created_at'])))
+        return 

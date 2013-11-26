@@ -50,7 +50,8 @@ class basicrsshand(object):
         return
 
     def getcontent(self, tag_limit):
-        tag_limit = int(tag_limit)
+        if tag_limit: tag_limit = int(tag_limit)
+        else: tag_limit = 0
         try: r = requests.get(self.rsspost['link'])
         except: return
         if r.status_code!=200: return

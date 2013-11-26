@@ -6,6 +6,7 @@ import urllib
 import twitter_requests
 import re
 import logging
+import traceback
 from ..MyQueue import *
 from ..RssPost import *
 from ..Tags import *
@@ -29,7 +30,7 @@ class handler(basicposterhandler):
             if lastrp['id'] is None: return
             myqueue['status_id'] = STATUS_DICT['Pending']
             myqueue['acc_setting_id'] = accset['acc_setting_id']
-            myqueue['type'] = 2
+            myqueue['post_type'] = 2
             myqueue['title'] = lastrp['title']
             myqueue['extra_content'] = accset['extra_content']
             myqueue['tags'] = lastrp['tags']
@@ -37,7 +38,7 @@ class handler(basicposterhandler):
             myqueue['image_file'] = lastrp['image_file']
             myqueue['image_link'] = lastrp['image_link']
             myqueue['pool_post_id'] = lastrp['id']
-            if (myqueue['image_file'] is None) or (myqueue['image_file']==''): myqueue['type'] = 1
+            if (myqueue['image_file'] is None) or (myqueue['image_file']==''): myqueue['post_type'] = 1
             myqueue.save()
             return
         else:
@@ -48,15 +49,15 @@ class handler(basicposterhandler):
     def post_handle(self, accset, queueitem, imgdir, load_iteration=1):
         try:
             self.inner_handle(accset, queueitem, imgdir, load_iteration)
-        except Exception, e:
-            logging.warning('post handle error: %s'%str(e))
+        except Exception:
+            logging.warning('post handle error: %s'%str(traceback.format_exc()))
             return 0
         else:
             return 1
 
     def inner_handle(self, accset, queueitem, imgdir, load_iteration=1):
         # validate
-        if queueitem['type']==2:
+        if queueitem['post_type']==2:
             imgfile = open(imgdir+queueitem['image_file'], 'rb').read()
 
         s = twitter_requests.Session()
@@ -83,7 +84,7 @@ class handler(basicposterhandler):
             raise Exception('unexpected response: %s : %s'%(url, r.status_code))
         sleep(load_iteration)
         # type 1: text tweet
-        if queueitem['type']==1:
+        if queueitem['post_type']==1:
             if (queueitem['extra_content'] is None or queueitem['extra_content'].strip()==''):
                 extra_content = ''
             else:
@@ -99,7 +100,7 @@ class handler(basicposterhandler):
             if r.status_code!=200:
                 raise Exception('unexpected response: %s : %s'%(url, r.status_code))
             # type 2: tweet with image
-        elif queueitem['type']==2:
+        elif queueitem['post_type']==2:
             if (queueitem['extra_content'] is None or queueitem['extra_content'].strip()==''):
                 extra_content = ''
             else:
@@ -124,5 +125,5 @@ class handler(basicposterhandler):
             if r.status_code!=200:
                 raise Exception('unexpected response: %s : %s'%(url, r.status_code))
         else:
-            raise Exception('wrong type: %d'%queueitem['type'])
+            raise Exception('wrong type: %d'%queueitem['post_type'])
         return

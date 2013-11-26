@@ -6,6 +6,7 @@ import requests
 import re
 import logging
 import json
+import traceback
 from ..MyQueue import *
 from ..RssPost import *
 from ..Tags import *
@@ -42,7 +43,7 @@ class handler(basicposterhandler):
             if lastrp['id'] is None: return
             myqueue['status_id'] = STATUS_DICT['Pending']
             myqueue['acc_setting_id'] = acc['id']
-            myqueue['type'] = 2
+            myqueue['post_type'] = 2
             myqueue['title'] = lastrp['title']
             myqueue['content'] = lastrp['description']
             myqueue['tags'] = lastrp['tags']
@@ -60,8 +61,8 @@ class handler(basicposterhandler):
     def post_handle(self, accset, queueitem, imgdir, load_iteration=1):
         try:
             self.inner_handle(accset, queueitem, imgdir, load_iteration)
-        except Exception, e:
-            logging.warning('post handle error: %s'%str(e))
+        except Exception:
+            logging.warning('post handle error: %s'%str(traceback.format_exc()))
             return 0
         else:
             return 1

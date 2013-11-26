@@ -3,6 +3,7 @@ from PyUserInput.pykeyboard import PyKeyboard
 from basic_posterhandler import *
 from selenium import webdriver
 import logging
+import traceback
 from ..MyQueue import *
 from ..RssPost import *
 from ..Tags import *
@@ -27,7 +28,7 @@ class handler(basicposterhandler):
 			if lastrp['id'] is None: return
 			myqueue['status_id'] = STATUS_DICT['Pending']
 			myqueue['acc_setting_id'] = acc['id']
-			myqueue['type'] = 1
+			myqueue['post_type'] = 1
 			myqueue['title'] = lastrp['title']
 			myqueue['content'] = lastrp['title']
 			myqueue['tags'] = lastrp['tags']
@@ -47,8 +48,8 @@ class handler(basicposterhandler):
 		self.browser = webdriver.Firefox()
 		try:
 			self.inner_handle(accset, queueitem, imgdir, load_iteration)
-		except Exception, e:
-			logging.warn('post handle error: %s'%str(e))
+		except Exception:
+			logging.warn('post handle error: %s'%str(traceback.format_exc()))
 			return 0
 		else:
 			return 1
@@ -70,7 +71,7 @@ class handler(basicposterhandler):
 		elem.click()
 		sleep(10)
 		self.browser.switch_to_frame(self.browser.find_element_by_xpath('//iframe[../../div/div[1]/a/div/text()="Share"]'))
-		if (queueitem['type'] == 2) and (queueitem['image_file'] is not None) and (queueitem['image_file'].strip()!=''):
+		if (queueitem['post_type'] == 2) and (queueitem['image_file'] is not None) and (queueitem['image_file'].strip()!=''):
 			# type 2 photo
 			elem = self.browser.find_element_by_xpath('//span[@title="Add photos"]')
 			elem.click()
