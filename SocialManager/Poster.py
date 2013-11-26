@@ -36,25 +36,24 @@ logger.addHandler(fh)
 print 'Starting Poster'
 
 while 1:
-    Config = MainConf.Get()
     AccLst = Account.GetActiveList()
     ModLst = Module.GetActiveList()
     for Acc in AccLst:
         for Mod in ModLst:
-            AccSet = AccSetting.GetByAccAndMod(Acc['PK'], Mod['PK'])
+            AccSet = AccSetting.GetByAccAndMod(Acc['id'], Mod['id'])
             if (AccSet is None) or (len(AccSet)==0):
-                logging.warning('Fail to load account setting: %s %s'%(Acc['NAME'], Mod['NAME']))
+                logging.warning('Fail to load account setting: %s %s'%(Acc['name'], Mod['name']))
                 continue
-            if AccSet['ACTIVE']==False: continue
-            modname = 'Lib.PostHandler.'+Mod['NAME']+'_posterhandler'
+            if AccSet['active']==False: continue
+            modname = 'Lib.PostHandler.'+Mod['name']+'_posterhandler'
             try:
                 mod = __import__(modname, fromlist=[''])
                 handler = mod.handler()
             except Exception, e:
-                logging.warning('Fail to load poster module: %s : %s'%(Mod['NAME'], e))
+                logging.warning('Fail to load poster module: %s : %s'%(Mod['name'], e))
                 continue
-            handler.handle(Acc, AccSet, Config['IMAGE_FILE_DIR'])
-    sleep(Config['POSTER_ITERATION'])
+            handler.handle(Acc, AccSet, MainConf['IMAGE_FILE_DIR'])
+    sleep(MainConf['POSTER_ITERATION'])
 
 print 'Exiting Poster'
 

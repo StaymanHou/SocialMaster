@@ -18,31 +18,31 @@ class handler(basicposterhandler):
 
     # override
     def auto_mode_handle(self, acc, accset, am):
-        if am['CODE']==1:
+        if am['id']==1:
             return
-        elif am['CODE']==2:
+        elif am['id']==2:
             myqueue = MyQueue()
-            myqueue.GetPendingFirst(acc['PK'], am['MODULE'])
-            if myqueue['PK'] is not None: return
-            lastrp = RssPost.GetLatest(acc['PK'], am['MODULE'])
-            if lastrp['PK'] is None: return
-            myqueue['STATUS'] = STATUS_DICT['Pending']
-            myqueue['ACCOUNT'] = acc['PK']
-            myqueue['MODULE'] = am['MODULE']
-            myqueue['TYPE'] = 2
-            myqueue['TITLE'] = lastrp['TITLE']
-            myqueue['CONTENT'] = lastrp['DESCRIPTION']
-            myqueue['EXTRA_CONTENT'] = accset['EXTRA_CONTENT']
-            myqueue['TAG'] = lastrp['TAG']
-            myqueue['LINK'] = lastrp['LINK']
-            myqueue['IMAGE_FILE'] = lastrp['IMAGE_FILE']
+            myqueue.GetPendingFirst(accset['id'])
+            if myqueue['id'] is not None: return
+            lastrp = RssPost.GetLatest(acc['id'], accset['smodule_id'])
+            if lastrp['id'] is None: return
+            myqueue['status_id'] = STATUS_DICT['Pending']
+            myqueue['acc_setting_id'] = accset['id']
+            myqueue['type'] = 2
+            myqueue['title'] = lastrp['title']
+            myqueue['content'] = lastrp['description']
+            myqueue['extra_content'] = accset['extra_content']
+            myqueue['tags'] = lastrp['tags']
+            myqueue['link'] = lastrp['link']
+            myqueue['image_file'] = lastrp['image_file']
+            myqueue['image_link'] = lastrp['image_link']
             blog_name = ''
-            if 'blog_name' in accset['OTHER_SETTING']: blog_name = accset['OTHER_SETTING']['blog_name']
+            if 'blog_name' in accset['other_setting']: blog_name = accset['other_setting']['blog_name']
             link_anchor_text = ''
-            if 'link_anchor_text' in accset['OTHER_SETTING']: link_anchor_text = accset['OTHER_SETTING']['link_anchor_text']
-            myqueue['OTHER_FIELD'] = {'blog_name': blog_name,'image_link': lastrp['IMAGE_LINK'],'link_anchor_text': link_anchor_text}
-            myqueue['RSS_SOURCE_PK'] = lastrp['PK']
-            if (myqueue['IMAGE_FILE'] is None) or (myqueue['IMAGE_FILE']==''): myqueue['TYPE'] = 1
+            if 'link_anchor_text' in accset['other_setting']: link_anchor_text = accset['other_setting']['link_anchor_text']
+            myqueue['other_field'] = {'blog_name': blog_name,'link_anchor_text': link_anchor_text}
+            myqueue['pool_post_id'] = lastrp['id']
+            if (myqueue['image_file'] is None) or (myqueue['image_file']==''): myqueue['type'] = 1
             myqueue.save()
             return
         else:
@@ -85,8 +85,8 @@ class handler(basicposterhandler):
         addcookie = {'capture': capture}
         # login
         url = 'https://www.tumblr.com/login'
-        payload = {'user[password]': accset['PSWD'],
-                   'user[email]': accset['USERNAME'],
+        payload = {'user[password]': accset['password'],
+                   'user[email]': accset['username'],
                    'user[age]': '',
                    'used_suggestion': '0',
                    'tumblelog[name]': '',
@@ -114,21 +114,21 @@ class handler(basicposterhandler):
         if len(elem)==0:
             raise Exception('can\'t get //form[@id="search_form"]/input[@name="t"]')
         blog_name = elem[0].get('value')
-        if ('blog_name' in accset['OTHER_SETTING']) and (accset['OTHER_SETTING']['blog_name'] is not None) and (accset['OTHER_SETTING']['blog_name'].strip()!=''):
-            blog_name = accset['OTHER_SETTING']['blog_name'].strip()        
-        if ('blog_name' in queueitem['OTHER_FIELD']) and (queueitem['OTHER_FIELD']['blog_name'] is not None) and (queueitem['OTHER_FIELD']['blog_name'].strip()!=''):
-            blog_name = queueitem['OTHER_FIELD']['blog_name'].strip()
+        if ('blog_name' in accset['other_setting']) and (accset['other_setting']['blog_name'] is not None) and (accset['other_setting']['blog_name'].strip()!=''):
+            blog_name = accset['other_setting']['blog_name'].strip()        
+        if ('blog_name' in queueitem['other_field']) and (queueitem['other_field']['blog_name'] is not None) and (queueitem['other_field']['blog_name'].strip()!=''):
+            blog_name = queueitem['other_field']['blog_name'].strip()
         sleep(load_iteration)
-        if (queueitem['TYPE']==2) and ('image_link' in queueitem['OTHER_FIELD']) and (queueitem['OTHER_FIELD']['image_link'] is not None) and (queueitem['OTHER_FIELD']['image_link'].strip()!=''):
+        if (queueitem['type']==2) and (ueueitem['image_link']):
             # type 2 = photo
-            link_anchor_text = queueitem['LINK']
-            if ('link_anchor_text' in accset['OTHER_SETTING'] and accset['OTHER_SETTING']['link_anchor_text'] is not None and accset['OTHER_SETTING']['link_anchor_text'].strip()!=''):
-                link_anchor_text = accset['OTHER_SETTING']['link_anchor_text'].strip()
-            if ('link_anchor_text' in queueitem['OTHER_FIELD'] and queueitem['OTHER_FIELD']['link_anchor_text'] is not None and queueitem['OTHER_FIELD']['link_anchor_text'].strip()!=''):
-                link_anchor_text = queueitem['OTHER_FIELD']['link_anchor_text'].strip()
-            content = '<p><strong>'+queueitem['TITLE']+'</strong></p><p></p>'+queueitem['CONTENT']+'<p><em><a href="'+queueitem['LINK']+'">'+link_anchor_text+'</a></em></p>'+queueitem['EXTRA_CONTENT']
-            if queueitem['TAG'] is None: tag = ''
-            else: tag = ','.join([tag.strip() for tag in queueitem['TAG'].split(',')])
+            link_anchor_text = queueitem['link']
+            if ('link_anchor_text' in accset['other_setting'] and accset['other_setting']['link_anchor_text'] is not None and accset['other_setting']['link_anchor_text'].strip()!=''):
+                link_anchor_text = accset['other_setting']['link_anchor_text'].strip()
+            if ('link_anchor_text' in queueitem['other_field'] and queueitem['other_field']['link_anchor_text'] is not None and queueitem['other_field']['link_anchor_text'].strip()!=''):
+                link_anchor_text = queueitem['other_field']['link_anchor_text'].strip()
+            content = '<p><strong>'+queueitem['title']+'</strong></p><p></p>'+queueitem['content']+'<p><em><a href="'+queueitem['link']+'">'+link_anchor_text+'</a></em></p>'+queueitem['extra_content']
+            if queueitem['tags'] is None: tag = ''
+            else: tag = ','.join([tag.strip() for tag in queueitem['tags'].split(',')])
             url = 'http://www.tumblr.com/svc/post/update'
             payload = {'form_key': form_key,
                        'context_id': blog_name,
@@ -141,7 +141,7 @@ class handler(basicposterhandler):
                        'post[slug]': '',
                        'post[source_url]': 'http://',
                        'post[date]': '',
-                       'post[three]': queueitem['LINK'],# click through link
+                       'post[three]': queueitem['link'],# click through link
                        'MAX_FILE_SIZE': '10485760',
                        'post[type]': 'photo',
                        'post[two]': content,# content
@@ -150,7 +150,7 @@ class handler(basicposterhandler):
                        'post[state]': '0',
                        'post[photoset_layout]': '1',
                        'post[photoset_order]': 'o1',
-                       'images[o1]': queueitem['OTHER_FIELD']['image_link']}
+                       'images[o1]': queueitem['image_link']}
             headers = {'Content-type': 'application/json', 'Accept': 'application/json, text/javascript, */*'}
             r = s.post(url, data=json.dumps(payload), headers=headers)
             if r.status_code!=200:
@@ -165,7 +165,7 @@ class handler(basicposterhandler):
             # get data of link
             url = 'http://www.tumblr.com/svc/post/fetch_og'
             payload = {'form_key': form_key,
-                       'url': queueitem['LINK']}
+                       'url': queueitem['link']}
             headers = {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
             r = s.post(url, data=urllib.urlencode(payload), headers=headers)           
             if r.status_code!=200:
@@ -173,11 +173,11 @@ class handler(basicposterhandler):
             response_json = json.loads(r.text)
             # organize content
             thumbnail = ''
-            if ('image_link' in queueitem['OTHER_FIELD']) and (queueitem['OTHER_FIELD']['image_link'] is not None) and (queueitem['OTHER_FIELD']['image_link'].strip()!=''): thumbnail = queueitem['OTHER_FIELD']['image_link'].strip()
-            title = queueitem['TITLE']
-            content = queueitem['CONTENT']
-            if queueitem['TAG'] is None: tag = ''
-            else: tag = ','.join([tag.strip() for tag in queueitem['TAG'].split(',')])
+            if ('image_link' in queueitem['other_field']) and (queueitem['other_field']['image_link'] is not None) and (queueitem['other_field']['image_link'].strip()!=''): thumbnail = queueitem['other_field']['image_link'].strip()
+            title = queueitem['title']
+            content = queueitem['content']
+            if queueitem['tags'] is None: tag = ''
+            else: tag = ','.join([tag.strip() for tag in queueitem['tags'].split(',')])
             if thumbnail is None or thumbnail.strip() == '':
                 if 'image' in response_json['response'] and response_json['response']['image'].strip() != '': thumbnail = response_json['response']['image']
                 else: thumbnail = ''
@@ -189,7 +189,7 @@ class handler(basicposterhandler):
                     content = response_json['response']['description']
                     content = ''.join(['<p>'+par.strip()+'</p>' for par in content.split('\n')])
                 else: content = ''  
-            content += queueitem['EXTRA_CONTENT']
+            content += queueitem['extra_content']
             # post
             url = 'http://www.tumblr.com/svc/post/update'
             payload = {'form_key': form_key,
@@ -208,7 +208,7 @@ class handler(basicposterhandler):
                        'remove_thumbnail': '',
                        'thumbnail_pre_upload': '1',
                        'thumbnail': thumbnail,
-                       'post[two]': queueitem['LINK'],
+                       'post[two]': queueitem['link'],
                        'post[one]': title,#title
                        'post[three]': content,#content change
                        'post[tags]': tag,# change what if 2, ','.join

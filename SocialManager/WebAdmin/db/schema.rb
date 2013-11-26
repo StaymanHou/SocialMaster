@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131112184516) do
+ActiveRecord::Schema.define(version: 20131126162312) do
 
   create_table "acc_settings", force: true do |t|
     t.integer  "account_id"
@@ -31,9 +31,9 @@ ActiveRecord::Schema.define(version: 20131112184516) do
     t.datetime "updated_at"
   end
 
-  add_index "acc_settings", ["account_id"], name: "index_acc_settings_on_account_id"
-  add_index "acc_settings", ["auto_mode_id"], name: "index_acc_settings_on_auto_mode_id"
-  add_index "acc_settings", ["smodule_id"], name: "index_acc_settings_on_smodule_id"
+  add_index "acc_settings", ["account_id"], name: "index_acc_settings_on_account_id", using: :btree
+  add_index "acc_settings", ["auto_mode_id"], name: "index_acc_settings_on_auto_mode_id", using: :btree
+  add_index "acc_settings", ["smodule_id"], name: "index_acc_settings_on_smodule_id", using: :btree
 
   create_table "accounts", force: true do |t|
     t.string   "name"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20131112184516) do
     t.boolean  "deleted"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "tag_limit"
   end
 
   create_table "auto_modes", force: true do |t|
@@ -74,9 +75,9 @@ ActiveRecord::Schema.define(version: 20131112184516) do
     t.datetime "updated_at"
   end
 
-  add_index "pool_posts", ["account_id"], name: "index_pool_posts_on_account_id"
-  add_index "pool_posts", ["pool_post_type_id"], name: "index_pool_posts_on_pool_post_type_id"
-  add_index "pool_posts", ["site_id"], name: "index_pool_posts_on_site_id"
+  add_index "pool_posts", ["account_id"], name: "index_pool_posts_on_account_id", using: :btree
+  add_index "pool_posts", ["pool_post_type_id"], name: "index_pool_posts_on_pool_post_type_id", using: :btree
+  add_index "pool_posts", ["site_id"], name: "index_pool_posts_on_site_id", using: :btree
 
   create_table "post_data", force: true do |t|
     t.integer  "acc_setting_id"
@@ -93,7 +94,7 @@ ActiveRecord::Schema.define(version: 20131112184516) do
     t.datetime "updated_at"
   end
 
-  add_index "post_data", ["acc_setting_id"], name: "index_post_data_on_acc_setting_id"
+  add_index "post_data", ["acc_setting_id"], name: "index_post_data_on_acc_setting_id", using: :btree
 
   create_table "queue_posts", force: true do |t|
     t.integer  "status_id"
@@ -113,9 +114,9 @@ ActiveRecord::Schema.define(version: 20131112184516) do
     t.string   "image_link"
   end
 
-  add_index "queue_posts", ["acc_setting_id"], name: "index_queue_posts_on_acc_setting_id"
-  add_index "queue_posts", ["pool_post_id"], name: "index_queue_posts_on_pool_post_id"
-  add_index "queue_posts", ["status_id"], name: "index_queue_posts_on_status_id"
+  add_index "queue_posts", ["acc_setting_id"], name: "index_queue_posts_on_acc_setting_id", using: :btree
+  add_index "queue_posts", ["pool_post_id"], name: "index_queue_posts_on_pool_post_id", using: :btree
+  add_index "queue_posts", ["status_id"], name: "index_queue_posts_on_status_id", using: :btree
 
   create_table "site_categories", force: true do |t|
     t.string   "name"
@@ -130,7 +131,7 @@ ActiveRecord::Schema.define(version: 20131112184516) do
     t.datetime "updated_at"
   end
 
-  add_index "sites", ["site_category_id"], name: "index_sites_on_site_category_id"
+  add_index "sites", ["site_category_id"], name: "index_sites_on_site_category_id", using: :btree
 
   create_table "smodules", force: true do |t|
     t.string   "name"
@@ -151,6 +152,25 @@ ActiveRecord::Schema.define(version: 20131112184516) do
     t.datetime "updated_at"
   end
 
-  add_index "tags", ["site_id"], name: "index_tags_on_site_id"
+  add_index "tags", ["site_id"], name: "index_tags_on_site_id", using: :btree
+
+  create_table "users", force: true do |t|
+    t.string   "username"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

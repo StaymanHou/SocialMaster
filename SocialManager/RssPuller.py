@@ -37,16 +37,15 @@ logger.addHandler(fh)
 print 'Starting RssPuller'
 
 while 1:
-    Config = MainConf.Get()
     AccLst = Account.GetActiveList()
     for Acc in AccLst:
-        if Acc['LAST_UPDATE']==None:
-            Acc['LAST_UPDATE'] = datetime.now() - timedelta(days=7)
-        rss_urls = [ rss_url.strip() for rss_url in Acc['RSS_URL'].split(',') ]
+        if Acc['last_update']==None:
+            Acc['last_update'] = datetime.now() - timedelta(days=7)
+        rss_urls = [ rss_url.strip() for rss_url in Acc['rss_urls'].split(',') ]
         for rss_url in rss_urls:
             try: d = feedparser.parse(rss_url)
             except:
-                logging.warning('Can\'t get the following feed: '+Acc['RSS_URL'])
+                logging.warning('Can\'t get the following feed: '+Acc['rss_urls'])
                 continue
             domain = domainFromUrl(rss_url)
             modname = 'Lib.RssHandler.basic_rsshandler'
@@ -57,10 +56,10 @@ while 1:
                     break
             mod = __import__(modname, fromlist=[''])
             handler = mod.myrsshand()
-            handler.handle(d, Acc, Config['IMAGE_FILE_DIR'])
+            handler.handle(d, Acc, MainConf['IMAGE_FILE_DIR'])
         last_update = datetime.now()
-        Account.SetLastUpdate(Acc['PK'], last_update)
-    sleep(Config['PULLER_ITERATION'])
+        Account.SetLastUpdate(Acc['id'], last_update)
+    sleep(MainConf['PULLER_ITERATION'])
 
 print 'Exiting RssPuller'
 

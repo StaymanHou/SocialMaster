@@ -32,30 +32,24 @@ class handler(basicposterhandler):
 
     # override
     def auto_mode_handle(self, acc, accset, am):
-        if am['CODE']==1:
+        if am['id']==1:
             return
-        elif am['CODE']==2:
+        elif am['id']==2:
             myqueue = MyQueue()
-            myqueue.GetPendingFirst(acc['PK'], am['MODULE'])
-            if myqueue['PK'] is not None: return
-            lastrp = RssPost.GetLatest(acc['PK'], am['MODULE'], require_image=True)
-            if lastrp['PK'] is None: return
-            myqueue['STATUS'] = STATUS_DICT['Pending']
-            myqueue['ACCOUNT'] = acc['PK']
-            myqueue['MODULE'] = am['MODULE']
-            myqueue['TYPE'] = 1
-            myqueue['TITLE'] = lastrp['TITLE']
-            myqueue['CONTENT'] = lastrp['DESCRIPTION']
-            myqueue['TAG'] = lastrp['TAG']
-            myqueue['LINK'] = lastrp['LINK']
-            myqueue['IMAGE_FILE'] = lastrp['IMAGE_FILE']
-            board_name = ''
-            if 'board_name' in accset['OTHER_SETTING']: board_name = accset['OTHER_SETTING']['board_name']
-            maptaglist = Tags.GetMapTagList(lastrp['TAG'])
-            if maptaglist is not None and len(maptaglist)>0:
-                board_name = maptaglist[0]
-            myqueue['OTHER_FIELD'] = {'image_link': lastrp['IMAGE_LINK'],'board_name': board_name}
-            myqueue['RSS_SOURCE_PK'] = lastrp['PK']
+            myqueue.GetPendingFirst(accset['id'])
+            if myqueue['id'] is not None: return
+            lastrp = RssPost.GetLatest(acc['id'], accset['smodule_id'], require_image=True)
+            if lastrp['id'] is None: return
+            myqueue['status_id'] = STATUS_DICT['Pending']
+            myqueue['acc_setting_id'] = acc['id']
+            myqueue['type'] = 2
+            myqueue['title'] = lastrp['title']
+            myqueue['content'] = lastrp['description']
+            myqueue['tags'] = lastrp['tags']
+            myqueue['link'] = lastrp['link']
+            myqueue['image_file'] = lastrp['image_file']
+            myqueue['image_link'] = lastrp['image_link']
+            myqueue['pool_post_id'] = lastrp['id']
             myqueue.save()
             return
         else:
@@ -92,7 +86,7 @@ class handler(basicposterhandler):
         sleep(load_iteration)
         # login
         url = 'https://www.pinterest.com/resource/UserSessionResource/create/'
-        payload = 'data={"options":{"username_or_email":"'+accset['USERNAME']+'","password":"'+accset['PSWD']+'"},"context":{"app_version":"'+app_version+'"}}&source_url=/login/&module_path=App()>LoginPage()>Login()>Button('
+        payload = 'data={"options":{"username_or_email":"'+accset['username']+'","password":"'+accset['password']+'"},"context":{"app_version":"'+app_version+'"}}&source_url=/login/&module_path=App()>LoginPage()>Login()>Button('
         payload = urllib.quote_plus(payload).replace('%28','(').replace('%29',')').replace('%3D','=').replace('%26','&')+'class_name%3Dprimary%2C+text%3DLog+in%2C+type%3Dsubmit%2C+tagName%3Dbutton%2C+size%3Dlarge)'
         headers['Referer'] = 'https://www.pinterest.com/login'
         r = s.post(url, data=payload, headers=headers)
@@ -116,17 +110,17 @@ class handler(basicposterhandler):
         if len(board_dict)==0:
             raise Exception('can\'t find any board')
         board_id = board_dict.values()[0]
-        if 'board_name' in accset['OTHER_SETTING'] and accset['OTHER_SETTING']['board_name'] in board_dict:
-            board_id = board_dict[accset['OTHER_SETTING']['board_name']]
+        if 'board_name' in accset['other_setting'] and accset['other_setting']['board_name'] in board_dict:
+            board_id = board_dict[accset['other_setting']['board_name']]
         if 'board_name' in queueitem['OTHER_FIELD'] and queueitem['OTHER_FIELD']['board_name'] in board_dict:
             board_id = board_dict[queueitem['OTHER_FIELD']['board_name']]
         # pin
         description = ''
-        if queueitem['TITLE'] is not None and len(queueitem['TITLE'].strip())>0: description += addhashtag(queueitem['TITLE'], queueitem['TAG'], mode = 1)+' '
-        # removed according to  the customers request: if queueitem['CONTENT'] is not None and len(queueitem['CONTENT'].strip())>0: description += addhashtag(queueitem['CONTENT'], queueitem['TAG'])+' | '
-        link = str(queueitem['LINK'])
+        if queueitem['title'] is not None and len(queueitem['title'].strip())>0: description += addhashtag(queueitem['title'], queueitem['tags'], mode = 1)+' '
+        # removed according to  the customers request: if queueitem['content'] is not None and len(queueitem['content'].strip())>0: description += addhashtag(queueitem['content'], queueitem['tags'])+' | '
+        link = str(queueitem['link'])
         description += 'More: '+link
-        image_link = queueitem['OTHER_FIELD']['image_link']
+        image_link = queueitem['image_link']
         url = 'http://www.pinterest.com/resource/PinResource/create/'
         urlencodedlink = urllib.quote_plus(link)
         payload = {'data':{'options':{'board_id': board_id.encode('ascii','replace'),

@@ -1,4 +1,3 @@
-import MySQLdb
 import Mydb
 import string
 import re
@@ -33,21 +32,20 @@ def ngrams(text, n):
 
 class Tags(object):
     def __init__(self):
-        self.pk=None
+        self.id=None
         self.fields={}
-        self.fields['TITLE'] = None
-        self.fields['MAP_TAG'] = None
+        self.fields['str'] = None
 	
     def __getitem__(self,field):
-        if field == 'PK':
-            return self.pk
+        if field == 'id':
+            return self.id
         else:
             if field in self.fields:
                 return self.fields[field]
 
     def __setitem__(self,field,value):
-        if field == 'PK':
-            self.pk = value
+        if field == 'id':
+            self.id = value
         else:
             self.fields[field] = value
     
@@ -59,10 +57,10 @@ class Tags(object):
             tokens = ngrams(text, gram_n)
             if len(tokens)==0: continue
             fmtstr = ','.join(['%s']*len(tokens))
-            cur = Mydb.MydbExec(("SELECT TITLE FROM tags WHERE TITLE IN (%s)"%fmtstr, tuple(tokens)))
+            cur = Mydb.MydbExec(("SELECT str FROM tags WHERE str IN (%s)"%fmtstr, tuple(tokens)))
             if cur.rowcount:
                 rows = cur.fetchall()
-                tags.extend([row['TITLE'] for row in rows if 'TITLE' in row])
+                tags.extend([row['str'] for row in rows if 'str' in row])
         return tags
     
     ParseTags = staticmethod(StaticParseTags)
@@ -71,30 +69,15 @@ class Tags(object):
         tag_list = set([tag.strip().lower() for tag in tag_list])
         if len(tag_list)==0: return
         fmtstr = ','.join(['%s']*len(tag_list))
-        cur = Mydb.MydbExec(("SELECT TITLE FROM tags WHERE TITLE IN (%s)"%fmtstr, tuple(tag_list)))
+        cur = Mydb.MydbExec(("SELECT str FROM tags WHERE str IN (%s)"%fmtstr, tuple(tag_list)))
         if cur.rowcount:
             rows = cur.fetchall()
             for row in rows:
-                tag_list.remove(row['TITLE'])
+                tag_list.remove(row['str'])
         if len(tag_list)==0: return
         fmtstr = ','.join(['(%s)']*len(tag_list))
-        cur = Mydb.MydbExec(("INSERT INTO tags (TITLE) VALUES %s"%fmtstr, tuple(tag_list)))
+        cur = Mydb.MydbExec(("INSERT INTO tags (str) VALUES %s"%fmtstr, tuple(tag_list)))
         return
         
     SaveTags = staticmethod(StaticSaveTags)
-    
-    def StaticGetMapTagList(tag_list):
-        if tag_list is None or len(tag_list)==0: return None
-        map_tag_list = []
-        tag_list = set([tag.strip().lower() for tag in tag_list])
-        if len(tag_list)==0: return
-        fmtstr = ','.join(['%s']*len(tag_list))
-        cur = Mydb.MydbExec(("SELECT DISTINCT MAP_TAG FROM tags WHERE MAP_TAG IS NOT NULL TITLE IN (%s)"%fmtstr, tuple(tag_list)))
-        if cur.rowcount:
-            rows = cur.fetchall()
-            for row in rows:
-                map_tag_list.append(row['MAP_TAG'])
-        return map_tag_list
-        
-    GetMapTagList = staticmethod(StaticGetMapTagList)
     

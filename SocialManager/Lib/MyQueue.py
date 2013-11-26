@@ -7,32 +7,32 @@ from MyDict import STATUS_DICT
 
 class MyQueue(object):
     def __init__(self):
-        self.pk=None
+        self.id=None
         self.fields={}
-        self.fields['STATUS'] = None
-        self.fields['ACCOUNT'] = None
-        self.fields['MODULE'] = None
-        self.fields['TYPE'] = None
-        self.fields['TITLE'] = None
-        self.fields['CONTENT'] = None
-        self.fields['EXTRA_CONTENT'] = None
-        self.fields['TAG'] = None
-        self.fields['IMAGE_FILE'] = None
-        self.fields['LINK'] = None
-        self.fields['OTHER_FIELD'] = None
-        self.fields['SCHEDULE_TIME'] = None
-        self.fields['RSS_SOURCE_PK'] = None
+        self.fields['status_id'] = None
+        self.fields['acc_setting_id'] = None
+        self.fields['post_type'] = None
+        self.fields['title'] = None
+        self.fields['content'] = None
+        self.fields['extra_content'] = None
+        self.fields['tags'] = None
+        self.fields['image_file'] = None
+        self.fields['image_link'] = None
+        self.fields['link'] = None
+        self.fields['other_field'] = None
+        self.fields['schedule_time'] = None
+        self.fields['pool_post_id'] = None
 
     def __getitem__(self,field):
-        if field == 'PK':
-            return self.pk
+        if field == 'id':
+            return self.id
         else:
             if field in self.fields:
                 return self.fields[field]
 
     def __setitem__(self,field,value):
-        if field == 'PK':
-            self.pk = value
+        if field == 'id':
+            self.id = value
         else:
             self.fields[field] = value
     
@@ -41,136 +41,136 @@ class MyQueue(object):
         deadline = today - timedelta(days = cachingtime)
         clear_count = 0
         if force_mode:
-            cur = Mydb.MydbExec(("SELECT IMAGE_FILE FROM queue WHERE SCHEDULE_TIME != '0000-00-00 00:00:00' AND SCHEDULE_TIME < %s",(deadline)))
+            cur = Mydb.MydbExec(("SELECT image_file FROM queue_posts WHERE schedule_time != '0000-00-00 00:00:00' AND schedule_time < %s",(deadline)))
             imglst = cur.fetchall()
             clear_count = len(imglst)
             for imgfl in imglst:
-                if imgfl['IMAGE_FILE'] is None: continue
-                imgflpath = imagefiledir+imgfl['IMAGE_FILE']
+                if imgfl['image_file'] is None: continue
+                imgflpath = imagefiledir+imgfl['image_file']
                 try: os.remove(imgflpath)
                 except: pass
-            cur = Mydb.MydbExec(("DELETE FROM queue WHERE SCHEDULE_TIME != '0000-00-00 00:00:00' AND SCHEDULE_TIME < %s",(deadline)))
+            cur = Mydb.MydbExec(("DELETE FROM queue_posts WHERE schedule_time != '0000-00-00 00:00:00' AND schedule_time < %s",(deadline)))
         else:
-            cur = Mydb.MydbExec(("SELECT IMAGE_FILE FROM queue WHERE SCHEDULE_TIME < %s AND STATUS != %s",(deadline, STATUS_DICT['Pending'])))
+            cur = Mydb.MydbExec(("SELECT image_file FROM queue_posts WHERE schedule_time < %s AND status_id != %s",(deadline, STATUS_DICT['Pending'])))
             imglst = cur.fetchall()
             clear_count = len(imglst)
             for imgfl in imglst:
-                if imgfl['IMAGE_FILE'] is None: continue
-                imgflpath = imagefiledir+imgfl['IMAGE_FILE']
+                if imgfl['image_file'] is None: continue
+                imgflpath = imagefiledir+imgfl['image_file']
                 try: os.remove(imgflpath)
                 except: pass
-            cur = Mydb.MydbExec(("DELETE FROM queue WHERE SCHEDULE_TIME < %s AND STATUS != %s",(deadline, STATUS_DICT['Pending'])))
+            cur = Mydb.MydbExec(("DELETE FROM queue_posts WHERE schedule_time < %s AND status_id != %s",(deadline, STATUS_DICT['Pending'])))
         return clear_count
 
     Clear = staticmethod(StaticClear)
     
-    def StaticGetPkList(account, module, timestart, timeend):
-        cur = Mydb.MydbExec(("SELECT PK FROM queue WHERE ACCOUNT = %s AND MODULE = %s AND SCHEDULE_TIME >= %s AND SCHEDULE_TIME < %s",(account, module, timestart, timeend)))
-        queuelst = cur.fetchall()
-        return queuelst
+    def StaticGetPkList(acc_setting_id, timestart, timeend):
+        cur = Mydb.MydbExec(("SELECT id FROM queue_posts WHERE acc_setting_id = %s AND schedule_time >= %s AND schedule_time < %s",(acc_setting_id, timestart, timeend)))
+        queue_postslst = cur.fetchall()
+        return queue_postslst
 
     GetPkList = staticmethod(StaticGetPkList)
         
-    def StaticGetLastTime(account, module):
-        cur = Mydb.MydbExec(("SELECT SCHEDULE_TIME FROM queue WHERE ACCOUNT = %s AND MODULE = %s ORDER BY SCHEDULE_TIME DESC LIMIT 1",(account, module)))
+    def StaticGetLastTime(acc_setting_id):
+        cur = Mydb.MydbExec(("SELECT schedule_time FROM queue_posts WHERE acc_setting_id = %s ORDER BY schedule_time DESC LIMIT 1",(acc_setting_id, )))
         if cur.rowcount:
             row = cur.fetchone()
-            return row['SCHEDULE_TIME']
+            return row['schedule_time']
         return datetime.min
 
     GetLastTime = staticmethod(StaticGetLastTime)
     
-    def GetPendingFirst(self, AccPk, ModPk):
-        cur = Mydb.MydbExec(("SELECT PK, STATUS, ACCOUNT, MODULE, TYPE, TITLE, CONTENT, EXTRA_CONTENT, TAG, IMAGE_FILE, LINK, OTHER_FIELD, SCHEDULE_TIME FROM queue WHERE STATUS = %s AND ACCOUNT = %s AND MODULE = %s ORDER BY PK ASC LIMIT 1",(STATUS_DICT['Pending'], AccPk, ModPk)))
+    def GetPendingFirst(self, acc_setting_id):
+        cur = Mydb.MydbExec(("SELECT id, status_id, acc_setting_id, post_type, title, content, extra_content, tags, image_file, image_link, link, other_field, schedule_time FROM queue_posts WHERE status_id = %s AND acc_setting_id = %s ORDER BY id ASC LIMIT 1",(STATUS_DICT['Pending'], acc_setting_id)))
         if cur.rowcount:
             row = cur.fetchone()
-            self.pk = row['PK']
-            self.fields['STATUS'] = row['STATUS']
-            self.fields['ACCOUNT'] = row['ACCOUNT']
-            self.fields['MODULE'] = row['MODULE']
-            self.fields['TAG'] = row['TAG']
-            self.fields['TYPE'] = row['TYPE']
-            try: self.fields['TITLE'] = row['TITLE'].decode('utf-8').encode('ascii','ignore')
-            except: self.fields['TITLE'] = ''
-            try: self.fields['CONTENT'] = row['CONTENT'].decode('utf-8').encode('ascii','ignore')
-            except: self.fields['CONTENT'] = ''
-            self.fields['EXTRA_CONTENT'] = row['EXTRA_CONTENT']
-            self.fields['IMAGE_FILE'] = row['IMAGE_FILE']
-            self.fields['LINK'] = row['LINK']
-            if row['OTHER_FIELD'] is not None and row['OTHER_FIELD']!='':
-                self.fields['OTHER_FIELD'] = json.loads(row['OTHER_FIELD'])
+            self.id = row['id']
+            self.fields['status_id'] = row['status_id']
+            self.fields['acc_setting_id'] = row['acc_setting_id']
+            self.fields['tags'] = row['tags']
+            self.fields['post_type'] = row['post_type']
+            try: self.fields['title'] = row['title'].decode('utf-8').encode('ascii','ignore')
+            except: self.fields['title'] = ''
+            try: self.fields['content'] = row['content'].decode('utf-8').encode('ascii','ignore')
+            except: self.fields['content'] = ''
+            self.fields['extra_content'] = row['extra_content']
+            self.fields['image_file'] = row['image_file']
+            self.fields['image_link'] = row['image_link']
+            self.fields['link'] = row['link']
+            if row['other_field'] is not None and row['other_field']!='':
+                self.fields['other_field'] = json.loads(row['other_field'])
             else:
-                self.fields['OTHER_FIELD'] = {}
-            self.fields['SCHEDULE_TIME'] = row['SCHEDULE_TIME']
+                self.fields['other_field'] = {}
+            self.fields['schedule_time'] = row['schedule_time']
         else: return 0
         return 1
 
-    def StaticGetScheduledPendingFirst(AccPk, ModPk):
+    def StaticGetScheduledPendingFirst(acc_setting_id):
         qi = None
-        cur = Mydb.MydbExec(("SELECT PK, STATUS, ACCOUNT, MODULE, TYPE, TITLE, CONTENT, EXTRA_CONTENT, TAG, IMAGE_FILE, LINK, OTHER_FIELD, SCHEDULE_TIME FROM queue WHERE STATUS = %s AND ACCOUNT = %s AND MODULE = %s AND SCHEDULE_TIME > '0000-00-00 00:00:00' ORDER BY SCHEDULE_TIME ASC LIMIT 1",(STATUS_DICT['Pending'], AccPk, ModPk)))
+        cur = Mydb.MydbExec(("SELECT id, status_id, acc_setting_id, post_type, title, content, extra_content, tags, image_file, image_link, link, other_field, schedule_time FROM queue_posts WHERE status_id = %s AND acc_setting_id = %s AND schedule_time > '0000-00-00 00:00:00' ORDER BY schedule_time ASC LIMIT 1",(STATUS_DICT['Pending'], acc_setting_id)))
         if cur.rowcount:
             row = cur.fetchone()
             qi = MyQueue()
-            qi['PK'] = row['PK']
-            qi['STATUS'] = row['STATUS']
-            qi['ACCOUNT'] = row['ACCOUNT']
-            qi['MODULE'] = row['MODULE']
-            qi['TYPE'] = row['TYPE']
-            try: qi['TITLE'] = row['TITLE'].decode('utf-8').encode('ascii','ignore')
-            except: qi['TITLE'] = ''
-            try: qi['CONTENT'] = row['CONTENT'].decode('utf-8').encode('ascii','ignore')
-            except: qi['CONTENT'] = ''
-            qi['EXTRA_CONTENT'] = row['EXTRA_CONTENT']
-            qi['TAG'] = row['TAG']
-            qi['IMAGE_FILE'] = row['IMAGE_FILE']
-            qi['LINK'] = row['LINK']
-            if row['OTHER_FIELD'] is not None and row['OTHER_FIELD']!='':
-                qi['OTHER_FIELD'] = json.loads(row['OTHER_FIELD'])
+            qi['id'] = row['id']
+            qi['status_id'] = row['status_id']
+            qi['acc_setting_id'] = row['acc_setting_id']
+            qi['post_type'] = row['post_type']
+            try: qi['title'] = row['title'].decode('utf-8').encode('ascii','ignore')
+            except: qi['title'] = ''
+            try: qi['content'] = row['content'].decode('utf-8').encode('ascii','ignore')
+            except: qi['content'] = ''
+            qi['extra_content'] = row['extra_content']
+            qi['tags'] = row['tags']
+            qi['image_file'] = row['image_file']
+            qi['image_link'] = row['image_link']
+            qi['link'] = row['link']
+            if row['other_field'] is not None and row['other_field']!='':
+                qi['other_field'] = json.loads(row['other_field'])
             else:
-                qi['OTHER_FIELD'] = {}
-            qi['SCHEDULE_TIME'] = row['SCHEDULE_TIME']
+                qi['other_field'] = {}
+            qi['schedule_time'] = row['schedule_time']
         return qi
 
     GetScheduledPendingFirst = staticmethod(StaticGetScheduledPendingFirst)
 
     def SetSchedule(self, schedule_time):
-        self.fields['SCHEDULE_TIME'] = schedule_time
+        self.fields['schedule_time'] = schedule_time
         self.save()
     
-    def StaticGetByPk(pk):
+    def StaticGetByPk(id):
         qi = MyQueue()
-        cur = Mydb.MydbExec(("SELECT PK, STATUS, ACCOUNT, MODULE, TYPE, TITLE, CONTENT, EXTRA_CONTENT, TAG, IMAGE_FILE, LINK, OTHER_FIELD, SCHEDULE_TIME FROM queue WHERE PK = %s",(pk)))
+        cur = Mydb.MydbExec(("SELECT id, status_id, acc_setting_id, post_type, title, content, extra_content, tags, image_file, image_link, link, other_field, schedule_time FROM queue_posts WHERE id = %s",(id)))
         if cur.rowcount:
             row = cur.fetchone()
-            qi['PK'] = row['PK']
-            qi['STATUS'] = row['STATUS']
-            qi['ACCOUNT'] = row['ACCOUNT']
-            qi['MODULE'] = row['MODULE']
-            qi['TYPE'] = row['TYPE']
-            try: qi['TITLE'] = row['TITLE'].decode('utf-8').encode('ascii','ignore')
-            except: qi['TITLE'] = ''
-            try: qi['CONTENT'] = row['CONTENT'].decode('utf-8').encode('ascii','ignore')
-            except: qi['CONTENT'] = ''
-            qi['EXTRA_CONTENT'] = row['EXTRA_CONTENT']
-            qi['TAG'] = row['TAG']
-            qi['IMAGE_FILE'] = row['IMAGE_FILE']
-            qi['LINK'] = row['LINK']
-            if row['OTHER_FIELD'] is not None and row['OTHER_FIELD']!='':
-                qi['OTHER_FIELD'] = json.loads(row['OTHER_FIELD'])
+            qi['id'] = row['id']
+            qi['status_id'] = row['status_id']
+            qi['acc_setting_id'] = row['acc_setting_id']
+            qi['post_type'] = row['post_type']
+            try: qi['title'] = row['title'].decode('utf-8').encode('ascii','ignore')
+            except: qi['title'] = ''
+            try: qi['content'] = row['content'].decode('utf-8').encode('ascii','ignore')
+            except: qi['content'] = ''
+            qi['extra_content'] = row['extra_content']
+            qi['tags'] = row['tags']
+            qi['image_file'] = row['image_file']
+            qi['image_link'] = row['image_link']
+            qi['link'] = row['link']
+            if row['other_field'] is not None and row['other_field']!='':
+                qi['other_field'] = json.loads(row['other_field'])
             else:
-                qi['OTHER_FIELD'] = {}
-            qi['SCHEDULE_TIME'] = row['SCHEDULE_TIME']
+                qi['other_field'] = {}
+            qi['schedule_time'] = row['schedule_time']
         return qi
     
     GetByPk = staticmethod(StaticGetByPk)
     
     def save(self):
-        if self.pk is None:
-            if self.fields['SCHEDULE_TIME'] is None:
-                self.fields['SCHEDULE_TIME'] = '0000-00-00 00:00:00'
-            Mydb.MydbExec(('INSERT INTO queue(STATUS, ACCOUNT, MODULE, TYPE, TITLE, CONTENT, EXTRA_CONTENT, TAG, IMAGE_FILE, LINK, OTHER_FIELD, SCHEDULE_TIME, RSS_SOURCE_PK) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',(self.fields['STATUS'], self.fields['ACCOUNT'], self.fields['MODULE'], self.fields['TYPE'], self.fields['TITLE'], self.fields['CONTENT'], self.fields['EXTRA_CONTENT'], self.fields['TAG'], self.fields['IMAGE_FILE'], self.fields['LINK'], json.JSONEncoder().encode(self.fields['OTHER_FIELD']), self.fields['SCHEDULE_TIME'], self.fields['RSS_SOURCE_PK'])))
+        if self.id is None:
+            if self.fields['schedule_time'] is None:
+                self.fields['schedule_time'] = '0000-00-00 00:00:00'
+            Mydb.MydbExec(('INSERT INTO queue_posts(status_id, acc_setting_id, post_type, title, content, extra_content, tags, image_file, image_link, link, other_field, schedule_time, pool_post_id) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',(self.fields['status_id'], self.fields['acc_setting_id'], self.fields['post_type'], self.fields['title'], self.fields['content'], self.fields['extra_content'], self.fields['tags'], self.fields['image_file'], self.fields['image_link'], self.fields['link'], json.JSONEncoder().encode(self.fields['other_field']), self.fields['schedule_time'], self.fields['pool_post_id'])))
         else:
-            if self.fields['SCHEDULE_TIME'] is None:
-                self.fields['SCHEDULE_TIME'] = '0000-00-00 00:00:00'
-            Mydb.MydbExec(('UPDATE queue SET STATUS = %s, ACCOUNT = %s, MODULE = %s, TYPE = %s, TITLE = %s, CONTENT = %s, EXTRA_CONTENT = %s, TAG = %s, IMAGE_FILE = %s, LINK = %s, OTHER_FIELD = %s, SCHEDULE_TIME = %s WHERE PK = %s',(self.fields['STATUS'], self.fields['ACCOUNT'], self.fields['MODULE'], self.fields['TYPE'], self.fields['TITLE'], self.fields['CONTENT'], self.fields['EXTRA_CONTENT'], self.fields['TAG'], self.fields['IMAGE_FILE'], self.fields['LINK'], json.JSONEncoder().encode(self.fields['OTHER_FIELD']), self.fields['SCHEDULE_TIME'], self.pk)))
+            if self.fields['schedule_time'] is None:
+                self.fields['schedule_time'] = '0000-00-00 00:00:00'
+            Mydb.MydbExec(('UPDATE queue_posts SET status_id = %s, acc_setting_id = %s, post_type = %s, title = %s, content = %s, extra_content = %s, tags = %s, image_file = %s, image_link = %s, link = %s, other_field = %s, schedule_time = %s WHERE id = %s',(self.fields['status_id'], self.fields['acc_setting_id'], self.fields['post_type'], self.fields['title'], self.fields['content'], self.fields['extra_content'], self.fields['tags'], self.fields['image_file'], self.fields['image_link'], self.fields['link'], json.JSONEncoder().encode(self.fields['other_field']), self.fields['schedule_time'], self.id)))
     

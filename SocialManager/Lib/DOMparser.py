@@ -1,5 +1,3 @@
-from lxml import etree
-
 def findelemwithmostptag(htmltree):
     mostptagnum = 0
     mostptagelem = None

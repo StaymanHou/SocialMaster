@@ -17,25 +17,25 @@ class handler(basicposterhandler):
 
 	# override
 	def auto_mode_handle(self, acc, accset, am):
-		if am['CODE']==1:
+		if am['id']==1:
 			return
-		elif am['CODE']==2:
+		elif am['id']==2:
 			myqueue = MyQueue()
-			myqueue.GetPendingFirst(acc['PK'], am['MODULE'])
-			if myqueue['PK'] is not None: return
-			lastrp = RssPost.GetLatest(acc['PK'], am['MODULE'])
-			if lastrp['PK'] is None: return
-			myqueue['STATUS'] = STATUS_DICT['Pending']
-			myqueue['ACCOUNT'] = acc['PK']
-			myqueue['MODULE'] = am['MODULE']
-			myqueue['TYPE'] = 1
-			myqueue['TITLE'] = lastrp['TITLE']
-			myqueue['CONTENT'] = lastrp['TITLE']
-			myqueue['TAG'] = lastrp['TAG']
-			myqueue['LINK'] = lastrp['LINK']
-			myqueue['IMAGE_FILE'] = lastrp['IMAGE_FILE']
-			myqueue['OTHER_FIELD'] = {"circle_name_list": accset['OTHER_SETTING']['circle_name_list']}
-			myqueue['RSS_SOURCE_PK'] = lastrp['PK']
+			myqueue.GetPendingFirst(accset['id'])
+			if myqueue['id'] is not None: return
+			lastrp = RssPost.GetLatest(acc['id'], accset['smodule_id'])
+			if lastrp['id'] is None: return
+			myqueue['status_id'] = STATUS_DICT['Pending']
+			myqueue['acc_setting_id'] = acc['id']
+			myqueue['type'] = 1
+			myqueue['title'] = lastrp['title']
+			myqueue['content'] = lastrp['title']
+			myqueue['tags'] = lastrp['tags']
+			myqueue['link'] = lastrp['link']
+			myqueue['image_file'] = lastrp['image_file']
+			myqueue['image_link'] = lastrp['image_link']
+			myqueue['other_field'] = {}
+			myqueue['pool_post_id'] = lastrp['id']
 			myqueue.save()
 			return
 		else:
@@ -57,11 +57,11 @@ class handler(basicposterhandler):
 
 	def inner_handle(self, accset, queueitem, imgdir, load_iteration=1):
 		# log into page
-		self.browser.get('https://accounts.google.com/ServiceLogin?hl=en&continue=https://plus.google.com'+accset['OTHER_SETTING']['page_path'])
+		self.browser.get('https://accounts.google.com/ServiceLogin?hl=en&continue=https://plus.google.com'+accset['other_setting']['page_path'])
 		elem = self.browser.find_element_by_id('Email')
-		elem.send_keys(accset['USERNAME'])
+		elem.send_keys(accset['username'])
 		elem = self.browser.find_element_by_id('Passwd')
-		elem.send_keys(accset['PSWD'])
+		elem.send_keys(accset['password'])
 		elem = self.browser.find_element_by_id('signIn')
 		elem.click()
 		sleep(10)
@@ -70,7 +70,7 @@ class handler(basicposterhandler):
 		elem.click()
 		sleep(10)
 		self.browser.switch_to_frame(self.browser.find_element_by_xpath('//iframe[../../div/div[1]/a/div/text()="Share"]'))
-		if (queueitem['TYPE'] == 2) and (queueitem['IMAGE_FILE'] is not None) and (queueitem['IMAGE_FILE'].strip()!=''):
+		if (queueitem['type'] == 2) and (queueitem['image_file'] is not None) and (queueitem['image_file'].strip()!=''):
 			# type 2 photo
 			elem = self.browser.find_element_by_xpath('//span[@title="Add photos"]')
 			elem.click()
@@ -79,23 +79,23 @@ class handler(basicposterhandler):
 			elem.click()
 			sleep(1)
 			k = PyKeyboard()
-			k.type_string(specialize_path(imgdir+queueitem['IMAGE_FILE']), 0.1)
+			k.type_string(specialize_path(imgdir+queueitem['image_file']), 0.1)
 			k.tap_key(k.enter_key, 1, 0.1)
 			sleep(10)
 			elem = self.browser.find_element_by_xpath('//div[2][../div/text()="Share what\'s new..."]')
-			content = addhashtag(queueitem['CONTENT'], queueitem['TAG'], mode = 1) + '\n' + queueitem['LINK']
+			content = addhashtag(queueitem['content'], queueitem['tags'], mode = 1) + '\n' + queueitem['link']
 			elem.send_keys(content)
 		else:
 			# type 1 link
 			elem = self.browser.find_element_by_xpath('//span[@title="Add link"]')
 			elem.click()
 			elem = self.browser.find_element_by_xpath('//input[../div/text()="Enter or paste a link"]')
-			elem.send_keys(queueitem['LINK'])
+			elem.send_keys(queueitem['link'])
 			elem = self.browser.find_element_by_xpath('//div[text()="Add"]')
 			elem.click()
 			sleep(10)
 			elem = self.browser.find_element_by_xpath('//div[2][../div/text()="Share what\'s new..."]')
-			content = addhashtag(queueitem['CONTENT'], queueitem['TAG'], mode = 1)
+			content = addhashtag(queueitem['content'], queueitem['tags'], mode = 1)
 			elem.send_keys(content)
 		# merge
 		elem = self.browser.find_element_by_xpath('//div[text()="Share"]')
