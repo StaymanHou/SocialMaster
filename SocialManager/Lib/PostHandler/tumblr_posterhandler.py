@@ -120,7 +120,7 @@ class handler(basicposterhandler):
         if ('blog_name' in queueitem['other_field']) and (queueitem['other_field']['blog_name'] is not None) and (queueitem['other_field']['blog_name'].strip()!=''):
             blog_name = queueitem['other_field']['blog_name'].strip()
         sleep(load_iteration)
-        if (queueitem['post_type']==2) and (ueueitem['image_link']):
+        if (queueitem['post_type']==2) and (queueitem['image_link']):
             # type 2 = photo
             link_anchor_text = queueitem['link']
             if ('link_anchor_text' in accset['other_setting'] and accset['other_setting']['link_anchor_text'] is not None and accset['other_setting']['link_anchor_text'].strip()!=''):

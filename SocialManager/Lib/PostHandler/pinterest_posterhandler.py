@@ -113,8 +113,8 @@ class handler(basicposterhandler):
         board_id = board_dict.values()[0]
         if 'board_name' in accset['other_setting'] and accset['other_setting']['board_name'] in board_dict:
             board_id = board_dict[accset['other_setting']['board_name']]
-        if 'board_name' in queueitem['OTHER_FIELD'] and queueitem['OTHER_FIELD']['board_name'] in board_dict:
-            board_id = board_dict[queueitem['OTHER_FIELD']['board_name']]
+        if 'board_name' in queueitem['other_field'] and queueitem['other_field']['board_name'] in board_dict:
+            board_id = board_dict[queueitem['other_field']['board_name']]
         # pin
         description = ''
         if queueitem['title'] is not None and len(queueitem['title'].strip())>0: description += addhashtag(queueitem['title'], queueitem['tags'], mode = 1)+' '
