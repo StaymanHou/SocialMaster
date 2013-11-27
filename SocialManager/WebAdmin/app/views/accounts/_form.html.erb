@@ -25,27 +25,10 @@
   <%= f.label :active, class: "control-label" %>
   <div class="controls"><%= f.check_box :active %></div>
 </div>
-<!-- <div class="control-group">
-  <%= f.label :last_update, class: "control-label" %>
-  <div class="controls">
-    <%= f.datetime_select :last_update %>
-    <div class="well">
-      <div id="datetimepicker1" class="input-append date">
-        <input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input>
-        <span class="add-on">
-          <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-          </i>
-        </span>
-      </div>
-    </div>
-  </div>
-</div> -->
-<!-- <div class="control-group">
-  <%= f.label :deleted, class: "control-label" %>
-  <div class="controls">
-    <%= f.check_box :deleted %>
-  </div>
-</div> -->
+<div class="control-group">
+  <%= f.label :tag_limit, class: "control-label" %>
+  <div class="controls"><%= f.number_field :tag_limit %></div>
+</div>
 <div class="control-group">
   <div class="controls">
     <%= f.submit class: "btn btn-primary" %>

@@ -1,5 +1,6 @@
 from ..RssPost import *
 from ..Tags import *
+from ..Site import *
 import requests
 import time
 from .. import DOMparser
@@ -13,14 +14,16 @@ class basicrsshand(object):
     def __init__(self):
         self.rsspost = RssPost()
 
-    def handle(self, d, Acc, imgdir):
+    def handle(self, d, Acc, domain, imgdir):
         self.imgdir = imgdir
         last_update = Acc['last_update']
+        self.site = Site.GetOrCreate(domain)
         for rsselem in d.entries:
             t = rsselem.published
             t = parseTime(t)
             if t < last_update: continue
             self.rsspost['account_id'] = Acc['id']
+            self.rsspost['site_id'] = self.site['id']
             try: self.rsspost['title'] = rsselem.title.encode('ascii','ignore')
             except: self.rsspost['title'] = ''
             try: self.rsspost['description'] = rsselem.summary.encode('ascii','ignore')
@@ -61,8 +64,8 @@ class basicrsshand(object):
         self.rsspost['content'] = '\n'.join([lxmlhtml.tostring(child) for child in mostptagelem if (child.tag=='p') and (child.text is not None) and ('Like Us on' not in child.text)])
         try: self.rsspost['content'] = self.rsspost['content'].encode('ascii','ignore')
         except: self.rsspost['content'] = ''
-        tag_list = Tags.ParseTags(self.rsspost['content'])
-        tag_list.extend(Tags.ParseTags(self.rsspost['title']))
+        tag_list = Tags.ParseTags(self.rsspost['content'], self.rsspost['site_id'])
+        tag_list.extend(Tags.ParseTags(self.rsspost['title'], self.rsspost['site_id']))
         if tag_list is not None and len(tag_list)>0 and tag_limit>0:
            self.rsspost['tags'] = ','.join(tag_list[:tag_limit])
         self.withhtmltree(htmltree)

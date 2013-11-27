@@ -56,7 +56,7 @@ while 1:
                     break
             mod = __import__(modname, fromlist=[''])
             handler = mod.myrsshand()
-            handler.handle(d, Acc, MainConf['IMAGE_FILE_DIR'])
+            handler.handle(d, Acc, domain, MainConf['IMAGE_FILE_DIR'])
         last_update = datetime.now()
         Account.SetLastUpdate(Acc['id'], last_update)
     sleep(MainConf['PULLER_ITERATION'])

@@ -1,6 +1,7 @@
 import Mydb
 import string
 import re
+from Site import *
 
 def addhashtag(text, tag_string, mode=0):
     if tag_string is None or len(tag_string.strip())==0:
@@ -49,7 +50,7 @@ class Tags(object):
         else:
             self.fields[field] = value
     
-    def StaticParseTags(text):
+    def ParseTags(text, site_id):
         gram_limit = 3
         tags = []
         for i in range(gram_limit):
@@ -57,27 +58,28 @@ class Tags(object):
             tokens = ngrams(text, gram_n)
             if len(tokens)==0: continue
             fmtstr = ','.join(['%s']*len(tokens))
-            cur = Mydb.MydbExec(("SELECT str FROM tags WHERE str IN (%s)"%fmtstr, tuple(tokens)))
+            cur = Mydb.MydbExec(("SELECT str FROM tags WHERE str IN (%s) AND site_id = %s"%(fmtstr,'%s'), tuple(tokens)+(site_id,)))
             if cur.rowcount:
                 rows = cur.fetchall()
                 tags.extend([row['str'] for row in rows if 'str' in row])
         return tags
     
-    ParseTags = staticmethod(StaticParseTags)
+    ParseTags = staticmethod(ParseTags)
     
-    def StaticSaveTags(tag_list):
+    def SaveTags(tag_list, domain):
+        site = Site.GetOrCreate(domain)
         tag_list = set([tag.strip().lower() for tag in tag_list])
         if len(tag_list)==0: return
         fmtstr = ','.join(['%s']*len(tag_list))
-        cur = Mydb.MydbExec(("SELECT str FROM tags WHERE str IN (%s)"%fmtstr, tuple(tag_list)))
+        cur = Mydb.MydbExec(("SELECT str FROM tags WHERE str IN (%s) AND site_id = %s"%(fmtstr,'%s'), tuple(tag_list)+(site['id'],)))
         if cur.rowcount:
             rows = cur.fetchall()
             for row in rows:
                 tag_list.remove(row['str'])
         if len(tag_list)==0: return
         fmtstr = ','.join(['(%s)']*len(tag_list))
-        cur = Mydb.MydbExec(("INSERT INTO tags (str) VALUES %s"%fmtstr, tuple(tag_list)))
+        cur = Mydb.MydbExec(("INSERT INTO tags (str, site_id) VALUES (%s, %s)"%(fmtstr,'%s'), tuple(tag_list)+(site['id'],)))
         return
         
-    SaveTags = staticmethod(StaticSaveTags)
+    SaveTags = staticmethod(SaveTags)
     

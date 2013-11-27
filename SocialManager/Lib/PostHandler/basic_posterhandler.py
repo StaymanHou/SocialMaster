@@ -3,6 +3,7 @@ from ..MyQueue import *
 from ..AutoMode import *
 from ..Tags import *
 from ..MyDict import STATUS_DICT
+from ..MyFunction import domainFromUrl
 from random import randint
 import logging
 
@@ -51,7 +52,7 @@ class basicposterhandler(object):
         QI = MyQueue.GetScheduledPendingFirst(AccSet['id'])
         if QI is not None and QI['status_id']==STATUS_DICT['Pending'] and QI['schedule_time']<=datetime.now():
             if QI['tags'] is not None and len(QI['tags'])>0:
-                Tags.SaveTags(QI['tags'].split(','))
+                Tags.SaveTags(QI['tags'].split(','), domainFromUrl(QI['link']))
             if self.post_handle(AccSet, QI, imgdir):
                 QI['status_id'] = STATUS_DICT['Posted']
                 QI.save()
