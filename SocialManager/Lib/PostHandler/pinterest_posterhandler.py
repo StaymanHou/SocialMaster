@@ -75,10 +75,10 @@ class handler(basicposterhandler):
         r = s.get(url, headers=headers)
         if r.status_code!=200:
             raise Exception('unexpected response: %s : %s'%(url, r.status_code))
-        m = re.search('{"app_version": ".+?"}', r.text)
+        m = re.search('{"app_version": "(.+?)",', r.text)
         if m is None:
             raise Exception('login error: app_version not found.')
-        app_version = m.group(0)[17:-2]
+        app_version = m.group(1)
         headers['X-NEW-APP'] = 1
         headers['X-Requested-With'] = 'XMLHttpRequest'
         headers['Pragma'] = 'no-cache'
