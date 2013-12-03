@@ -20,3 +20,10 @@
 
 # Ignore public/assets/
 /public/assets/*
+
+# Ignore gemfile
+Gemfile
+Gemfile.lock
+
+# Ignore database.yml
+/config/database.yml
