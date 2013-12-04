@@ -2,6 +2,7 @@ import Mydb
 import os
 from datetime import datetime, timedelta
 from MyFunction import floorbyday
+from AccSetting import *
 
 class RssPost(object):
     def __init__(self):
@@ -61,11 +62,12 @@ class RssPost(object):
     Clear = staticmethod(StaticClear)
     
     def StaticGetLatest(account_id, module, require_image=False):
+        acc_setting_id = AccSetting.GetByAccAndMod(account_id, module)
         rsspost = RssPost()
         query = "SELECT * FROM pool_posts WHERE account_id = %s"
         if require_image: query += " AND image_link IS NOT NULL"
-        query += " AND id NOT IN (SELECT pool_post_id FROM queue_posts WHERE account_id = %s AND MODULE = %s) ORDER BY id DESC LIMIT 1"
-        cur = Mydb.MydbExec((query,(account_id, account_id, module)))
+        query += " AND id NOT IN (SELECT pool_post_id FROM queue_posts WHERE acc_setting_id = %s) ORDER BY id DESC LIMIT 1"
+        cur = Mydb.MydbExec((query,(acc_setting_id,)))
         if cur.rowcount:
             row = cur.fetchone()
             rsspost['id'] = row['id']
