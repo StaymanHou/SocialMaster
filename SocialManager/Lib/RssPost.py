@@ -62,7 +62,8 @@ class RssPost(object):
     Clear = staticmethod(StaticClear)
     
     def StaticGetLatest(account_id, module, require_image=False):
-        acc_setting_id = AccSetting.GetByAccAndMod(account_id, module)
+        acc_setting = AccSetting.GetByAccAndMod(account_id, module)
+        acc_setting_id = acc_setting['id']
         rsspost = RssPost()
         query = "SELECT * FROM pool_posts WHERE account_id = %s"
         if require_image: query += " AND image_link IS NOT NULL"
