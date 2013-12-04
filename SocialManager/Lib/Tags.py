@@ -77,8 +77,12 @@ class Tags(object):
             for row in rows:
                 tag_list.remove(row['str'])
         if len(tag_list)==0: return
-        fmtstr = ','.join(['(%s)']*len(tag_list))
-        cur = Mydb.MydbExec(("INSERT INTO tags (str, site_id) VALUES (%s, %s)"%(fmtstr,'%s'), tuple(tag_list)+(site['id'],)))
+        fmtstr = ','.join(['(%s, %s)']*len(tag_list))
+        column_list = []
+        for tag in tag_list:
+            column_list.append(tag)
+            column_list.append(site['id'])
+        cur = Mydb.MydbExec(("INSERT INTO tags (str, site_id) VALUES %s"%fmtstr, tuple(column_list)))
         return
         
     SaveTags = staticmethod(SaveTags)
