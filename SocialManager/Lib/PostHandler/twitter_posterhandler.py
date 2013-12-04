@@ -26,7 +26,7 @@ class handler(basicposterhandler):
             myqueue = MyQueue()
             myqueue.GetPendingFirst(accset['id'])
             if myqueue['id'] is not None: return
-            lastrp = RssPost.GetLatest(acc['id'], am['smodule_id'])
+            lastrp = RssPost.GetLatest(acc['id'], accset['smodule_id'])
             if lastrp['id'] is None: return
             myqueue['status_id'] = STATUS_DICT['Pending']
             myqueue['acc_setting_id'] = accset['acc_setting_id']
