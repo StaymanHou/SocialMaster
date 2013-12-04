@@ -31,7 +31,7 @@ class handler(basicposterhandler):
             lastrp = RssPost.GetLatest(acc['id'], accset['smodule_id'])
             if lastrp['id'] is None: return
             myqueue['status_id'] = STATUS_DICT['Pending']
-            myqueue['acc_setting_id'] = acc['id']
+            myqueue['acc_setting_id'] = accset['id']
             myqueue['post_type'] = 2
             myqueue['title'] = lastrp['title']
             myqueue['content'] = lastrp['title']
