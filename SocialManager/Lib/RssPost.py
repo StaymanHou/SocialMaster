@@ -67,7 +67,7 @@ class RssPost(object):
         query = "SELECT * FROM pool_posts WHERE account_id = %s"
         if require_image: query += " AND image_link IS NOT NULL"
         query += " AND id NOT IN (SELECT pool_post_id FROM queue_posts WHERE acc_setting_id = %s) ORDER BY id DESC LIMIT 1"
-        cur = Mydb.MydbExec((query,(acc_setting_id,)))
+        cur = Mydb.MydbExec((query,(account_id, acc_setting_id,)))
         if cur.rowcount:
             row = cur.fetchone()
             rsspost['id'] = row['id']
