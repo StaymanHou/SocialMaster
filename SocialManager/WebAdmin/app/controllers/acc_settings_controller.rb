@@ -42,7 +42,7 @@ class AccSettingsController < ApplicationController
   # PATCH/PUT /acc_settings/1.json
   def update
     respond_to do |format|
-      if @acc_setting.update(acc_setting_params)
+      if @acc_setting.update(acc_setting_params_for_update)
         format.html {
           flash[:notice] = 'Account Setting was successfully updated.'
           redirect_to accounts_url
@@ -101,5 +101,10 @@ class AccSettingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def acc_setting_params
       params.require(:acc_setting).permit(:username, :password, :other_setting, :extra_content, :active, :auto_mode_id, :time_start, :time_end, :num_per_day, :min_post_interval, :queue_size)
+    end
+
+    def acc_setting_params_for_update
+      return acc_setting_params if params.require(:acc_setting)[:password].present?
+      params.require(:acc_setting).permit(:username, :other_setting, :extra_content, :active, :auto_mode_id, :time_start, :time_end, :num_per_day, :min_post_interval, :queue_size)
     end
 end
