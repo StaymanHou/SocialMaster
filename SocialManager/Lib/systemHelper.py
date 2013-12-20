@@ -9,7 +9,8 @@ def specialize_path(gene_path):
 	return gene_path
 
 def parseTime(t):
-	if platform.system() is 'Windows':
+	# if platform.system() is 'Windows':
+	if 1:
 		d = dateutilparser.parse(t)
 		if d.tzinfo:
 			est = pytz.timezone('US/Eastern')
