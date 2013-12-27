@@ -22,9 +22,9 @@ class handler(basicposterhandler):
 
     # override
     def auto_mode_handle(self, acc, accset, am):
-        if am['CODE']==1:
+        if am['id']==1:
             return
-        elif am['CODE']==2:
+        elif am['id']==2:
             myqueue = MyQueue()
             myqueue.GetPendingFirst(accset['id'])
             if myqueue['id'] is not None: return
